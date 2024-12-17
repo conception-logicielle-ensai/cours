@@ -51,7 +51,7 @@ weight = -100
 [[menu.main]]
 identifier = "cours"
 name = "Cours"
-url = "/cours/"
+url = "/docs/"
 weight = 10
 
 [[menu.main]]
