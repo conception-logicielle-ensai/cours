@@ -1,0 +1,52 @@
+- title: 💬 A propos 
+  pages:
+    - title: Présentation du cours
+      url: presentation-du-cours
+    - title: Prise en main du poste de travail linux
+      url: prise-en-main-linux
+- title: 🗂️ Projets
+  pages:
+    - title: Spécifications des projets et notation
+      url: specification-projet-notation
+- title: Cours 1 - architecture de base et évolution 
+  pages:
+    - title: 🌱 Git Avancé
+      url: git-avance
+    - title: 🧱 Architecture applicative
+      url: architecture-applicative
+- title: Cours 2 - qualification et bonnes pratiques
+  pages:
+    - title: 🔰 Bonnes pratiques du développement et design patterns
+      url: bonnes-pratiques-dev
+    - title: 🔎 Outils de qualimétrie d'une base de code
+      url: qualimetrie
+    - title: 🔄 Automatisation des contrôles sur une base de code versionnée
+      url: automatisation
+    - title: 🧪 Tests unitaires et Mocking
+      url: tests-unitaires
+- title: Cours 3 - configuration et portabilité
+  pages:
+    - title: 📦 Gestionnaire de package, partage de code, industrialisation
+      url: gestionnaire-de-package
+    - title: 🔧 Configuration du code en fonction de l'environnement
+      url: configuration-code-environnement
+    - title: 🐳 Conteneurs et environnements applicatifs
+      url: conteneurs-environnement-applicatifs
+- title: Cours 4 - API webservice et développement web
+  pages:
+    - title: 🌐 API webservices et HTTP, FastAPI.
+      url: api-webservices-http
+    - title: 📝 Configuration d'une application avec templates HTML, Django.
+      url: appli-web-templating
+    - title: 📤 Webscrapping et requêtes côté client.
+      url: webscrapping
+- title:  Cours 5 - Interfaces Homme-Machine et tests complexes 
+  pages:
+    - title: 📘 Introduction au javascript et au framework React 
+      url: react-js
+    - title: ⚗️ Différents autres types de tests
+      url: tests
+- title: Cours 6 - Déploiement et hébergement applicatifs 
+  pages:
+    - title: 🛞 Introduction a Kubernetes 
+      url: kubernetes

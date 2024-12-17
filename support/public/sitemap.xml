@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>//localhost:1313/docs/architecture-applicative/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/automatisation-des-contr%C3%B4les-sur-une-base-de-code-versionn%C3%A9e/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/bonnes-pratiques-du-d%C3%A9veloppement-et-design-patterns/</loc>
+  </url><url>
+    <loc>//localhost:1313/categories/</loc>
+  </url><url>
+    <loc>//localhost:1313/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/git-avanc%C3%A9/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/tests-unitaires-et-mocking/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/outils-de-qualim%C3%A9trie-dune-base-de-code/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/pr%C3%A9sentation-du-cours/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/prise-en-main-du-poste-de-travail-linux/</loc>
+  </url><url>
+    <loc>//localhost:1313/docs/sp%C3%A9cifications-des-projets-et-notation/</loc>
+  </url><url>
+    <loc>//localhost:1313/tags/</loc>
+  </url>
+</urlset>

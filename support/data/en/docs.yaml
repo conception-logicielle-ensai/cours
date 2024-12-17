@@ -1,0 +1,10 @@
+sidebar:
+  group:
+    - title: "Home"
+      url: "/home"
+  title: "Blog Sidebar"
+  links:
+    - title: "Home"
+      url: "/home"
+    - title: "Blog Posts"
+      url: "/blog"

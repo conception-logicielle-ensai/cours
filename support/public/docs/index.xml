@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docs on Conception Logicielle ENSAI 2A</title>
+    <link>//localhost:1313/docs/</link>
+    <description>Recent content in Docs on Conception Logicielle ENSAI 2A</description>
+    <generator>Hugo</generator>
+    <language>en-US</language>
+    <atom:link href="//localhost:1313/docs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>//localhost:1313/docs/61.kubernetes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/61.kubernetes/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>⚗️ Différents autres types de tests</title>
+      <link>//localhost:1313/docs/gestionnaire-de-package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/gestionnaire-de-package/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>🌐 API webservices et HTTP, FastAPI.</title>
+      <link>//localhost:1313/docs/api-webservices-http/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/api-webservices-http/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>🌱 Git Avancé</title>
+      <link>//localhost:1313/docs/git-avance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/git-avance/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>🐳 Conteneurs et environnements applicatifs</title>
+      <link>//localhost:1313/docs/conteneurs-environnement-applicatifs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/conteneurs-environnement-applicatifs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>📘 Introduction au javascript et au framework React</title>
+      <link>//localhost:1313/docs/gestionnaire-de-package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/gestionnaire-de-package/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>📝 Configuration d&#39;une application avec templates HTML, Django.</title>
+      <link>//localhost:1313/docs/appli-web-templating/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/appli-web-templating/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>📤 Webscrapping et requêtes côté client.</title>
+      <link>//localhost:1313/docs/gestionnaire-de-package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/gestionnaire-de-package/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>📦 Gestionnaire de package, partage de code, industrialisation</title>
+      <link>//localhost:1313/docs/gestionnaire-de-package/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/gestionnaire-de-package/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>🔄 Automatisation des contrôles sur une base de code versionnée</title>
+      <link>//localhost:1313/docs/automatisation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/automatisation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>🔎 Outils de qualimétrie d&#39;une base de codeOutils de qualimétrie</title>
+      <link>//localhost:1313/docs/qualimetrie/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/qualimetrie/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>🔧 Configuration du code en fonction de l&#39;environnement</title>
+      <link>//localhost:1313/docs/configuration-code-environnement/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/configuration-code-environnement/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>🔰 Bonnes pratiques du développement et design patterns</title>
+      <link>//localhost:1313/docs/bonnes-pratiques-dev/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/bonnes-pratiques-dev/</guid>
+      <description>&lt;p&gt;Pas oublier faire une parenthèse regex&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Présentation du cours</title>
+      <link>//localhost:1313/docs/presentation-du-cours/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/presentation-du-cours/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Prise en main du poste de travail linux</title>
+      <link>//localhost:1313/docs/prise-en-main-linux/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/prise-en-main-linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Spécifications des projets et notation</title>
+      <link>//localhost:1313/docs/specification-projet-notation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/specification-projet-notation/</guid>
+      <description>&lt;h2 id=&#34;contexte&#34;&gt;Contexte&lt;/h2&gt;&#xA;&lt;p&gt;Vous allez devoir réaliser un projet, soit en prenant 1 sujet parmi ceux proposés, soit un projet que vous proposez de concevoir, a condition qu&amp;rsquo;il comporte une utilité pédagogique validée, la date limite de proposition des projets est fixée au 21/01/2025 a 18h. N&amp;rsquo;hésitez pas a me contacter par mail au mail suivant : &lt;code&gt;antoinebrunetti@gmail.com&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Le projet choisi sera réalisable à jusqu&amp;rsquo;à 3 personnes. L&amp;rsquo;évaluation sera adaptée en conséquence.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>🧪 Tests unitaires et Mocking</title>
+      <link>//localhost:1313/docs/tests-unitaires/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/tests-unitaires/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>🧱 Architecture applicative</title>
+      <link>//localhost:1313/docs/architecture-applicative/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>//localhost:1313/docs/architecture-applicative/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,48 @@
+theme: E25DX
+
+enableGitInfo: true
+defaultContentLanguage: en
+
+languages:
+  en:
+    weight: 1
+    languageName: English
+    languageCode: en-US
+    contentDir: content/en
+    title: Conception Logicielle ENSAI 2A 
+    params:
+      description: Site Description
+
+
+
+markup:
+  highlight:
+    noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      attribute:
+        block: true
+        title: true
+params:
+  project:
+    startYear: 2024
+    presentYear: xxx
+    git:
+      repo: https://github.com/conception-logicielle-ensai/cours
+    themeColor:
+      light: '#ffffff'
+      dark: '#101010'
+
+  author:
+    name: Antoine Brunetti
+    url: https://github.com/conception-logicielle-ensai/cours
+
+  home:
+    heading: Conception Logicielle  
+    headingSegment2: ENSAI 2A
+    description: acculturation des développeurs aux pratiques des exploitants informatiques
+    getStartedPath: /docs
+
+  baseURL: "http://localhost:1313"
