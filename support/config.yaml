@@ -15,6 +15,7 @@ params:
     # Lien vers les dépôt et le groupe sur github 
     - name: "github"
       url: "https://github.com/conception-logicielle-ensai/cours"
+
   profileMode:
     enabled: true
     title: "Conception Logiciel ENSAI 2A" # optional default will be site title
