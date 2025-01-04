@@ -11,7 +11,7 @@ languages:
     contentDir: content/en
     title: Conception Logicielle ENSAI 2A 
     params:
-      description: Site Description
+      description: description
 
 
 
