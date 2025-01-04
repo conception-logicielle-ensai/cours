@@ -36,7 +36,7 @@
   <div id="aside-wrapper">
     <aside>
       <div>
-        <button class="btn"><i>❌</i>Close</button>
+        <button class="btn"><i>❌</i>Fermer</button>
       </div>
       <a href="/" class="site-logo">Conception Logicielle ENSAI 2A</a>
 
@@ -256,15 +256,40 @@
     <main>
       <article>
         <nav>
-          <button class="btn"><i>⬅️</i> On this section</button>
-          <button class="btn">On this page <i>➡️</i></button>
+          <button class="btn"><i>⬅️</i> Plan du cours</button>
+          <button class="btn">Plan de la partie <i>➡️</i></button>
         </nav>
         <header>
           <h1>Présentation du cours</h1>
           <p></p>
         </header>
         <div id="article-body">
-          
+          <p>Ce cours traite de différents aspects de l&rsquo;ingénierie du logicielle pour un public de développeurs et de statisticiens.</p>
+<h2 id="programme">Programme</h2>
+<p>Ce cours est divisé en différents chapitres :</p>
+<ul>
+<li>Git avancé, environnement de travail: rappels sur l&rsquo;utilisation de Git, travail collaboratif, issues, merge / pull requests</li>
+<li>Portabilité, configuration, packaging : lancer du code sans IDE, comprendre l&rsquo;environnement d&rsquo;exécution, environnements virtuels et gestion de paquets.</li>
+<li>Tests, automatisation et initiation à l&rsquo;intégration continue: tests unitaires, mocking, automatisation via script sur environnement linux, initiation au principe d&rsquo;intégration continue</li>
+<li>Application webs et webservices : Présentation des différents enjeux, en tant que client et en tant que serveur.</li>
+<li>Architecture applicative avancée : Zoom sur des concepts plus avancés - ORM et différents types de bases de données, patrons de conceptions et prise de perspective avec la POO, introduction a la programmation fonctionnelle.</li>
+</ul>
+<h2 id="langage">Langage</h2>
+<p>Ce cours se veut agnostique du langage en illustrant principalement les concepts communs à la plupart des langages. Les mises en pratique seront principalement en <code>Python</code> mais des parallèles avec d&rsquo;autres langages seront faits tout au long du cours.<br>
+Les étudiants sont invités à essayer d&rsquo;autres langages.</p>
+<h2 id="approche-pédagogique">Approche pédagogique</h2>
+<p>Ce cours met l&rsquo;accent sur l&rsquo;ingénierie de développement pour amèner les étudiants à prendre du recul sur l&rsquo;écriture mais surtout sur la vie d&rsquo;un code. Il n&rsquo;y aura donc que très très peu de code écrit.</p>
+<blockquote>
+<p>L&rsquo;important ce n&rsquo;est pas de savoir quoi écrire mais où l&rsquo;écrire.</p>
+</blockquote>
+<h2 id="fil-rouge">Fil rouge</h2>
+<p>Le fil rouge proposé est la réalisation d&rsquo;un projet par les étudiants.<br>
+Le périmètre est volontairement très réduit afin de se concentrer sur l&rsquo;ingénierie de développement.<br>
+L&rsquo;objectif du fil rouge est le suivant :</p>
+<pre tabindex="0"><code>Publier, sur un dépôt public, le code source d&#39;un projet de développement web moderne.
+Diffuser publiquement un livrable de l&#39;application, construit automatiquement à partir des sources.
+Le livrable devra pouvoir être utilisé tel quel sur différents environnements et configurable pour choisir le modèle et d&#39;autres paramètres.
+</code></pre>
         </div>
 
         <footer>
@@ -281,168 +306,202 @@
           
           
           
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
           
           
           
 
           
-          <a href="/docs/introduction-a-kubernetes/"><i>﹤</i> Previous</a>
+           
+
+          
+          
+          
+          
+          
           
 
           
-          <a class="hidden">Next <i>﹥</i></a>
+           
+
+          
+          
+          
+          
+          
           
 
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
         </footer>
       </article>
 
       <aside>
         <div>
-          <button class="btn"><i>❌</i>Close</button>
+          <button class="btn"><i>❌</i>Fermer</button>
         </div>
-        <strong>On this page</strong>
-        <nav id="TableOfContents"></nav>
+        <strong>Plan de la partie</strong>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#programme">Programme</a></li>
+    <li><a href="#langage">Langage</a></li>
+    <li><a href="#approche-pédagogique">Approche pédagogique</a></li>
+    <li><a href="#fil-rouge">Fil rouge</a></li>
+  </ul>
+</nav>
       </aside>
     </main>
 

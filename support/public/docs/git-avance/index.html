@@ -36,7 +36,7 @@
   <div id="aside-wrapper">
     <aside>
       <div>
-        <button class="btn"><i>❌</i>Close</button>
+        <button class="btn"><i>❌</i>Fermer</button>
       </div>
       <a href="/" class="site-logo">Conception Logicielle ENSAI 2A</a>
 
@@ -213,7 +213,7 @@
                 
                 <a class="" href="/docs/react-js/">
                   
-                  Introduction au javascript et au framework React
+                  📘 Introduction au javascript et au framework React
                   
                 </a>
               
@@ -222,7 +222,7 @@
                 
                 <a class="" href="/docs/tests/">
                   
-                  Différents autres types de tests
+                  ⚗️ Différents autres types de tests
                   
                 </a>
               
@@ -256,15 +256,520 @@
     <main>
       <article>
         <nav>
-          <button class="btn"><i>⬅️</i> On this section</button>
-          <button class="btn">On this page <i>➡️</i></button>
+          <button class="btn"><i>⬅️</i> Plan du cours</button>
+          <button class="btn">Plan de la partie <i>➡️</i></button>
         </nav>
         <header>
           <h1>🌱 Git Avancé</h1>
           <p></p>
         </header>
         <div id="article-body">
-          
+          <h2 id="choix-du-client-utilisé-pendant-le-cours">Choix du client utilisé pendant le cours</h2>
+<p>Comme vous allez le voir, <strong>Git est un système de contrôle de version</strong>.</p>
+<p>Il repose sur des protocoles standardisés (comme HTTP, SSH ou son propre protocole Git) pour assurer la communication entre dépôts locaux et distants. Cette standardisation permet à Git d’être compatible avec de nombreux outils et interfaces, qu’il s’agisse de la ligne de commande, d’environnements de développement intégrés (IDE), ou d’applications graphiques comme GitHub Desktop, Git Kraken, ou les plugins Visual Studio Code.</p>
+<hr>
+<p>Tout au long de ce cours, vous utiliserez exclusivement le terminal pour mieux comprendre les commandes Git et leur fonctionnement en profondeur.<br>
+Une fois que vous maîtrisez un concept et les commandes associées, vous êtes libres de passer à l’outil graphique de votre choix, comme <a href="https://gitextensions.github.io/">Git Extensions</a>, le <a href="https://code.visualstudio.com/docs/editor/versioncontrol">plugin Git pour Visual Studio Code</a>, ou <a href="https://www.gitkraken.com/">Git Kraken</a>.</p>
+<hr>
+<p>Pour ce chapitre, vous pouvez pratiquer dans l&rsquo;environnement de votre choix, à condition d&rsquo;avoir <code>git</code> installé et accessible via un terminal.</p>
+<p>Nous vous encourageons vivement, tout au long de ce chapitre et des suivants, à explorer différents environnements pour découvrir les diverses possibilités, ainsi que les similitudes et les différences.</p>
+<p>Voici quelques exemples d&rsquo;environnements que vous pouvez utiliser :</p>
+<ul>
+<li>Votre machine personnelle avec Git installé</li>
+<li>Tout environnement du <a href="https://datalab.sspcloud.fr/">SSPCloud</a>, comme Cloudshell, VSCode, ou RStudio</li>
+</ul>
+<blockquote>
+<p><strong>Feuille de commandes utiles pour Git</strong> : <a href="https://education.github.com/git-cheat-sheet-education.pdf">https://education.github.com/git-cheat-sheet-education.pdf</a></p>
+</blockquote>
+<blockquote>
+<p>Pour accéder à un récapitulatif rapide des commandes Git les plus courantes, vous pouvez utiliser la commande suivante dans un terminal :</p>
+<pre tabindex="0"><code>git --help
+</code></pre></blockquote>
+<h2 id="pourquoi-utiliser-git-">Pourquoi utiliser git ?</h2>
+<p><img alt=" " src="/images/git/versionning_problem.png"></p>
+<p>Vous avez besoin de Git chaque fois :</p>
+<ul>
+<li>vous collaborez avec d&rsquo;autres</li>
+<li>vous souhaitez garder une trace de votre travail au fil du temps</li>
+<li>Vous désirez récupérer du code et y contribuer</li>
+<li>Vous écrivez du code</li>
+</ul>
+<hr>
+<p>Git est un système de contrôle de version décentralisé (Distributed Version Control System - DVCS) qui aide les développeurs à gérer leurs projets logiciels.
+Il permet de conserver toutes les versions du code, ce qui est utile lors de collaborations, car il simplifie la gestion des contributions de chacun et prévient les conflits.
+Git garde également un historique complet des modifications, essentiel pour suivre l&rsquo;évolution d&rsquo;un projet.
+Grâce à des demandes de tirage (pull requests) et à des branches, il facilite l&rsquo;intégration des modifications de manière organisée.
+Les développeurs peuvent revenir à des versions antérieures pour comprendre des fonctionnalités ou des problèmes, tout en synchronisant leur travail local avec les environnements distants.</p>
+<blockquote>
+<p>Documentation officiel, À propos de la gestion de version : <a href="https://git-scm.com/book/fr/v2/D%c3%a9marrage-rapide-%c3%80-propos-de-la-gestion-de-version">https://git-scm.com/book/fr/v2/D%c3%a9marrage-rapide-%c3%80-propos-de-la-gestion-de-version</a></p>
+</blockquote>
+<h2 id="utilisation-de-git-en-local">Utilisation de git en local</h2>
+<h3 id="initialiser-un-projet-git">Initialiser un projet Git</h3>
+<p>Pour commencer un projet Git, il suffit d&rsquo;exécuter la commande suivante :</p>
+<pre tabindex="0"><code>git init
+</code></pre><p>Cette commande crée un sous-dossier nommé <code>.git</code> dans le répertoire courant. Ce dossier contient tous les fichiers nécessaires au suivi des modifications, y compris l&rsquo;historique des versions, les références et les configurations du dépôt.</p>
+<p>Lorsque l&rsquo;on récupère un dépôt depuis Internet, on obtient également le dossier <code>.git</code> dans notre répertoire local. <strong>La présence de ce dossier indique à Git que nous sommes dans un dépôt Git</strong>.</p>
+<blockquote>
+<p>Notez que le dossier <code>.git</code> est masqué dans votre explorateur de fichiers (comme tous les dossiers dont le nom commence par un point). Cependant, il est possible de le parcourir et de le modifier, comme nous le verrons dans la section <a href="/docs/automatisation">🔄 Automatisation des contrôles sur une base de code versionnée</a>.</p>
+</blockquote>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-init">Git Init</a>.</p>
+</blockquote>
+<h3 id="gestion-des-versions">Gestion des versions</h3>
+<h4 id="création-dune-version">Création d&rsquo;une version</h4>
+<p>Dans un dépôt Git, vous avez la possibilité de créer de nouvelles versions de votre projet en spécifiant les fichiers que vous souhaitez inclure dans cette version. Ce processus est souvent appelé &ldquo;staging&rdquo;.</p>
+<h5 id="objectif-du-staging">Objectif du Staging</h5>
+<p>L&rsquo;objectif principal de cette fonctionnalité est de vous permettre de travailler localement sans vous préoccuper du versionnage. Lorsque vous êtes prêt à créer une nouvelle version, vous pouvez regrouper vos fichiers de manière logique et cohérente.</p>
+<p><strong>Exemple :</strong></p>
+<p>Imaginons que vous développiez une application de gestion de bibliothèque, avec deux fonctionnalités principales :</p>
+<ol>
+<li>Ajout de nouveaux livres à la base de données.</li>
+<li>Suppression de livres de la base de données.</li>
+</ol>
+<p>Après avoir apporté des modifications à votre code, il est préférable de créer une version pour chaque ajout fonctionnel. Par conséquent :</p>
+<ul>
+<li>D&rsquo;abord, vous enregistrez les changements liés à l&rsquo;ajout de livres.</li>
+<li>Ensuite, vous traitez les modifications apportées à la suppression de livres.</li>
+</ul>
+<h5 id="ajout-de-fichiers-au-staging">Ajout de Fichiers au Staging</h5>
+<p>Pour préparer les fichiers en vue de la prochaine version, vous utilisez la commande <code>git add</code>. Par exemple :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add nom_du_fichier
+</span></span></code></pre></div><p>Ou, pour ajouter tous les fichiers modifiés dans le répertoire courant :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git add .
+</span></span></code></pre></div><p>Git utilise ce qu&rsquo;on appelle un <strong>index</strong>, qui sert de transition entre votre répertoire de travail (working directory) et la version finale (commit).</p>
+<p>Pour vérifier l&rsquo;état de vos fichiers, vous pouvez utiliser la commande :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git status
+</span></span></code></pre></div><h5 id="quest-ce-quun-commit-">Qu&rsquo;est-ce qu&rsquo;un Commit ?</h5>
+<p>Un commit représente un ensemble de modifications (ajouts, modifications, suppressions) sauvegardées dans votre dépôt Git.</p>
+<p>Lorsque tous les fichiers ajoutés sont prêts et constituent un ensemble cohérent pour une nouvelle version, vous pouvez créer un commit avec la commande :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git commit <span class="o">[</span>options<span class="o">]</span>
+</span></span></code></pre></div><p><strong>Exemple :</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git commit -m <span class="s2">&#34;Ajout de la fonctionnalité d&#39;ajout de livres&#34;</span>
+</span></span></code></pre></div><p>Un commit contient, en plus des modifications apportées, plusieurs métadonnées, notamment la date, l&rsquo;auteur (nom et adresse e-mail) et un message descriptif.</p>
+<blockquote>
+<p>Ces métadonnées sont déclaratives, ce qui signifie que vous pouvez anti-dater ou post-dater un commit si vous le souhaitez.</p>
+</blockquote>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-commit">Git Commit</a>.</p>
+</blockquote>
+<p><img alt=" " src="/images/git/explained-git-staging-area.png"></p>
+<h4 id="naviger-dans-les-versions">Naviger dans les versions</h4>
+<p>Git offre plusieurs commandes pour gérer l&rsquo;historique des versions et naviguer entre les différentes modifications.</p>
+<h5 id="annuler-des-modifications">Annuler des Modifications</h5>
+<p>La commande <code>git restore</code> est utilisée pour annuler les modifications <strong>dans votre répertoire de travail</strong> ou pour restaurer des fichiers à partir d&rsquo;un commit précédent.</p>
+<p><strong>Exemple :</strong></p>
+<p>Si vous avez modifié un fichier, mais que vous souhaitez annuler ces modifications avant de faire un commit, vous pouvez utiliser :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git restore nom_du_fichier
+</span></span></code></pre></div><p>Pour restaurer un fichier à partir d&rsquo;un commit spécifique, vous pouvez indiquer l&rsquo;identifiant du commit :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git restore --source &lt;commit_id&gt; nom_du_fichier
+</span></span></code></pre></div><p>Cette commande est utile lorsque vous avez besoin de revenir à une version antérieure d&rsquo;un fichier sans affecter les autres modifications dans votre branche actuelle.</p>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-restore">Git Restore</a>.</p>
+</blockquote>
+<hr>
+<p>La commande <code>git reset</code> est utilisée pour annuler des modifications <strong>dans un dépôt Git</strong>. Elle peut modifier l&rsquo;historique des commits, l&rsquo;index (la zone de staging) et le répertoire de travail, selon les options que tu utilises avec cette commande.</p>
+<p><strong>Types de <code>git reset</code></strong></p>
+<ol>
+<li>
+<p><strong><code>git reset --soft &lt;commit&gt;</code></strong> :<br>
+Déplace le HEAD de la branche courante vers le commit spécifié, en gardant les modifications dans l&rsquo;index.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --soft HEAD~1
+</span></span></code></pre></div></li>
+<li>
+<p><strong><code>git reset --mixed &lt;commit&gt;</code></strong> (par défaut) :<br>
+Déplace le HEAD vers le commit spécifié, mais retire les modifications de l&rsquo;index tout en les gardant dans le répertoire de travail.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset HEAD~1
+</span></span></code></pre></div></li>
+<li>
+<p><strong><code>git reset --hard &lt;commit&gt;</code></strong> :<br>
+Déplace le HEAD vers le commit spécifié et réinitialise l&rsquo;index et le répertoire de travail pour correspondre à ce commit, entraînant la perte de toutes les modifications non engagées.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git reset --hard HEAD~1
+</span></span></code></pre></div></li>
+</ol>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-reset">Git Reset</a>.</p>
+</blockquote>
+<hr>
+<h5 id="explorer-lhistorique-des-commits">Explorer l&rsquo;Historique des Commits</h5>
+<p>La commande <code>git log</code> vous permet d&rsquo;afficher l&rsquo;historique des commits dans votre dépôt. Cela vous aide à comprendre les changements qui ont été apportés au fil du temps.</p>
+<p><img alt=" " src="/images/git/gitlog_schema.png"></p>
+<p><strong>Exemple :</strong></p>
+<p>Pour afficher l&rsquo;historique des commits, vous pouvez simplement exécuter :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log
+</span></span></code></pre></div><p>Cela affichera une liste des commits avec leurs identifiants, auteurs, dates et messages associés. Si vous souhaitez afficher l&rsquo;historique de manière plus concise, vous pouvez utiliser des options comme <code>--oneline</code> :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git log --oneline
+</span></span></code></pre></div><p>Cela montre chaque commit sur une seule ligne, ce qui peut être plus lisible pour une vue d&rsquo;ensemble rapide.</p>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-log">Git Log</a>.</p>
+</blockquote>
+<h2 id="gitflow--branches-et-fonctionnalités">GitFlow : Branches et Fonctionnalités</h2>
+<p>L&rsquo;objectif de GitFlow est de déterminer un mode de fonctionnement en projet qui permet de découper le travail en différents degrés de maturité :</p>
+<ul>
+<li><strong>Version stable de l&rsquo;application</strong> : La dernière version livrée, qui est fonctionnelle et prête à être utilisée.</li>
+<li><strong>Version en cours de développement</strong> : Une version qui peut fonctionner, mais qui nécessite probablement des ajustements avant l&rsquo;intégration finale, ou qui attend l&rsquo;achèvement de certaines fonctionnalités.</li>
+<li><strong>Versions temporaires</strong> : Branches destinées à des fonctionnalités en cours de développement, comme la correction de bogues ou l&rsquo;ajout de nouveaux endpoints.</li>
+</ul>
+<p>Pour gérer ces différentes versions, il est essentiel de comprendre le concept de branches dans Git.</p>
+<h4 id="branches">Branches</h4>
+<p>Une branche dans Git représente une ligne du temps indépendante, partant d&rsquo;un commit ou d&rsquo;une version précise. Elle permet de travailler sur des tâches spécifiques sans affecter le reste du projet et facilite le travail en équipe sur des fonctionnalités distinctes.</p>
+<p><strong>Commandes pour gérer les branches :</strong></p>
+<p>Pour créer une nouvelle branche :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Créer une branche appelée nouvelle-branche</span>
+</span></span><span class="line"><span class="cl">git branch nouvelle-branche
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Supprimer la branche nouvelle-branche en local</span>
+</span></span><span class="line"><span class="cl">git branch -d nouvelle-branche
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Lister toutes les branches disponibles</span>
+</span></span><span class="line"><span class="cl">git branch
+</span></span></code></pre></div><p>Pour se déplacer sur une branche existante :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Si nouvelle-branche existe</span>
+</span></span><span class="line"><span class="cl">git switch nouvelle-branche
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Créer une branche nouvelle-branche et s&#39;y déplacer</span>
+</span></span><span class="line"><span class="cl">git switch -b nouvelle-branche
+</span></span></code></pre></div><blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-branch">Git Branch</a>
+Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-switch">Git Switch</a></p>
+</blockquote>
+<h4 id="intégration-des-changements">Intégration des Changements</h4>
+<p>Pour intégrer des modifications issues d&rsquo;une autre branche dans la branche courante, vous pouvez utiliser la commande <code>git merge</code>.</p>
+<p><strong>Exemple :</strong></p>
+<p>Pour intégrer les changements de la branche <code>nouvelle-branche</code> dans la banche <code>branche-stable</code> :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git switch branch_stable
+</span></span><span class="line"><span class="cl">git merge nouvelle_branche
+</span></span></code></pre></div><p>Cela fusionnera les modifications de <code>nouvelle-branche</code> dans la branche <code>branche-stable</code>.</p>
+<blockquote>
+<p>Pour en savoir plus sur la gestion des conflits lors d&rsquo;une fusion, consultez <a href="https://opensource.com/article/20/4/git-merge-conflict">cette documentation sur les conflits Git</a>.</p>
+</blockquote>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-merge">Git Merge</a></p>
+</blockquote>
+<hr>
+<p>La commande  <code>git rebase</code> est une autre manière d&rsquo;intégrer des changements. Au lieu de créer un commit de fusion, elle déplace la base de la branche actuelle pour inclure les commits d&rsquo;une autre branche. Cela rend l&rsquo;historique plus linéaire.</p>
+<p><strong>Exemple :</strong></p>
+<p>Pour intégrer les changements de la branche <code>nouvelle-branche</code>  dans la banche <code>branche-stable</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git switch nouvelle_branche
+</span></span><span class="line"><span class="cl">git rebase branch_stable
+</span></span><span class="line"><span class="cl">git switch branch_stable
+</span></span><span class="line"><span class="cl">git merge nouvelle_branche
+</span></span></code></pre></div><blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-rebase">Git Rebase</a></p>
+</blockquote>
+<h4 id="branches-de-fonctionnalités-et-branches-stables">Branches de Fonctionnalités et Branches Stables</h4>
+<p>Dans le cadre de GitFlow, on distingue plusieurs types de branches :</p>
+<h5 id="branches-stables">Branches Stables</h5>
+<ul>
+<li><strong>master/main</strong> : La branche de référence, contenant la version la plus stable du projet.</li>
+<li><strong>release-1, release-2, &hellip;</strong> : Branches qui intègrent des changements depuis le développement.</li>
+<li><strong>develop</strong> : Branche contenant le travail en cours, sanctuarisée et stabilisée.</li>
+</ul>
+<h5 id="branches-de-fonctionnalités">Branches de Fonctionnalités</h5>
+<ul>
+<li>
+<p><strong>Hotfix</strong> : Souvent nommées <code>hotfix-**</code>, ces branches permettent d&rsquo;apporter des modifications urgentes et critiques sur les versions stables, par exemple, pour corriger des bogues de sécurité.</p>
+</li>
+<li>
+<p><strong>Feature</strong> : Souvent nommées <code>topic-**</code>, ces branches sont utilisées pour le développement de nouvelles fonctionnalités.</p>
+</li>
+</ul>
+<p><img alt=" " src="/images/git/gitflow.webp"></p>
+<h5 id="workflow-classique">Workflow Classique</h5>
+<p>Le workflow classique suit ces étapes :</p>
+<ol>
+<li>Un développement est effectué sur une branche de fonctionnalité.</li>
+<li>La branche est soumise à une revue par l&rsquo;équipe du projet.</li>
+<li>Une fois approuvé, les changements sont intégrés à la dernière version de la branche <code>develop</code>.</li>
+</ol>
+<blockquote>
+<p>Pour approfondir vos connaissances sur les workflows classiques de travail avec Git, vous pouvez consulter <a href="https://gist.github.com/blackfalcon/8428401">ce petit guide</a>.</p>
+</blockquote>
+<h2 id="utisation-avec-un-dépot-distant">Utisation avec un dépot distant</h2>
+<h3 id="git-gitlab-github-">Git, gitlab, github &hellip;</h3>
+<p>Avec la réussite de Git, des outils appelées Forges Logicielles sont apparues. Elles permettent de proposer l&rsquo;hébergement du code source d&rsquo;application publiques et privées de manière gratuite et offrent d&rsquo;autres services de gestion ainsi que des interfaces clients appréciables.</p>
+<p>On distingue 2 catégories de forges :</p>
+<ul>
+<li>les forges &ldquo;As A Service&rdquo; qui sont mises à disposition par des entreprises tierces et dont les données sont hébergées chez ces fournisseurs</li>
+<li>les forges &ldquo;On premise&rdquo; qui sont hébergées directement dans les organisations qui les utilisent.</li>
+</ul>
+<p>Exemples de forges &ldquo;As A Service&rdquo; :</p>
+<ul>
+<li>
+<p><a href="https://github.com">Github.com</a> est un des leaders du marché, hébergeant une grande partie du code open source et des grands projets ouverts. Github a été racheté par Microsoft en 2018 pour 7.5 milliards de dollars. Le code source de github n&rsquo;est pas public.</p>
+</li>
+<li>
+<p><a href="https://gitlab.com">Gitlab.com</a> est un concurrent très actif. Le code qui sous-tend gitlab.com est en très grande partie libre : <a href="https://gitlab.com/gitlab-org/gitlab">https://gitlab.com/gitlab-org/gitlab</a></p>
+<p>Important : <code>gitlab.com</code> est une installation particulière du logiciel gitlab sur les serveurs de l&rsquo;entreprise gitlab. Vous rencontrerez, dans votre carrière, d&rsquo;autres installations du logiciel gitlab sur d&rsquo;autres serveurs (cf &ldquo;On premise&rdquo;). Attention donc à ne pas confondre le service <code>gitlab.com</code>, le logiciel gitlab et les différentes installations de gitlab que vous rencontrerez.</p>
+</li>
+<li>
+<p><a href="https://bitbucket.org/">Bitbucket.org</a> : moins utilisé, il appartient à Atlassian (connu pour son outil de gestion de projet / ticket <code>Jira</code>)</p>
+</li>
+</ul>
+<p>Exemples de forges &ldquo;On premise&rdquo; :</p>
+<ul>
+<li><a href="https://git.lab.sspcloud.fr">Gitlab sspcloud</a></li>
+<li><a href="https://gitlab.insee.fr">Gitlab INSEE</a> : accessible uniquement depuis le réseau INSEE</li>
+<li><a href="https://framagit.org/explore/projects">FramaGIT</a></li>
+</ul>
+<p>De nos jours, la plupart des forges &ldquo;on premise&rdquo; sont des installations du logiciel gitlab mais il existe des alternatives. Citons par exemple <a href="https://gogs.io/">https://gogs.io/</a> et <a href="https://fusionforge.org/">https://fusionforge.org/</a></p>
+<h3 id="dépôts-centraux">Dépôts centraux</h3>
+<p>Les dépôt centraux se présentent comme des dépôt locaux hébergés sur des serveurs distants.</p>
+<p>Il s&rsquo;agit là de versions &ldquo;canoniques&rdquo; qui peuvent être récupérées par des développeurs habilités, ou par tout le monde. On parle alors de dépôt public (et non pas forcément d&rsquo;opensource).</p>
+<p>On peut intéragir avec eux a l&rsquo;aide de commandes dédiées qui permettent de mettre a jour un dépôt, local ou distant, par rapport a un autre.</p>
+<p>Voici une présentation des commandes Git <code>clone</code>, <code>remote</code>, <code>pull</code> et <code>push</code>, organisée de manière claire avec des titres pertinents :</p>
+<hr>
+<h3 id="gestion-des-dépôts-distants">Gestion des Dépôts Distants</h3>
+<p>Git permet de travailler avec des dépôts distants, facilitant ainsi la collaboration entre plusieurs développeurs. Voici les principales commandes associées à la gestion des dépôts distants.</p>
+<h4 id="cloner-un-dépôt">Cloner un Dépôt</h4>
+<p>La commande <code>git clone</code> est utilisée pour créer une copie locale d&rsquo;un dépôt distant. Cela vous permet de commencer à travailler sur un projet existant sans avoir à le créer manuellement.</p>
+<p><strong>Exemple :</strong></p>
+<p>Pour cloner un dépôt, exécutez la commande suivante :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone &lt;url_du_dépôt&gt;
+</span></span></code></pre></div><p>Cela créera un nouveau dossier avec le nom du dépôt et téléchargera tout le contenu du dépôt distant, y compris l&rsquo;historique des commits.</p>
+<blockquote>
+<p>Vous récupérer le code source ainsi que le dossier <code>.git</code></p>
+</blockquote>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-clone">Git Clone</a>.</p>
+</blockquote>
+<blockquote>
+<p>Pour aller plus loin,
+<a href="https://gist.github.com/Ragatzino/791caa39f7522dc3001ba3b24372507c">Authentification : ssh/https</a>. Cela vous permez de notament récupéré des projet privé dont vous avez des droits ou propager vos modifications sans vous authentifier à chaque fois.</p>
+</blockquote>
+<h4 id="gérer-les-dépôts-distants">Gérer les Dépôts Distants</h4>
+<p>La commande <code>git remote</code> permet de gérer les connexions aux dépôts distants. Vous pouvez l&rsquo;utiliser pour ajouter, modifier ou supprimer des références à des dépôts distants.</p>
+<p><strong>Exemple :</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ajouter un nouveau dépôt distant :</span>
+</span></span><span class="line"><span class="cl">git remote add &lt;nom&gt; &lt;url_du_dépôt&gt;
+</span></span><span class="line"><span class="cl"><span class="c1"># Lister les dépôts distants configurés</span>
+</span></span><span class="line"><span class="cl">git remote -v
+</span></span></code></pre></div><blockquote>
+<p><code>&lt;nom&gt;</code> est souvent <code>origin</code>, qui est la convention pour le dépôt distant principal.</p>
+</blockquote>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-remote">Git Remote</a>.</p>
+</blockquote>
+<h4 id="récupérer-les-modifications">Récupérer les Modifications</h4>
+<p>La commande <code>git pull</code> est utilisée pour récupérer et intégrer les modifications d&rsquo;un dépôt distant dans votre branche locale.</p>
+<p><strong>Exemple :</strong></p>
+<p>Pour récupérer les modifications de la branche principale d&rsquo;un dépôt distant :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git pull origin main
+</span></span></code></pre></div><p>Cela mettra à jour votre branche locale avec les derniers changements du dépôt distant.</p>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-pull">Git Pull</a>.</p>
+</blockquote>
+<blockquote>
+<p>Pour aller plus loin, <a href="https://www.atlassian.com/git/tutorials/syncing/git-fetch">Récuperer des changements sans les intégrer, à l&rsquo;aide de la commande git fetch</a></p>
+</blockquote>
+<h4 id="envoyer-des-modifications">Envoyer des Modifications</h4>
+<p>La commande <code>git push</code> est utilisée pour envoyer vos modifications locales vers un dépôt distant (déclaré avec la commande remote). Cela permet de partager vos travaux avec d&rsquo;autres développeurs et de mettre à jour le dépôt central.</p>
+<p><strong>Exemple :</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Envoyer vos changements (commits) à votre origin</span>
+</span></span><span class="line"><span class="cl">git push
+</span></span><span class="line"><span class="cl"><span class="c1"># Envoyer votre code a votre origin et déclarer une branche origin/branch</span>
+</span></span><span class="line"><span class="cl">git push --set-upstream origin branch
+</span></span><span class="line"><span class="cl"><span class="c1"># Envoyer votre code (commits) a votre origin en pushant la branche main</span>
+</span></span><span class="line"><span class="cl">git push -u origin main
+</span></span></code></pre></div><p>Cela mettra à jour le dépôt distant avec les commits que vous avez effectués localement.</p>
+<blockquote>
+<p>Consultez la documentation officielle : <a href="https://git-scm.com/docs/git-push">Git Push</a>.</p>
+</blockquote>
+<p><img alt=" " src="/images/git/gitcommande_resume.png"></p>
+<h3 id="lécosystème-git--issues-pull-requests-et-forks">L&rsquo;écosystème Git : Issues, Pull Requests et Forks</h3>
+<p>Git s&rsquo;inscrit dans un écosystème étendu grâce à des plateformes comme GitHub et GitLab. Ces outils ont enrichi Git avec des fonctionnalités supplémentaires pour une organisation collaborative plus structurée à l&rsquo;échelle macro-projet. Voici un aperçu des concepts clés : <strong>issues</strong>, <strong>pull requests</strong> et <strong>forks</strong>.</p>
+<hr>
+<h4 id="glossaire-des-concepts">Glossaire des Concepts</h4>
+<h5 id="issues--gestion-des-problèmes-et-des-demandes"><strong>Issues</strong> : Gestion des Problèmes et des Demandes</h5>
+<p>Une <em>issue</em> est un ticket utilisé pour signaler un bug, proposer une nouvelle fonctionnalité, ou discuter d’une amélioration. Les issues servent de point de départ pour organiser le travail collaboratif. Elles incluent souvent des descriptions détaillées, des captures d’écran, et des discussions entre contributeurs.</p>
+<ul>
+<li>
+<p><strong>Cas d&rsquo;usage</strong> :</p>
+<ul>
+<li>Reporter un bug trouvé dans le projet.</li>
+<li>Suggérer une nouvelle fonctionnalité.</li>
+<li>Suivre les tâches à accomplir dans un projet.</li>
+</ul>
+</li>
+<li>
+<p><strong>Outils associés</strong> : GitHub, GitLab, Jira.<br>
+Exemple d’issue sur GitHub : <a href="https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues">Créer une Issue GitHub</a>.</p>
+</li>
+</ul>
+<hr>
+<h5 id="pull-requests-ou-merge-requests--proposition-de-fusion-de-code"><strong>Pull Requests (ou Merge Requests)</strong> : Proposition de Fusion de Code</h5>
+<p>Une <em>pull request</em> est une demande formelle pour intégrer les modifications effectuées sur une branche vers une autre (souvent vers la branche principale). Elle est accompagnée d’un processus de revue de code où d’autres développeurs vérifient, commentent, et demandent des modifications avant la fusion finale.</p>
+<ul>
+<li>
+<p><strong>Étapes typiques</strong> :</p>
+<ol>
+<li>Créer une branche dédiée pour votre travail.</li>
+<li>Faire des commits pour sauvegarder vos modifications.</li>
+<li>Soumettre une pull request pour demander la fusion de cette branche.</li>
+<li>Collaborer via des commentaires ou des suggestions dans la pull request.</li>
+<li>Fusionner la branche une fois approuvée.</li>
+</ol>
+</li>
+<li>
+<p><strong>Cas d&rsquo;usage</strong> :</p>
+<ul>
+<li>Ajouter une fonctionnalité.</li>
+<li>Corriger un bug signalé via une issue.</li>
+<li>Améliorer la documentation.</li>
+</ul>
+</li>
+<li>
+<p><strong>Outils associés</strong> :</p>
+<ul>
+<li>GitHub : <a href="https://docs.github.com/en/pull-requests">Créer une Pull Request</a>.</li>
+<li>GitLab : <a href="https://docs.gitlab.com/ee/user/project/merge_requests/">Créer une Merge Request</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="forks--copier-un-dépôt-git-pour-le-personnaliser"><strong>Forks</strong> : Copier un Dépôt Git pour le Personnaliser</h5>
+<p>Un <em>fork</em> est une copie indépendante d’un dépôt Git, généralement utilisée pour travailler sur un projet sans modifier l’original. Il permet à des développeurs externes de contribuer à des projets où ils n&rsquo;ont pas les droits d&rsquo;écriture ou de récupérer un projet pour en créer une version différente.</p>
+<ul>
+<li>
+<p><strong>Cas d&rsquo;usage</strong> :</p>
+<ul>
+<li><strong>Contribution à un projet open-source</strong> :
+<ol>
+<li>Forker un projet public.</li>
+<li>Travailler sur la copie dans votre espace personnel.</li>
+<li>Soumettre une pull request pour proposer vos modifications.</li>
+</ol>
+</li>
+<li><strong>Sauvegarde et évolution d&rsquo;un projet</strong> :
+<ul>
+<li>Lorsqu’un projet open-source est abandonné ou passe en privé, un fork permet à une communauté ou à une personne de continuer son développement.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Outils associés</strong> :</p>
+<ul>
+<li><a href="https://docs.github.com/en/get-started/quickstart/fork-a-repo">Forks sur GitHub</a>.</li>
+<li><a href="https://docs.gitlab.com/ee/user/project/repository/forking_workflow.html">Forks sur GitLab</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="quest-ce-quil-est-utile-de-versionner-">Qu&rsquo;est-ce qu&rsquo;il est utile de versionner ?</h2>
+<p>Lorsqu&rsquo;on commence à versionner un projet avec Git, une question essentielle se pose : <strong>quels fichiers doit-on inclure dans le contrôle de version ?</strong> Voici quelques explications pour guider vos choix et éviter les erreurs courantes.</p>
+<hr>
+<h3 id="comment-fonctionne-git-">Comment fonctionne Git ?</h3>
+<p>Git fonctionne en sauvegardant des différences (deltas) entre les versions successives des fichiers. Cela signifie qu&rsquo;il ne stocke pas une copie complète de chaque version, mais uniquement les modifications apportées. Ce mécanisme est particulièrement efficace pour les fichiers texte, mais il peut rencontrer des limitations avec d&rsquo;autres types de fichiers.</p>
+<hr>
+<h3 id="type-de-fichiers-et-versionning">Type de fichiers et versionning</h3>
+<h4 id="les-fichiers-texte">Les fichiers texte</h4>
+<p>Pour les fichiers texte (comme les fichiers <code>.md</code>, <code>.txt</code>, <code>.py</code>, etc.), Git excelle dans la gestion du versionnage.</p>
+<ul>
+<li>
+<p><strong>Pourquoi ?</strong></p>
+<ul>
+<li>Les différences entre versions se limitent souvent à quelques lignes modifiées, ce qui rend le stockage très léger.</li>
+<li>Même pour des dépôts volumineux, l&rsquo;empreinte mémoire reste faible, car seules les modifications (en kilooctets) sont sauvegardées.</li>
+</ul>
+</li>
+<li>
+<p><strong>Exemple de fichiers à versionner :</strong></p>
+<ul>
+<li>Code source.</li>
+<li>Documentation en texte brut ou formatée (Markdown, LaTeX, etc.).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="les-fichiers-binaires-et-compressés">Les fichiers binaires et compressés</h4>
+<p>Pour des fichiers comme ceux de la suite Office ou LibreOffice, qui sont des fichiers compressés, le mécanisme différentiel de Git est moins efficace.</p>
+<ul>
+<li>
+<p><strong>Pourquoi ?</strong></p>
+<ul>
+<li>Ces fichiers ne permettent pas de détecter les modifications ligne par ligne, car toute modification peut entraîner un changement global du fichier.</li>
+<li>Chaque nouvelle version de ces fichiers est sauvegardée en entier, ce qui alourdit rapidement le dépôt.</li>
+</ul>
+</li>
+<li>
+<p><strong>Conseils :</strong></p>
+<ul>
+<li>Si possible, privilégiez des formats texte équivalents (par exemple, <code>.csv</code> au lieu d&rsquo;Excel pour les données).</li>
+<li>Évitez de versionner des fichiers binaires volumineux, sauf si c&rsquo;est absolument nécessaire.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="les-fichiers-générés-automatiquement">Les fichiers générés automatiquement</h4>
+<p>Les fichiers générés automatiquement par des outils ou lors de la compilation (comme les fichiers de log ou les dossiers <code>target</code> en Java) n&rsquo;ont pas besoin d&rsquo;être versionnés.</p>
+<ul>
+<li>
+<p><strong>Pourquoi ?</strong></p>
+<ul>
+<li>Ces fichiers peuvent être recréés à tout moment à partir des sources ou des outils de compilation.</li>
+<li>Versionner ces fichiers encombre inutilement le dépôt et crée des conflits inutiles.</li>
+</ul>
+</li>
+<li>
+<p><strong>Exemple de fichiers à ignorer :</strong></p>
+<ul>
+<li>Dossiers de build (<code>target/</code>, <code>dist/</code>).</li>
+<li>Fichiers de log (<code>*.log</code>).</li>
+<li>Fichiers temporaires ou de sauvegarde (<code>*.tmp</code>, <code>*.bak</code>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="les-fichiers-contenant-des-données-sensibles">Les fichiers contenant des données sensibles</h4>
+<p><strong>Attention :</strong> Une fois qu&rsquo;un fichier est versionné, il reste accessible dans l&rsquo;historique du dépôt, même s&rsquo;il est supprimé dans des commits ultérieurs.</p>
+<ul>
+<li>
+<p><strong>Exemples de fichiers à ne pas versionner :</strong></p>
+<ul>
+<li>Mots de passe ou clés d’API.</li>
+<li>Informations personnelles ou confidentielles.</li>
+</ul>
+</li>
+<li>
+<p><strong>Bonne pratique :</strong></p>
+<ul>
+<li>Stockez les secrets dans des fichiers spécifiques (comme <code>.env</code>) qui ne sont pas versionnés.</li>
+<li>Ajoutez ces fichiers à votre <code>.gitignore</code> pour éviter les erreurs.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Pour supprimer définitivement un fichier sensible de l’historique Git : <a href="https://github.com/newren/git-filter-repo">git-filter-repo</a> ou <a href="https://rtyley.github.io/bfg-repo-cleaner/">BFG Repo Cleaner</a>.</p>
+</blockquote>
+<hr>
+<h3 id="mettre-en-place-des-règles-de-versionnage-avec-gitignore">Mettre en place des règles de versionnage avec <code>.gitignore</code></h3>
+<p>Git permet de contrôler les fichiers inclus ou exclus du versionnage grâce à un fichier spécial nommé <code>.gitignore</code>, placé à la racine du dépôt.</p>
+<h4 id="fonctionnement-du-fichier-gitignore"><strong>Fonctionnement du fichier <code>.gitignore</code></strong></h4>
+<ul>
+<li>
+<p>Chaque ligne contient une expression qui correspond à <em>un ou plusieurs fichiers ou dossiers à ignorer</em>.</p>
+</li>
+<li>
+<p>Exemple de contenu :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Ignorer tous les fichiers temporaires</span>
+</span></span><span class="line"><span class="cl">*.tmp
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ignorer le dossier build</span>
+</span></span><span class="line"><span class="cl">/build/
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Ignorer les fichiers de configuration locaux</span>
+</span></span><span class="line"><span class="cl">.env
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Outil utile :</strong><br>
+Pour générer un fichier <code>.gitignore</code> adapté à votre technologie ou langage, utilisez <a href="https://www.toptal.com/developers/gitignore">gitignore.io</a>.</p>
+</li>
+</ul>
+<blockquote>
+<p>Consultez la documentation officielle pour plus d&rsquo;informations : <a href="https://git-scm.com/docs/gitignore">Git Ignore</a>.</p>
+</blockquote>
+<hr>
+
         </div>
 
         <footer>
@@ -281,168 +786,226 @@
           
           
           
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
-          
-          
-          
-
           
           
           
 
           
-          
-          
+           
 
           
           
           
-
           
           
           
 
           
-          <a href="/docs/introduction-a-kubernetes/"><i>﹤</i> Previous</a>
+           
+
+          
+          
+          
+          
+          
           
 
           
-          <a class="hidden">Next <i>﹥</i></a>
+           
+
+          
+          
+          
+          
+          
           
 
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
+          
+          
+          
+
+          
+           
+
+          
+          
+          
         </footer>
       </article>
 
       <aside>
         <div>
-          <button class="btn"><i>❌</i>Close</button>
+          <button class="btn"><i>❌</i>Fermer</button>
         </div>
-        <strong>On this page</strong>
-        <nav id="TableOfContents"></nav>
+        <strong>Plan de la partie</strong>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#choix-du-client-utilisé-pendant-le-cours">Choix du client utilisé pendant le cours</a></li>
+    <li><a href="#pourquoi-utiliser-git-">Pourquoi utiliser git ?</a></li>
+    <li><a href="#utilisation-de-git-en-local">Utilisation de git en local</a>
+      <ul>
+        <li><a href="#initialiser-un-projet-git">Initialiser un projet Git</a></li>
+        <li><a href="#gestion-des-versions">Gestion des versions</a></li>
+      </ul>
+    </li>
+    <li><a href="#gitflow--branches-et-fonctionnalités">GitFlow : Branches et Fonctionnalités</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#utisation-avec-un-dépot-distant">Utisation avec un dépot distant</a>
+      <ul>
+        <li><a href="#git-gitlab-github-">Git, gitlab, github &hellip;</a></li>
+        <li><a href="#dépôts-centraux">Dépôts centraux</a></li>
+        <li><a href="#gestion-des-dépôts-distants">Gestion des Dépôts Distants</a></li>
+        <li><a href="#lécosystème-git--issues-pull-requests-et-forks">L&rsquo;écosystème Git : Issues, Pull Requests et Forks</a></li>
+      </ul>
+    </li>
+    <li><a href="#quest-ce-quil-est-utile-de-versionner-">Qu&rsquo;est-ce qu&rsquo;il est utile de versionner ?</a>
+      <ul>
+        <li><a href="#comment-fonctionne-git-">Comment fonctionne Git ?</a></li>
+        <li><a href="#type-de-fichiers-et-versionning">Type de fichiers et versionning</a></li>
+        <li><a href="#mettre-en-place-des-règles-de-versionnage-avec-gitignore">Mettre en place des règles de versionnage avec <code>.gitignore</code></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
       </aside>
     </main>
 

@@ -99,7 +99,6 @@
         </div>
 
         <footer>
-          {{ $lastMod := .Lastmod.Format "2006-01-02" }}
 
           {{ $prevPageTitle := "" }}
           {{ $nextPageTitle := "" }}
@@ -124,17 +123,7 @@
           {{- range $page := $group.pages -}}
           {{- $pageSlug := $page.title | urlize -}}
           {{- $isActivePage := or $isSectionIndex (eq $urlPageSlug $pageSlug) -}}
-
           {{ if $isActivePagePassed }}
-          {{ $nextPageTitle = $page.title }}
-
-          {{ if eq .Site.Language.Lang .Site.DefaultContentLanguage }}
-          {{ $nextPageHref = printf "/%s/%s/" $.Section $pageSlug }}
-          {{ else }}
-          {{ $nextPageHref = printf "/%s/%s/%s/" $.Site.Language.Lang $.Section $pageSlug }}
-          {{ end}}
-
-          {{ $isNextPagePassed = true }}
           {{break}}
 
           {{ else if $isActivePage }}
@@ -143,28 +132,12 @@
           {{ else }}
           {{ $prevPageTitle = $page.title }}
 
-          {{ if eq .Site.Language.Lang .Site.DefaultContentLanguage }}
-          {{ $prevPageHref = printf "/%s/%s/" $.Section $pageSlug }}
-          {{ else }}
-          {{ $prevPageHref = printf "/%s/%s/%s/" $.Site.Language.Lang $.Section $pageSlug }}
-          {{ end}}
-
-          {{ end }}
+         {{ end }}
           {{ end}}
           {{- end }}
           {{ end }}
 
-          {{ if ne $prevPageHref "" }}
-          <a href="{{ $prevPageHref }}"><i>﹤</i> {{ i18n "previous" }}</a>
-          {{ else }}
-          <a class="hidden"><i>﹤</i> {{ i18n "previous" }}</a>
-          {{ end }}
 
-          {{ if ne $nextPageHref "" }}
-          <a href="{{ $nextPageHref }}">{{ i18n "next" }} <i>﹥</i></a>
-          {{ else }}
-          <a class="hidden">{{ i18n "next" }} <i>﹥</i></a>
-          {{ end }}
 
         </footer>
       </article>

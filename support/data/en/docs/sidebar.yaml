@@ -2,51 +2,87 @@
   pages:
     - title: Présentation du cours
       url: presentation-du-cours
+      prev: ""
+      next: prise-en-main-linux
     - title: Prise en main du poste de travail linux
       url: prise-en-main-linux
+      prev: presentation-du-cours
+      next: specification-projet-notation
 - title: 🗂️ Projets
   pages:
     - title: Spécifications des projets et notation
       url: specification-projet-notation
+      prev: prise-en-main-linux
+      next: git-avance
 - title: Cours 1 - architecture de base et évolution 
   pages:
     - title: 🌱 Git Avancé
       url: git-avance
+      prev: specification-projet-notation
+      next: architecture-applicative
     - title: 🧱 Architecture applicative
       url: architecture-applicative
+      prev: git-avance
+      next: bonnes-pratiques-dev
 - title: Cours 2 - qualification et bonnes pratiques
   pages:
     - title: 🔰 Bonnes pratiques du développement et design patterns
       url: bonnes-pratiques-dev
+      next: qualimetrie
+      prev: architecture-applicative
     - title: 🔎 Outils de qualimétrie d'une base de code
       url: qualimetrie
+      next: automatisation
+      prev: bonnes-pratiques-dev
     - title: 🔄 Automatisation des contrôles sur une base de code versionnée
       url: automatisation
+      prev: qualimetrie
+      next: tests-unitaires
     - title: 🧪 Tests unitaires et Mocking
       url: tests-unitaires
+      prev: automatisation
+      next: gestionnaire-de-package
 - title: Cours 3 - configuration et portabilité
   pages:
     - title: 📦 Gestionnaire de package, partage de code, industrialisation
       url: gestionnaire-de-package
+      prev: automatisation
+      next: configuration-code-environnement
     - title: 🔧 Configuration du code en fonction de l'environnement
       url: configuration-code-environnement
+      prev: gestionnaire-de-package
+      next: conteneurs-environnement-applicatifs
     - title: 🐳 Conteneurs et environnements applicatifs
       url: conteneurs-environnement-applicatifs
+      prev: configuration-code-environnement
+      next: api-webservices-http
 - title: Cours 4 - API webservice et développement web
   pages:
     - title: 🌐 API webservices et HTTP, FastAPI.
       url: api-webservices-http
+      prev: conteneurs-environnement-applicatifs
+      next: appli-web-templating
     - title: 📝 Configuration d'une application avec templates HTML, Django.
       url: appli-web-templating
+      prev: api-webservices-http
+      next: webscrapping
     - title: 📤 Webscrapping et requêtes côté client.
       url: webscrapping
+      prev: api-webservices-http
+      next: react-js
 - title:  Cours 5 - Interfaces Homme-Machine et tests complexes 
   pages:
     - title: 📘 Introduction au javascript et au framework React 
       url: react-js
+      prev: webscrapping
+      next: tests
     - title: ⚗️ Différents autres types de tests
       url: tests
+      prev: react-js
+      next: kubernetes
 - title: Cours 6 - Déploiement et hébergement applicatifs 
   pages:
     - title: 🛞 Introduction a Kubernetes 
       url: kubernetes
+      prev: tests
+      next: ""

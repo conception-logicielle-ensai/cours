@@ -124,7 +124,9 @@
           {{- range $page := $group.pages -}}
           {{- $pageSlug := $page.title | urlize -}}
           {{- $isActivePage := or $isSectionIndex (eq $urlPageSlug $pageSlug) -}}
-
+          {{ $prevPageHref = printf "/%s/%s/" $.Section $page.prev }}
+          {{ $nextPageHref = printf "/%s/%s/" $.Section $page.next }}
+          
           {{ if $isActivePagePassed }}
           {{ $nextPageTitle = $page.title }}
 
@@ -144,8 +146,7 @@
           {{ $prevPageTitle = $page.title }}
 
           {{ if eq .Site.Language.Lang .Site.DefaultContentLanguage }}
-          {{ $prevPageHref = printf "/%s/%s/" $.Section $pageSlug }}
-          {{ else }}
+           {{ else }}
           {{ $prevPageHref = printf "/%s/%s/%s/" $.Site.Language.Lang $.Section $pageSlug }}
           {{ end}}
 
@@ -153,19 +154,6 @@
           {{ end}}
           {{- end }}
           {{ end }}
-
-          {{ if ne $prevPageHref "" }}
-          <a href="{{ $prevPageHref }}"><i>﹤</i> {{ i18n "previous" }}</a>
-          {{ else }}
-          <a class="hidden"><i>﹤</i> {{ i18n "previous" }}</a>
-          {{ end }}
-
-          {{ if ne $nextPageHref "" }}
-          <a href="{{ $nextPageHref }}">{{ i18n "next" }} <i>﹥</i></a>
-          {{ else }}
-          <a class="hidden">{{ i18n "next" }} <i>﹥</i></a>
-          {{ end }}
-
         </footer>
       </article>
 

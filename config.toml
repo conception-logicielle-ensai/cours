@@ -1,7 +1,7 @@
 baseURL = "http://localhost:1313/"
 title = "Conception Logicielle"
 
-theme = "puppet"
+theme = "E25DX"
 themesDir = "./themes"
 
 copyright = ""
