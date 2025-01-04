@@ -13,6 +13,21 @@ languages:
     params:
       description: description
 
+onThisPage:
+  other: Plan de la partie
+
+onThisSection:
+  other: Plan du cours
+
+updated:
+  other: Mise a jour 
+
+previous:
+  other: Précédent
+
+next:
+  other: Suivant
+
 
 
 markup:
