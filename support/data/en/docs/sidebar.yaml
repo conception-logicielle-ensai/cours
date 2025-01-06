@@ -30,7 +30,7 @@
       url: bonnes-pratiques-dev
       next: qualimetrie
       prev: architecture-applicative
-    - title: 🔎 Outils de qualimétrie d'une base de code
+    - title: 🔎 Outils d'analyse statique d'une base de code
       url: qualimetrie
       next: automatisation
       prev: bonnes-pratiques-dev
@@ -38,8 +38,8 @@
       url: automatisation
       prev: qualimetrie
       next: tests-unitaires
-    - title: 🧪 Tests unitaires et Mocking
-      url: tests-unitaires
+    - title: 🧪 Analyse dynamique du code
+      url: analyse-dynamique
       prev: automatisation
       next: gestionnaire-de-package
 - title: Cours 3 - configuration et portabilité
