@@ -34,14 +34,14 @@
       url: qualimetrie
       next: automatisation
       prev: bonnes-pratiques-dev
-    - title: 🔄 Automatisation des contrôles sur une base de code versionnée
-      url: automatisation
-      prev: qualimetrie
-      next: tests-unitaires
     - title: 🧪 Analyse dynamique du code
       url: analyse-dynamique
       prev: automatisation
       next: gestionnaire-de-package
+    - title: 🔄 Automatisation des contrôles sur une base de code versionnée
+      url: automatisation
+      prev: qualimetrie
+      next: tests-unitaires
 - title: Cours 3 - configuration et portabilité
   pages:
     - title: 📦 Gestionnaire de package, partage de code, industrialisation
