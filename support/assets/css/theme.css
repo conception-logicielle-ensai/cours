@@ -149,3 +149,23 @@
 .alert-info a:hover {
     color: #f8f9fa; /* Couleur au hover */
 }
+
+.reponse{
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #333;
+      background-color: #f0f0f0;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    summary:hover {
+      background-color: #e0e0e0;
+    }
+
+    summary::marker {
+      color: red; /* Change la couleur du triangle de la balise <summary> */
+    }
+}
