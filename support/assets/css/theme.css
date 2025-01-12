@@ -127,3 +127,25 @@
     position: absolute;
     z-index: 1000;
 }
+.alert-info {
+    background-color: #95cfd8; /* Couleur de fond */
+    color: #ffffff; /* Texte blanc */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.alert-info strong {
+    font-weight: bold;
+}
+
+.alert-info a {
+    color: #ffffff; /* Couleur des liens */
+    text-decoration: underline;
+}
+
+.alert-info a:hover {
+    color: #f8f9fa; /* Couleur au hover */
+}
