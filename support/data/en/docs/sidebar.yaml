@@ -14,6 +14,8 @@
       url: specification-projet-notation
       prev: prise-en-main-linux
       next: git-avance
+    - title: Suivi des séances de projet
+      url: suivi-seance-projet
 - title: Cours 1 - architecture de base et évolution 
   pages:
     - title: 🌱 Git Avancé
