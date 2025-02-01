@@ -61,6 +61,13 @@
   --callout-info-anchor: #ADD8E6;
   --callout-info-anchor-text-shadow: .4px 0 .8px black;
 }
+#article-body img,
+#article-body video {
+  max-width: 100%;
+  border-radius: 4px;
+  margin: 15px
+}
+
 
 :root[data-color="dark"] {
   --color: rgba(255, 255, 255, 1);
@@ -169,4 +176,3 @@
     summary::marker {
       color: red; /* Change la couleur du triangle de la balise <summary> */
     }
-}
