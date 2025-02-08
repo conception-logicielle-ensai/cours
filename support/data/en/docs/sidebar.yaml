@@ -71,7 +71,7 @@
       url: webscrapping
       prev: api-webservices-http
       next: react-js
-    - title: 📘 Introduction au javascript et au framework React 
+    - title: 📘 Frontend, javascript et React
       url: react-js
 - title: Cours 6 - Déploiement et hébergement applicatifs 
   pages:
