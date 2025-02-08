@@ -57,7 +57,7 @@ params:
   home:
     heading: Conception Logicielle  
     headingSegment2: ENSAI 2A
-    description: Introduction à l'ingénieurie logicielle
+    description: Introduction à la conception et à l'ingénieurie logicielle
     getStartedPath: /docs
 
   baseURL: "http://localhost:1313"
