@@ -65,7 +65,7 @@
       url: appli-web-templating
       prev: api-webservices-http
       next: webscrapping
-- title:  Cours 5 - Interfaces Homme-Machine et tests complexes 
+- title:  Cours 5 - Interfaces Homme-Machine et données
   pages:
     - title: 📤 Webscrapping et requêtes côté client.
       url: webscrapping
