@@ -73,6 +73,8 @@
       next: react-js
     - title: 📘 Frontend, javascript et React
       url: react-js
+    - title: 🛢 Persistence des données
+      url: persistence-des-donnees
 - title: Cours 6 - Déploiement et hébergement applicatifs 
   pages:
     - title: 🐳 Conteneurs et environnements applicatifs
