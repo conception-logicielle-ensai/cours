@@ -79,6 +79,6 @@
   pages:
     - title: 🐳 Conteneurs et environnements applicatifs
       url: conteneurs-environnement-applicatifs
-    - title: 🛞 Introduction a Kubernetes 
+    - title: 🛞 Déploiement avec Kubernetes 
       url: kubernetes
  
