@@ -4,7 +4,7 @@ enableGitInfo: true
 defaultContentLanguage: en
 
 languages:
-  en:
+  fr:
     weight: 1
     languageName: English
     languageCode: en-US

@@ -1,0 +1,36 @@
+[[main]]
+  name = "Cours"
+  pageRef = "posts"
+  pre = "bars"
+  weight = 20
+
+[[main]]
+  name = "sub-menu 2"
+  parent = "Cours"
+  pageRef = "samples"
+  weight = 20
+
+[[main]]
+  name = "sub-menu 3"
+  parent = "Cours"
+  pre = "github"
+  pageRef = "samples"
+  weight = 20
+
+[[main]]
+  name = "Projets"
+  pre = "worktree"
+  pageRef = "projects"
+  weight = 20
+
+[[main]]
+  name = "Blog"
+  pre = "edit"
+  pageRef = "projects"
+  weight = 20
+
+[[main]]
+  identifier = "github-link"
+  pre = "github"
+  url = "https://github.com/conception-logicielle-ensai/cours"
+  weight = 40
