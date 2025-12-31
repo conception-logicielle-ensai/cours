@@ -26,7 +26,7 @@
 [[main]]
   name = "Blog"
   pre = "edit"
-  pageRef = "projects"
+  pageRef = "blog"
   weight = 20
 
 [[main]]

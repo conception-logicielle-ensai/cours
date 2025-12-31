@@ -1,0 +1,218 @@
+<div id="accordion-component">
+  <style>
+    /* Styles encapsulés */
+    #accordion-component .accordion {
+      max-width: 100%;
+      border-radius: 14px;
+      background: #f5f5f8;
+      padding: 16px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    #accordion-component .accordion-item {
+      border-radius: 10px;
+      background: #fff;
+      margin-bottom: 8px;
+      overflow: hidden;
+      border: 1px solid #e2e2e7;
+    }
+
+    #accordion-component .accordion-header {
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    #accordion-component .accordion-title {
+      font-weight: 600;
+      font-size: 15px;
+      color:#111827
+    }
+
+    #accordion-component .accordion-preview {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    #accordion-component .accordion-icon {
+      margin-left: 16px;
+      transition: transform 0.25s ease;
+    }
+
+    #accordion-component .accordion-header[aria-expanded="true"] .accordion-icon {
+      transform: rotate(90deg);
+    }
+
+    #accordion-component .accordion-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #f9fafb;
+    }
+
+    #accordion-component .accordion-panel-inner {
+      padding: 16px;
+    }
+
+    #accordion-component .page-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e2e2e7;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+    }
+
+    #accordion-component .page-card-body {
+      padding: 18px 20px 16px;
+      font-size: 15px;
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    #accordion-component .page-card-body h2 {
+      font-size: 18px;
+      margin: 18px 0 8px;
+    }
+
+    #accordion-component .page-card-body p {
+      margin: 8px 0;
+    }
+
+    #accordion-component .page-card-body ul {
+      list-style: disc; /* Affiche des puces */
+      margin: 8px 0 8px 20px;
+      padding: 0;
+    }
+
+    #accordion-component .page-card-body li {
+      margin: 4px 0;
+    }
+
+    #accordion-component .page-card-body code {
+      font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      background: #f3f4f6;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 0.95em;
+    }
+
+    #accordion-component .page-card-body blockquote {
+      border-left: 4px solid #e5e7eb;
+      margin: 12px 0;
+      padding-left: 12px;
+      color: #4b5563;
+      font-style: italic;
+    }
+
+    #accordion-component .page-card-body pre {
+      background: #111827;
+      color: #e5e7eb;
+      padding: 12px 14px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 12px 0;
+    }
+
+    #accordion-component .page-card-body pre code {
+      background: transparent;
+      padding: 0;
+    }
+  </style>
+
+  <div class="accordion" role="region" aria-label="Cours – Ingénierie logicielle">
+    <div class="accordion-item">
+      <button class="accordion-header"
+              aria-expanded="false"
+              aria-controls="panel-cours"
+              id="accordion-trigger-cours">
+        <div>
+          <div class="accordion-title">Sommaire</div>
+          <div class="accordion-preview">
+            A propos du cours de conception logicielle 2A donné à l'ENSAI 
+          </div>
+        </div>
+        <span class="accordion-icon">▶</span>
+      </button>
+
+      <div id="panel-cours"
+           class="accordion-panel"
+           role="region"
+           aria-labelledby="accordion-trigger-cours">
+        <div class="accordion-panel-inner">
+          <article class="page-card">
+            <section class="page-card-body">
+              <p>
+                Ce cours traite de différents aspects de l'ingénierie du logiciel pour un public de développeurs et de statisticiens.
+              </p>
+              <h2>Programme</h2>
+              <ul>
+                <li>Git avancé, environnement de travail&nbsp;: rappels sur l'utilisation de Git, travail collaboratif, issues, merge / pull requests.</li>
+                <li>Portabilité, configuration, packaging&nbsp;: lancer du code sans IDE, comprendre l'environnement d'exécution, environnements virtuels et gestion de paquets.</li>
+                <li>Tests, automatisation et initiation à l'intégration continue&nbsp;: tests unitaires, mocking, automatisation via script sur environnement Linux, initiation au principe d'intégration continue.</li>
+                <li>Applications web et webservices&nbsp;: présentation des différents enjeux, en tant que client et en tant que serveur.</li>
+                <li>Architecture applicative avancée&nbsp;: zoom sur des concepts plus avancés – ORM et différents types de bases de données, patrons de conception et prise de perspective avec la POO, introduction à la programmation fonctionnelle.</li>
+              </ul>
+              <h2>Langage</h2>
+              <p>Les mises en pratique seront principalement en <code>Python</code> mais des parallèles avec d'autres langages seront faits tout au long du cours.</p>
+              <h2>Approche pédagogique</h2>
+              <p>Le cours met l'accent sur l'ingénierie de développement et sur la vie d'un code.</p>
+              <blockquote>L'important ce n'est pas de savoir quoi écrire mais où l'écrire.</blockquote>
+              <h2>Fil rouge et évaluation</h2>
+              
+              <ul>
+                <li>Publier, sur un dépôt public, le code source d'un projet de développement web moderne.</li>
+                <li>Diffuser publiquement un livrable de l'application, construit automatiquement à partir des sources.</li>
+                <li>Le livrable devra pouvoir être utilisé tel quel sur différents environnements et configurable pour choisir le modèle et d'autres paramètres.</code></pre></li>
+              </ul>
+
+              Plus d'informations <a href="/projects/">➡️ici⬅️</a> 
+            
+            </section>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const item = document.querySelector("#accordion-component .accordion-item");
+    const header = item.querySelector(".accordion-header");
+    const panel = item.querySelector(".accordion-panel");
+    const icon = header.querySelector(".accordion-icon");
+
+    // Ouvre l'accordéon automatiquement au chargement
+    window.addEventListener("DOMContentLoaded", () => {
+      header.setAttribute("aria-expanded", "true");
+      panel.style.maxHeight = panel.scrollHeight + "px";
+      icon.style.transform = "rotate(90deg)";
+    });
+
+    header.addEventListener("click", () => {
+      const expanded = header.getAttribute("aria-expanded") === "true";
+      if (expanded) {
+        header.setAttribute("aria-expanded", "false");
+        panel.style.maxHeight = null;
+        icon.style.transform = "rotate(0deg)";
+      } else {
+        header.setAttribute("aria-expanded", "true");
+        panel.style.maxHeight = panel.scrollHeight + "px";
+        icon.style.transform = "rotate(90deg)";
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (header.getAttribute("aria-expanded") === "true") {
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  </script>
+</div>

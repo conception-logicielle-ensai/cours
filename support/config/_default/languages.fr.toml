@@ -2,7 +2,7 @@ disabled = false
 languageCode = "fr"
 languageName = "French"
 weight = 1
-title = "Conception Logicielle"
+title = "🏠 Conception Logicielle ENSAI"
 
 [params]
 displayName = "FR"
@@ -12,5 +12,4 @@ dateFormat = "2 January 2006"
 secondaryLogo = "."
 description = "Introduction à la conception et à l'ingénieurie logicielle"
 
-["params.author"]
-name = "Conception Logicielle"
+
