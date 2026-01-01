@@ -1,3 +1,8 @@
-[submodule "support/themes/E25DX"]
-	path = support/themes/E25DX
-	url = https://github.com/dumindu/E25DX.git
+[submodule "themes/blowfish"]
+	path = themes/blowfish
+	url = https://github.com/nunocoracao/blowfish.git
+	branch = main
+[submodule "support/themes/blowfish"]
+	path = support/themes/blowfish
+	url = https://github.com/nunocoracao/blowfish.git
+	branch = main

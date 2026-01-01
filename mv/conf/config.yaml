@@ -1,0 +1,33 @@
+theme: E25DX
+
+
+params:
+  # defaultTheme: light
+  # defaultTheme: dark
+  defaultTheme: auto # to switch between dark or light according to browser theme
+  homeInfoParams:
+    Title: Conception Logicielle ENSAI 2A 
+    Content: Option informatique 2A pour l'acculturation a la conception de logicielle
+  assets:
+    customCSS: ["css/custom.css"]
+
+  socialIcons: # optionl
+    # Lien vers les dépôt et le groupe sur github 
+    - name: "github"
+      url: "https://github.com/conception-logicielle-ensai/cours"
+
+  profileMode:
+    enabled: true
+    title: "Conception Logiciel ENSAI 2A" # optional default will be site title
+    subtitle: "Option informatique 2A pour l'acculturation a la conception de logicielle"
+    imageWidth: 120 # custom size
+    imageHeight: 120 # custom size
+    buttons:
+      - name: Contenu du cours
+        url: "/docs"
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search

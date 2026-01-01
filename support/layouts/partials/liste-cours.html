@@ -1,0 +1,13 @@
+{{ $recentArticles := 5 }}
+{{ $showMoreLinkDest := "/posts/" }}
+{{ if index .Site.Params.homepage "showRecentItems" }}
+  {{ $recentArticles = .Site.Params.homepage.showRecentItems }}
+{{ end }}
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">Sections du cours</h2>
+
+
+<div id="CardViewProse" class="h-full">
+  {{ partial "liste-cours/cardview.html" . }}
+</div>

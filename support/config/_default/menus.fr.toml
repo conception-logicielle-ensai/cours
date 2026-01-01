@@ -1,0 +1,35 @@
+[[main]]
+  name = "Cours"
+  pageRef = "cours"
+  pre = "bars"
+  weight = 20
+
+[[main]]
+  name = "Git Avancé"
+  parent = "Cours"
+  pageRef = "cours/git-avance"
+  weight = 1
+
+[[main]]
+  name = "Architecture applicative"
+  parent = "Cours"
+  pageRef = "cours/architecture-applicative"
+  weight = 2
+
+[[main]]
+  name = "Projets"
+  pre = "worktree"
+  pageRef = "projets"
+  weight = 20
+
+[[main]]
+  name = "Blog"
+  pre = "edit"
+  pageRef = "blog"
+  weight = 20
+
+[[main]]
+  identifier = "github-link"
+  pre = "github"
+  url = "https://github.com/conception-logicielle-ensai/cours"
+  weight = 40
