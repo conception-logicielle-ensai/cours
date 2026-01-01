@@ -1,0 +1,84 @@
+<div id="head-text">
+  <style>
+    #headtext-component .headtext {
+      max-width: 100%;
+      border-radius: 14px;
+      background: #f5f5f8;
+      padding: 16px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+    }
+
+    #headtext-component .headtext-item {
+      border-radius: 10px;
+      background: #fff;
+      margin-bottom: 8px;
+      overflow: hidden;
+      border: 1px solid #e2e2e7;
+    }
+
+    #headtext-component .headtext-header {
+      width: 100%;
+      padding: 14px 16px;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    #headtext-component .headtext-title {
+      font-weight: 600;
+      font-size: 15px;
+      color: #111827;
+    }
+
+    #headtext-component .headtext-icon {
+      margin-left: 16px;
+      transition: transform 0.25s ease;
+    }
+
+    #headtext-component .headtext-header[aria-expanded="true"] .headtext-icon {
+      transform: rotate(90deg);
+    }
+
+    #headtext-component .headtext-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #f9fafb;
+    }
+
+    #headtext-component .headtext-panel-inner {
+      padding: 16px;
+    }
+
+    #headtext-component .page-card {
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #e2e2e7;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    #headtext-component .page-card-body {
+      padding: 18px 20px;
+      font-size: 15px;
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    #headtext-component .page-card-body h2 {
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+  </style>
+
+  <div class="headtext" role="region" aria-label="Cours – Conception logicielle">
+            <section class="page-card-body">
+              <h2>Cours de conception logicielle</h2>
+              <p>Cours dispensé par <strong>Oriane Foussard</strong> et <strong>Antoine Brunetti</strong>.</p>
+            </section>
+  </div>
+
+  

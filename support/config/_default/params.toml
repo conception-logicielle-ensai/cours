@@ -1,5 +1,6 @@
 smartTOC = true
-colorScheme = "slate"
+smartTOCHideUnfocusedChildren = true
+colorScheme = "blowfish"
 defaultAppearance = "light"
 autoSwitchAppearance = true
 enableA11y = false
@@ -22,7 +23,7 @@ buymeacoffee = { }
 verification = { }
 rssnext = { }
 advertisement = { }
-
+mainSections = ["cours"]
 [header]
 layout = "basic"
 
@@ -64,7 +65,7 @@ showHeadingAnchors = true
 showPagination = true
 invertPagination = false
 showReadingTime = false
-showTableOfContents = false
+showTableOfContents = true
 showTaxonomies = false
 showCategoryOnly = false
 showAuthorsBadges = false
