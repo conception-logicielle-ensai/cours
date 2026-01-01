@@ -2,7 +2,7 @@ disabled = false
 languageCode = "fr"
 languageName = "French"
 weight = 1
-title = "🏠 Conception Logicielle ENSAI"
+title = "Conception Logicielle"
 
 [params]
 displayName = "FR"
