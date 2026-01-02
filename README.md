@@ -5,6 +5,11 @@ Support du cours de conception logicielle 2026 : disponible ici  https://concept
 
 Le site est construit avec hugo. 
 
+Télécharger les sous modules  git
+```
+git submodule update --init
+```
+
 Vous pouvez le lancer en local avec la commande :
 
 ```terminal
