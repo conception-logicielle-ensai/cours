@@ -1,170 +1,46 @@
 ---
-title: "Spécifications des projets et notation"
+title: "A propos"
 weight: 1
 draft: false
 description: ""
-slug: "specification-projet-notation"
-tags: ["specification-projet-notation", "about", "introduction"]
+slug: "a-propos"
+tags: ["a-propos", "about", "introduction"]
 ---
 
-## Contexte
+
+Ce cours traite de différents aspects de l'ingénierie du logicielle pour un public de développeurs et de statisticiens.
+
+## Programme
+
+Ce cours est divisé en différents chapitres :
+
+- Git avancé, environnement de travail: rappels sur l'utilisation de Git, travail collaboratif, issues, merge / pull requests
+- Portabilité, configuration, packaging : lancer du code sans IDE, comprendre l'environnement d'exécution, environnements virtuels et gestion de paquets.
+- Tests, automatisation et initiation à l'intégration continue: tests unitaires, mocking, automatisation via script sur environnement linux, initiation au principe d'intégration continue
+- Application webs et webservices : Présentation des différents enjeux, en tant que client et en tant que serveur.
+- Architecture applicative avancée : Zoom sur des concepts plus avancés - ORM et différents types de bases de données, patrons de conceptions et prise de perspective avec la POO, introduction a la programmation fonctionnelle.
+
+## Langage
+
+Ce cours se veut agnostique du langage en illustrant principalement les concepts communs à la plupart des langages. Les mises en pratique seront principalement en `Python` mais des parallèles avec d'autres langages seront faits tout au long du cours.  
+Les étudiants sont invités à essayer d'autres langages.
+
+## Approche pédagogique
+
+Ce cours met l'accent sur l'ingénierie de développement pour amèner les étudiants à prendre du recul sur l'écriture mais surtout sur la vie d'un code. Il n'y aura donc que très très peu de code écrit.
+
+> L'important ce n'est pas de savoir quoi écrire mais où l'écrire.
+
+## Fil rouge
+
+Le fil rouge proposé est la réalisation d'un projet par les étudiants.  
+Le périmètre est volontairement très réduit afin de se concentrer sur l'ingénierie de développement.
+L'objectif du fil rouge est le suivant :
+
+> Publier, sur un dépôt public, le code source d'un projet de développement web moderne.
+
+> Diffuser publiquement un livrable de l'application, construit automatiquement à partir des sources.
+
+> Le livrable devra pouvoir être utilisé tel quel sur différents environnements et configurable pour choisir le modèle et d'autres paramètres.
 
 
-Vous allez devoir réaliser un projet, soit en prenant 1 sujet parmi ceux proposés, soit un projet que vous proposez de concevoir, a condition qu'il comporte une utilité pédagogique validée, la date limite de proposition des projets est fixée au **20/01/2025 a 17h**. N'hésitez pas a nous contacter par mail aux mails suivants : 
-- `antoinebrunetti@gmail.com`
-- `oriane.foussard@insee.fr`
-
-**Après cette deadline, nous tirerons au sort les équipes d'élèves parmi les élèves pas encore dans un groupe.**
-
-Le projet choisi sera réalisable à 3 personnes. L'évaluation sera adaptée en conséquence.
-
-Un suivi sera réalisé le **24 février**, il faudra pour cela ajouter les 2 comptes au projet sur github : 
-- `ragatzino` 
-- `orianefoussard`
-
-Le rendu final est exigé pour le vendredi **7 mars à 18h**.  
-
-
-## Propositions des sujets
-
-Les sujets sont proposés ci dessous. Vous devez choisir un projet dans une groupe de 2 à 3 personnes, les propositions personnelles sont valorisées et il faudra réaliser un envoi de votre groupe + sujet validé avant le 20 janvier 17h ici : 
-
-[Lien du google forms](https://docs.google.com/forms/d/e/1FAIpQLSfe9r67gWk1Q9UxizWX96fpOTzzQUAkNXw56OoLoyBiEpNNFQ/viewform?pli=1)
-
-### Buzzify : l'application qui vous permet de buzzer
-
-#### Contexte
-
-Dans de nombreuses activités collaboratives (quiz, compétitions, brainstorming), un système de buzzer est souvent utilisé pour signaler rapidement une action, une réponse ou une idée. Ce projet vise à recréer un tel système sous forme d’une application connectée, en exploitant les technologies modernes comme les websockets pour assurer une interaction en temps réel.
-
-#### Fonctionnalités attendues
-- Créer une interface web accessible par plusieurs personnes
-- Permettre a chaque joueur d'actionner le buzzer par cette interface
-- Diffuser l'action buzzer sur tous les clients connectés lorsque la personne appuie
-
-#### Fonctionnalités avancées
-
-- Proposer une authentification pour la "room" ou a défaut générer un identifiant de session permettant de se distinguer des autres
-
-### Bookit: l'application qui permet la reservation de services
-
-#### Contexte
-
-Que ce soit dans une école, une entreprise, ou un centre communautaire, la gestion des ressources comme les salles, les véhicules ou les équipements peut devenir complexe. Cette application permettrait de centraliser cette gestion, de visualiser les disponibilités des ressources, et de permettre aux utilisateurs de faire des réservations facilement.
-
-#### Fonctionnalités attendues
-- Permettre de définir 3 granularités d'utilisateurs : anonyme, consommateur, administrateur
-- Les administrateurs peuvent créer des "événements" qui pourront être :
-  - Des évenements pour la réservations de bus (pour les événements / soirées de l'école : ces événéments peuvent avoir une infinité de participants)
-  - Des événements pour la réservation de salles (musique, ludik ...) (ces événements n'ont qu'une réservation)
-  - (autres propositions de votre part possibles)
-- Lors de la création d'un événement, l'application notifiera, soit au travers d'un bot twitter, soit au travers d'un envoi de mail groupé a différentes personnes (la liste des utilisateurs) la disponibilité de l'événement.
-- Les utilisateurs pourront via l'interface développer, s'inscrire aux événements.
-
-#### Fonctionnalités avancées
-- Intégration avec google agenda
-- Qualité de l'interface utilisateur
-
-### MétéoPredict: l'application qui prédit la température 
-
-#### Contexte
-L'objectif de cette application est de prédire la météo d'un jour spécifique (par exemple, température, précipitations, humidité) en s'appuyant sur les données météorologiques historiques. Cette application utilisera des outils statistiques pour réaliser cela et s'appuiera sur des données **météo france**
-
-#### Fonctionnalités attendues
-- Permettre de prédire la température qu'il fera le lendemain a partir d'un aggrégat de données récupérées sur les années précédentes. (voir les fichiers météo france)
-- Proposer un tableau comparant la prédiction a des valeurs connues (même jour l'année précédente, valeur réelle (a récupérer via API) du jour précédent). Effectuer une interface "jolie" adaptée.
-- Déterminer la géolocalisation de l'utilisateur a la requête.
-- On utilisera d'abord les données depuis https://meteo.data.gouv.fr/ , on pourra passer en appel API de manière avancée.
-#### Fonctionnalités avancées
-- Choix d'un algorithme pour la prédiction : (régression linéaire (par défaut), Arima, Réseau de neurones récurrents, random forest... ) 
-- Multiplication des jeux de données
-
-### Autres projets : votre projet
-
-Vous pouvez évidemment proposer un sujet, sous réserve de validation. Pour maximiser les chances, il faut que votre projet utilise une ressource externe.
-
-Exemples : 
-- Application pour évaluation de la qualité des aliments type **yuka** avec openfood facts
-- Application pour le partage de données de localisation type **poop map**
-- Application pour le parcours d'annonces ou la reservation : **leboncoin**, comparateur **skyscanner**..
-- Application pour vos jeux : récupération de statistiques sur les autres joueurs etc..
-- Plugins pour la reservation : **courses a pied**, **événements**
-
-## Rendu final
-
-Le rendu attendu est un dépôt git **public** ou **privé**, hébergé sur **votre compte personnel** ou **un compte de groupe/organization** sur la plateforme de votre choix (par défaut, github.com mais vous êtes libres de choisir une plateforme concurrente tel que github).  
-Le lien de votre dépôt git devra être envoyé par mail aux 2 mails : 
-- `antoinebrunetti@gmail.com`
-- `oriane.foussard@insee.fr`
-
-avant la deadline du **7 mars** à 18h.
-
-> Pour information, pour les dépôts privés, il faudra également nous ajouter dans les membres. a défaut ajoutez le compte `ragatzino` et le compte `orianefoussard`. 
-
-### Critères d'évaluation
-
-Les critères d'évaluation sont les suivants :
-
-- Un dépôt git bien entretenu
-  - Le dépôt est accessible
-  - Les fichiers versionnés respectent les bonnes pratiques (texte brut, uniquement les sources pas les produits ...)
-  - L'historique permet de retracer les différentes étapes du développement (pas un simple unique commit)
-  - Bonus : utilisation opportune des branches, issues et merge requests
-- Du code industriel
-  - Les dépendances sont clairement listées et installables en une commande
-  - Le projet est lançable avec le minimum d'opérations manuelles
-- Des applicatifs fonctionnels:
-  - Une application qui démarre
-  - Un scénario d'utilisation de l'application (soit dans la doc/ soit en tant que script)
-  - Bonus: De la gestion de cas limites, documentée dans le projet via commentaires.
-- De la documentation
-  - L'objectif, l'organisation et le fonctionnement du code est décrit succintement dans une documentation intégrée proprement au dépôt git
-  - Une partie "quickstart" (démarrage rapide) est présente dans la documentation pour indiquer les quelques commandes standards pouvant être utilisées pour lancer le code
-- De la portabilité
-  - Les éventuels paramètres de configuration du projet sont externalisés et surchargeables  
-  - Le projet n'a pas d'adhérence à une machine en particulier (liens de fichiers en dur, adhérence à un système d'exploitation)
-- De la qualité
-  - Au moins un test unitaire est présent
-  - La façon de lancer les tests est documentée
-- De l'automatisation
-  - Un pipeline s'exécute à chaque push et lance les tests unitaires présents dans le projet
-  - Des scripts / de la documentation permettant de démarrer
-
-A titre indicatif, le barème 2024, il évoluera pour le rendu cette année : 
-
-| Critère   |   Barème (/20)    |
-|----------|:-------------:|
-| Gestion du dépôt git |  2 pts | 
-| Documentation (présentation projet) |  2 pts | 
-| Portabilité | 3 pts |
-| Configuration | 2 pts |
-| Structure du code / architecture |    2 pts   | 
-| Applicatif fonctionnel | 4 pts |
-| Qualité du code - testing | 3 pts |
-| Automatisation | 2 pts |
-
-### Conditions de l'examen
-
-Les conditions de cet examen se veulent proches de vos futures conditions de travail professionnelles.  
-Ainsi, vous avez accès à toutes les ressources que vous souhaitez (internet, stackoverflow, forums, chatgpt..). De même, la réutilisation de code est permise, tant que vous en respectez la license d'utilisation.  
-
-Vous êtes libres du language utilisé, il peut aussi bien choisir de python, javascript, java ou autres.
-
-> NB: les mêmes critères s'appliquent sur ces autres languages
-
-Vous êtes aussi libres de choisir votre environnement de travail. Il vous est ainsi par exemple toujours possible d'accéder aux services en ligne de la plateforme SSPCloud : [Datalab](https://datalab.sspcloud.fr) mais vous pouvez tout à fait travailler sur votre environnement local ou sur tout autre environnement qui vous conviendrait.
-Enfin, le professeur reste mobilisable, dans la limite du raisonnable, pendant toute la période du projet. Evidemment, comme pour toute demande de débug, il est demandé de joindre le code correspondant (lien vers le dépôt git à jour), le résultat attendu et l'erreur rencontrée (message d'erreur + `stacktrace`).
-
-### Rappel: Validation
-
-Pour la validation de votre code, le dépot git mis en place au cours de ce tp sera cloné, les modalités d'installation seront suivies, l'application sera lancée. Il est donc important de bien soigner la prise en main de votre application.
-
-## Oral 
-
-Une épreuve orale aura lieu le mercredi 19/03/2025. Elle consistera en la présentation de vos différents projets en équipe. 
-
-Elle s'organisera selon plusieurs axes : 
-- Présentation globale de l'application et de son fonctionnement (avec démo) - présenter une fonctionnalité en partant du backend au frontend
-- Présentation de l'architecture du système, du déploiement et des outils utilisés pour assurer la qualité de votre projet. (A rattacher aux attendus de livraison)
-- Retours et questions sur le rendu par le jury.
-- Les dates et informations sur l'oral se trouve ici : https://docs.google.com/spreadsheets/d/1NO2Md9N7M2MMkEKL7_1YkAB4y4_YInysOP4h6D6rTJY/edit?gid=0#gid=0
