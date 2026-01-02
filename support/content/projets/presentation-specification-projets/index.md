@@ -4,7 +4,7 @@ weight: 5
 draft: false
 description: ""
 slug: "specification-projet-notation"
-tags: ["specification-projet-notation", "about", "introduction"]
+tags: ["projet"]
 ---
 
 ## Contexte

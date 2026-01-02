@@ -4,7 +4,8 @@ weight: 1
 draft: false
 description: ""
 slug: "projets-exemples-2026"
-tags: ["specification-projet-notation", "about", "introduction"]
+tags: ["projet"]
+
 ---
 ## Propositions des sujets
 

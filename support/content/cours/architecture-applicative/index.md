@@ -4,7 +4,7 @@ weight: 2
 draft: false
 description: "Appréhender l'organisation structurelle d’une application logicielle"
 slug: "architecture-applicative"
-tags: ["architecture", "applicative"]
+tags: ["cours","architecture applicative"]
 series: ["Cours"]
 series_order: 2
 ---

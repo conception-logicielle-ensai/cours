@@ -5,8 +5,8 @@ defaultAppearance = "light"
 autoSwitchAppearance = true
 enableA11y = false
 enableSearch = true
-enableCodeCopy = false
-enableStructuredBreadcrumbs = false
+enableCodeCopy = true
+enableStructuredBreadcrumbs = true
 replyByEmail = false
 disableImageOptimization = false
 disableImageOptimizationMD = false
@@ -29,8 +29,8 @@ layout = "basic"
 
 [footer]
 showMenu = true
-showCopyright = true
-showThemeAttribution = true
+showCopyright = false
+showThemeAttribution = false
 showAppearanceSwitcher = true
 showScrollToTop = true
 
@@ -53,10 +53,10 @@ showLikes = false
 showDateOnlyInArticle = false
 showDateUpdated = false
 showAuthor = false
-showHero = false
+showHero = true
 layoutBackgroundBlur = true
 layoutBackgroundHeaderSpace = true
-showBreadcrumbs = false
+showBreadcrumbs = true
 showDraftLabel = true
 showEdit = false
 editAppendPath = true
@@ -64,22 +64,22 @@ seriesOpened = false
 showHeadingAnchors = true
 showPagination = true
 invertPagination = false
-showReadingTime = false
+showReadingTime = true
 showTableOfContents = true
-showTaxonomies = false
+showTaxonomies = true
 showCategoryOnly = false
 showAuthorsBadges = false
 showWordCount = false
-showZenMode = false
+showZenMode = true
 
 [list]
-showHero = false
+showHero = true
 layoutBackgroundBlur = true
 layoutBackgroundHeaderSpace = true
-showBreadcrumbs = false
-showSummary = false
-showViews = false
-showLikes = false
+showBreadcrumbs = true
+showSummary = true
+showViews = true
+showLikes = true
 showTableOfContents = false
 showCards = false
 orderByWeight = false
@@ -87,6 +87,7 @@ groupByYear = true
 cardView = false
 cardViewScreenWidth = false
 constrainItemsWidth = false
+heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
 
 [sitemap]
 excludedKinds = [ "taxonomy", "term" ]
@@ -94,18 +95,18 @@ excludedKinds = [ "taxonomy", "term" ]
 [taxonomy]
 showTermCount = true
 showHero = false
-showBreadcrumbs = false
+showBreadcrumbs = true
 showViews = false
 showLikes = false
 showTableOfContents = false
 cardView = false
 
 [term]
-showHero = false
+showHero = true
 showBreadcrumbs = false
 showViews = false
 showLikes = false
 showTableOfContents = true
 groupByYear = false
-cardView = false
+cardView = true
 cardViewScreenWidth = false
