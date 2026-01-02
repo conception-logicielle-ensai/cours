@@ -3,6 +3,7 @@ title: "Architecture applicative"
 weight: 2
 draft: false
 description: "Appréhender l'organisation structurelle d’une application logicielle"
+summary: "Appréhender les enjeux de l'architecture logicielle pour la conception logicielle"
 slug: "architecture-applicative"
 tags: ["cours","architecture applicative"]
 series: ["Cours"]

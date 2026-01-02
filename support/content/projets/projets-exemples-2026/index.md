@@ -2,7 +2,8 @@
 title: "Idées de sujets proposés pour l'année 2026"
 weight: 1
 draft: false
-description: ""
+description: "Sujets proposés aux élèves pour la réalisation des projets de conception logicielle 2026"
+summary: "Sujets proposés aux élèves pour la réalisation des projets de conception logicielle 2026"
 slug: "projets-exemples-2026"
 tags: ["projet"]
 
@@ -55,6 +56,7 @@ Exemples de flux :
 - https://www.lemonde.fr/rss/une.xml
 - https://www.francetvinfo.fr/titres.rss
 - https://www.sciencedaily.com/rss/computers_math/computer_science.xml
+- https://conception-logicielle.abrunetti.fr/index.xml
 
 **Epic: Accès au service**
 - Mise en place d'une interface accessible via navigateur et mise en place l'authentification par mot de passe d'un administrateur à la plateforme

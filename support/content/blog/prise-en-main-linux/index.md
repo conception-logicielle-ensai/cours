@@ -2,7 +2,8 @@
 title: "Prise en main du poste linux"
 weight: 2
 draft: false
-description: ""
+description: "Aide a la prise en main du poste linux et environnements d'execution contextuel au cours"
+summary: "Aide a la prise en main du poste linux et environnements d'execution contextuel au cours"
 slug: "prise-en-main-linux"
 tags: ["git", "avance"]
 ---

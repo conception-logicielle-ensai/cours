@@ -2,7 +2,8 @@
 title: "Spécification des projets"
 weight: 5
 draft: false
-description: ""
+description: "Spécification des attendus projet de conception logicielle"
+summary: "Spécification des attendus projet de conception logicielle"
 slug: "specification-projet-notation"
 tags: ["projet"]
 ---

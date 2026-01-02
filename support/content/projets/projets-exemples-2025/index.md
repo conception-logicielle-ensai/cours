@@ -2,7 +2,8 @@
 title: "Idées de sujets proposés pour l'année 2025  "
 weight: 1
 draft: false
-description: ""
+description: "Sujets proposés auparavant pour la réalisation des projets de conception logicielle 2025"
+summary: "Sujets proposés aux élèves pour la réalisation des projets de conception logicielle 2025"
 slug: "projets-exemples-2025"
 tags: ["projet"]
 ---

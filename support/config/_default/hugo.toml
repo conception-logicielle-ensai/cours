@@ -37,7 +37,8 @@ enableEmoji = true
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
-
+  section = ["HTML", "RSS"]
+  
 [related]
   threshold = 0
   toLower = false

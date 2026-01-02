@@ -2,7 +2,8 @@
 title: "A propos"
 weight: 1
 draft: false
-description: ""
+description: "Section a propos du cours, descriptif des enjeux présentés"
+summary: "Section a propos du cours, descriptif des enjeux présentés"
 slug: "a-propos"
 tags: ["a-propos", "about", "introduction"]
 ---
