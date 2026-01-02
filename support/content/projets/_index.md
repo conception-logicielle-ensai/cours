@@ -1,5 +1,7 @@
 # Projets
 
-Ensemble des modules du cours de conception logicielle.
+Spécification des projets et exemples.
 
-## Ensemble des modules du cours
+La réalisation du projet est au coeur pédagogique du cours de conception logicielle.
+
+## Sections associées
