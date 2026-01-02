@@ -14,13 +14,11 @@ Vous allez devoir réaliser un projet, soit en prenant 1 sujet parmi ceux propos
 - `antoine.brunetti@insee.fr`
 - `oriane.foussard@insee.fr`
 
-**Après cette deadline, nous tirerons au sort les équipes d'élèves parmi les élèves pas encore dans un groupe.**
-
-Le projet choisi sera réalisable à 3 personnes. L'évaluation sera adaptée en conséquence.
+Le projet choisi sera réalisable à 3 personnes. L'évaluation sera adaptée en fonction de la taille de l'équipe.
 
 > Nous pourrons adapter les tailles d'équipes, minimum 2 maximum 4 et il faudra un total de moins de 12 équipes pour une classe de 29
 
-Un suivi sera réalisé le **9 février**, il faudra pour cela ajouter les 2 comptes au projet sur github : 
+Un suivi sera réalisé après la séance du **9 février**, il faudra pour cela ajouter les 2 comptes au projet sur github : 
 - `ragatzino` 
 - `orianefoussard`
 
