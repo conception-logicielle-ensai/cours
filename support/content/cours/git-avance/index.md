@@ -8,7 +8,9 @@ slug: "git-avance"
 tags: ["git", "avance"]
 series: ["Cours"]
 series_order: 1
+
 ---
+
 ## Choix du client utilisé pendant le cours
 
 Comme vous allez le voir, **Git est un système de contrôle de version**.
@@ -84,11 +86,11 @@ Lorsque l'on récupère un dépôt depuis Internet, on obtient également le dos
 
 Dans un dépôt Git, vous avez la possibilité de créer de nouvelles versions de votre projet en spécifiant les fichiers que vous souhaitez inclure dans cette version. Ce processus est souvent appelé "staging".
 
-##### Objectif du Staging
+**Objectif du Staging**
 
 L'objectif principal de cette fonctionnalité est de vous permettre de travailler localement sans vous préoccuper du versionnage. Lorsque vous êtes prêt à créer une nouvelle version, vous pouvez regrouper vos fichiers de manière logique et cohérente.
 
-**Exemple :**
+*Exemple :*
 
 Imaginons que vous développiez une application de gestion de bibliothèque, avec deux fonctionnalités principales :
 
@@ -100,7 +102,7 @@ Après avoir apporté des modifications à votre code, il est préférable de cr
 - D'abord, vous enregistrez les changements liés à l'ajout de livres.
 - Ensuite, vous traitez les modifications apportées à la suppression de livres.
 
-##### Ajout de Fichiers au Staging
+**Ajout de Fichiers au Staging**
 
 Pour préparer les fichiers en vue de la prochaine version, vous utilisez la commande `git add`. Par exemple :
 
@@ -122,7 +124,7 @@ Pour vérifier l'état de vos fichiers, vous pouvez utiliser la commande :
 git status
 ```
 
-##### Qu'est-ce qu'un Commit ?
+**Qu'est-ce qu'un Commit ?**
 
 Un commit représente un ensemble de modifications (ajouts, modifications, suppressions) sauvegardées dans votre dépôt Git.
 
@@ -132,7 +134,7 @@ Lorsque tous les fichiers ajoutés sont prêts et constituent un ensemble cohér
 git commit [options]
 ```
 
-**Exemple :**
+*Exemple :*
 
 ```bash
 git commit -m "Ajout de la fonctionnalité d'ajout de livres"
@@ -152,11 +154,11 @@ Un commit contient, en plus des modifications apportées, plusieurs métadonnée
 
 Git offre plusieurs commandes pour gérer l'historique des versions et naviguer entre les différentes modifications.
 
-##### Annuler des Modifications
+**Annuler des Modifications**
 
 La commande `git restore` est utilisée pour annuler les modifications **dans votre répertoire de travail** ou pour restaurer des fichiers à partir d'un commit précédent.
 
-**Exemple :**
+*Exemple :*
 
 Si vous avez modifié un fichier, mais que vous souhaitez annuler ces modifications avant de faire un commit, vous pouvez utiliser :
 
@@ -205,13 +207,13 @@ La commande `git reset` est utilisée pour annuler des modifications **dans un d
 ---
 
 
-##### Explorer l'Historique des Commits
+**Explorer l'Historique des Commits**
 
 La commande `git log` vous permet d'afficher l'historique des commits dans votre dépôt. Cela vous aide à comprendre les changements qui ont été apportés au fil du temps.
 
 ![ ](/images/git/gitlog_schema.png)
 
-**Exemple :**
+*Exemple :*
 
 Pour afficher l'historique des commits, vous pouvez simplement exécuter :
 
@@ -267,10 +269,11 @@ Pour se déplacer sur une branche existante :
 git switch nouvelle-branche
 
 # Créer une branche nouvelle-branche et s'y déplacer
-git switch -b nouvelle-branche
+git switch -c nouvelle-branche
 ```
 
 > Consultez la documentation officielle : [Git Branch](https://git-scm.com/docs/git-branch)
+
 > Consultez la documentation officielle : [Git Switch](https://git-scm.com/docs/git-switch)
 
 #### Intégration des Changements
@@ -446,8 +449,8 @@ La commande `git push` est utilisée pour envoyer vos modifications locales vers
 ```bash
 # Envoyer vos changements (commits) à votre origin
 git push
-# Envoyer votre code a votre origin et déclarer une branche origin/branch
-git push --set-upstream origin branch
+# Envoyer votre code a votre origin et déclarer une branche origin/nouvelle-branch
+git push --set-upstream origin nouvelle-branch
 # Envoyer votre code (commits) a votre origin en pushant la branche main
 git push -u origin main
 ```
@@ -638,11 +641,10 @@ Git permet de contrôler les fichiers inclus ou exclus du versionnage grâce à 
    Créez un fichier `.gitignore` dans votre repository. N'oubliez pas de synchroniser les modifications apportées au README avec votre dépôt local.
 
 7. **Créer une branche pour une nouvelle fonctionnalité** :  
-   Créez une nouvelle branche dédiée à l'ajout d'une fonctionnalité permettant de supprimer un contact.
+   Créez une nouvelle branche dédiée à l'ajout d'une fonctionnalité permettant de supprimer un livre.
 
 8. **Implémenter la fonctionnalité** :  
-   - Ajoutez une option "3" au menu pour permettre à l'utilisateur de supprimer un contact en renseignant son nom.  
-   - Gérez les cas où aucun contact ne correspond au nom saisi.
+   Suppression d'un livre de la base de données à partir de son identifiant
 
 9. **Créer une nouvelle version** :  
    Validez vos modifications en créant un nouveau commit.
@@ -650,8 +652,11 @@ Git permet de contrôler les fichiers inclus ou exclus du versionnage grâce à 
 10. **Synchroniser avec le dépôt distant** :  
     Poussez vos modifications sur votre fork distant.
 
-11. **Fusionner votre branche avec `main`** :  
+11. **Créer une nouvelle Pull Request**
+    Via l'interface de GitHub créer une nouvelle Pull Request pour visualiser vos modifications.
+
+12. **Fusionner votre branche avec `main`** :  
     Intégrez les changements de votre branche dans la branche `main`.
 
-12. **(Bonus)** :  
+13. **(Bonus)** :  
     Envoyez votre code sur le GitLab du SSP Lab : [GitLab SSP Cloud](https://git.lab.sspcloud.fr/).
