@@ -1,6 +1,6 @@
 ---
 title: "Git Avancé"
-weight: 1
+weight: 40
 draft: false
 description: "Consolider l'usage de Git dans un cadre de projet et de conception logicielle (quand, quoi, comment, pourquoi)"
 summary: "Notions avancées de Git pour le travail en projet"
@@ -147,7 +147,7 @@ Un commit contient, en plus des modifications apportées, plusieurs métadonnée
 
 ![ ](/images/git/explained-git-staging-area.png)
 
-#### Naviger dans les versions
+#### Naviguer dans les versions
 
 
 Git offre plusieurs commandes pour gérer l'historique des versions et naviguer entre les différentes modifications.
@@ -343,6 +343,9 @@ Le workflow classique suit ces étapes :
 ## Utilisation avec un dépot distant
 
 ### Git, gitlab, github ...
+
+![ ](/images/git/gitlab-github-remote.png)
+
 
 Avec la réussite de Git, des outils appelées Forges Logicielles sont apparues. Elles permettent de proposer l'hébergement du code source d'application publiques et privées de manière gratuite et offrent d'autres services de gestion ainsi que des interfaces clients appréciables.
 
@@ -588,6 +591,7 @@ Les fichiers générés automatiquement par des outils ou lors de la compilation
 
 ### Mettre en place des règles de versionnage avec `.gitignore`  
 
+![](/images/git/gitignore.png)
 Git permet de contrôler les fichiers inclus ou exclus du versionnage grâce à un fichier spécial nommé `.gitignore`, placé à la racine du dépôt.  
 
 #### **Fonctionnement du fichier `.gitignore`**  
