@@ -1,6 +1,6 @@
 ---
 title: "A propos"
-weight: 1
+weight: 11
 draft: false
 description: "Section a propos du cours, descriptif des enjeux présentés"
 summary: "Section a propos du cours, descriptif des enjeux présentés"

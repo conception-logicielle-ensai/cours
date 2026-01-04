@@ -1,6 +1,6 @@
 ---
 title: "Prise en main du poste linux"
-weight: 2
+weight: 12
 draft: false
 description: "Aide a la prise en main du poste linux et environnements d'execution contextuel au cours"
 summary: "Aide a la prise en main du poste linux et environnements d'execution contextuel au cours"
