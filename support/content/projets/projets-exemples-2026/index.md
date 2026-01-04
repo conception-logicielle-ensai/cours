@@ -88,6 +88,166 @@ Exemples de flux :
 - Récupération des données des articles, par date, contenu, categorie => mise a disposition via un endpoint simple
 
 
+### Wift : Plateforme collaborative de gestion et de recommandation de cadeaux
+
+#### Contexte
+
+Le projet consiste à concevoir et développer une application web permettant d’aider les utilisateurs à choisir, organiser et offrir des cadeaux de manière collaborative.
+
+L’objectif est de répondre à plusieurs problématiques courantes :
+
+- Trouver une idée de cadeau pertinente pour un proche
+- Éviter les doublons lorsque plusieurs personnes participent à un même événement
+- Gérer des cadeaux communs
+- Respecter un budget et une date d’échéance
+
+L’application devra permettre aux utilisateurs de créer des listes de cadeaux, d’y ajouter des idées issues de sites marchands, et de permettre à d’autres utilisateurs de participer à l’achat de ces cadeaux.
+
+#### Fonctionnalités attendues
+
+**Epic : Gestion des comptes utilisateurs**
+
+- Création de compte utilisateur (inscription)
+- Authentification par identifiant et mot de passe
+- Gestion de profil utilisateur (informations de base)
+- Accès sécurisé aux fonctionnalités de l’application
+
+**Epic : Gestion des listes de cadeaux**
+
+- Création de listes de cadeaux personnalisées
+  Exemples :
+  - Anniversaire
+  - Noël
+  - Saint-Valentin
+  - Fête des mères
+- Définition d’une date d’échéance pour chaque liste
+- Gestion de la visibilité des listes (accès aux amis uniquement)
+
+**Epic : Ajout et gestion des idées de cadeaux**
+
+- Ajout d’un cadeau à une liste via un lien URL
+- Analyse automatique de la page fournie (web scraping)
+- Extraction et stockage a minima des informations suivantes :
+  - Nom de l’objet
+  - Prix
+  - Image principale
+  - Lien vers la page source
+- Limitation volontaire du périmètre aux sites marchands pris en charge
+  (exemples : Amazon, Fnac, Zara, etc.)
+- Gestion de l’état du cadeau : disponible / réservé
+
+**Epic : Participation aux cadeaux**
+
+- Consultation des listes de cadeaux des amis
+- Visualisation des idées de cadeaux avec estimation de prix
+- Possibilité de réserver un cadeau
+- Verrouillage du cadeau réservé pour éviter les doublons
+  (le propriétaire de la liste ne voit pas les réservations)
+- Après la date d’échéance :
+  - Le propriétaire de la liste peut consulter les cadeaux reçus
+  - Visualisation de l’identité des participants
+
+#### Fonctionnalités avancées
+
+**Epic : Optimisation du prix des cadeaux**
+
+- Recherche automatique d’offres alternatives pour un même produit
+- Comparaison des prix entre plusieurs sites marchands
+- Proposition d’options moins chères ou équivalentes
+
+**Epic : Gestion des cadeaux communs**
+
+- Possibilité de participer à un cadeau à plusieurs
+- Définition d’un montant cible
+- Suivi des contributions individuelles
+- Notifications aux participants (avancement, échéance proche, objectif atteint)
+
+**Epic : Notifications et communication**
+
+- Notifications de rappel avant une date d’échéance
+- Notifications lors de la réservation ou participation à un cadeau commun
+- Alertes en cas de baisse de prix ou d’indisponibilité d’un produit
+
+
+### Outfision : Application de gestion de dressing et de recommandation de tenues
+
+
+#### Contexte
+
+Le projet consiste à concevoir et développer une application web permettant aux utilisateurs de gérer numériquement leur garde-robe et d’obtenir des recommandations de tenues adaptées à leur usage réel.
+
+L’application vise à répondre à plusieurs problématiques courantes :
+
+- Visualiser l’ensemble de ses vêtements et accessoires sans devoir sortir physiquement son dressing
+- Identifier les vêtements peu ou jamais portés
+- Composer des tenues adaptées sans effort de réflexion
+- Optimiser l’usage de sa garde-robe existante
+
+L’application devra permettre l’ajout de vêtements à partir d’images, leur catégorisation via des tags, et proposer des recommandations de tenues selon différents critères (saison, événement, météo, etc.).
+
+#### Fonctionnalités attendues
+
+**Epic : Gestion des comptes utilisateurs**
+
+- Création de compte utilisateur (inscription)
+- Authentification par identifiant et mot de passe
+- Gestion de profil utilisateur (informations de base)
+- Accès sécurisé aux fonctionnalités de l’application
+
+**Epic : Gestion de la garde-robe**
+
+- Ajout d’un vêtement à la garde-robe à partir d’une image
+- Association d’un vêtement à plusieurs tags de classification :
+  - Saison (été, hiver, mi-saison, etc.)
+  - Type de vêtement (robe, pantalon, t-shirt, veste, chaussures, accessoires, etc.)
+  - Couleur
+  - Type d’événement (professionnel, quotidien, plage, soirée, mariage, etc.)
+- Possibilité de modifier ou supprimer un vêtement existant
+
+**Epic : Visualisation de la garde-robe**
+
+- Consultation de l’ensemble de la garde-robe
+- Consultation par catégories (type, saison, couleur, événement)
+- Visualisation détaillée d’un vêtement (image, tags, historique d’utilisation)
+
+**Epic : Recommandation de tenues**
+
+- Recommandation automatique de tenues en fonction :
+  - de la saison
+  - du type d’événement
+- Composition de tenues cohérentes à partir des tags
+  (ex. : robe d’été ou combinaison t-shirt + pantalon)
+- Possibilité d’afficher plusieurs propositions alternatives
+
+**Epic : Suivi de l’utilisation des vêtements**
+
+- Enregistrement de l’utilisation d’un vêtement
+- Visualisation du nombre de fois où un vêtement a été porté
+- Analyse sur une période définie par l’utilisateur
+  (ex. : dernier mois, dernière année, période personnalisée)
+- Mise en évidence des vêtements rarement ou jamais utilisés
+
+
+#### Fonctionnalités avancées
+
+**Epic : Recommandation des vêtements à vendre**
+
+- Identification automatique des vêtements peu utilisés
+- Définition d’un seuil de non-utilisation (paramétrable)
+- Proposition de vêtements à revendre ou à donner
+- Préparation à une éventuelle intégration avec des plateformes de revente
+
+**Epic : Planification des tenues**
+
+- Planification de tenues dans un calendrier
+- Association d’une tenue à une date donnée
+- Recommandation automatique de tenue pour une journée donnée
+- Prise en compte de la météo :
+  - Température
+  - Pluie
+  - Conditions climatiques
+
+
 ### Autres projets : votre projet
 
 Vous pouvez évidemment proposer un sujet, sous réserve de validation. Pour maximiser les chances, il faut que votre projet utilise une ressource externe.
