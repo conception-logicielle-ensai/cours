@@ -1,6 +1,6 @@
 ---
 title: "Architecture applicative"
-weight: 30
+weight: 2
 draft: false
 description: "Appréhender l'organisation structurelle d’une application logicielle"
 summary: "Appréhender les enjeux de l'architecture logicielle pour la conception logicielle"

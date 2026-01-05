@@ -1,6 +1,6 @@
 ---
 title: "Configuration du code en fonction de l'environnement"
-weight: 40
+weight: 4
 draft: false
 description: "Comprendre comment gérer la configuration d’une application de manière propre, sécurisée et maintenable, indépendamment du code source"
 summary: "Gestion de la configuration et des variables d’environnement en développement logiciel"

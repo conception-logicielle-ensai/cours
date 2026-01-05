@@ -1,6 +1,6 @@
 ---
 title: "Git Avancé"
-weight: 40
+weight: 1
 draft: false
 description: "Consolider l'usage de Git dans un cadre de projet et de conception logicielle (quand, quoi, comment, pourquoi)"
 summary: "Notions avancées de Git pour le travail en projet"

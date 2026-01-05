@@ -1,6 +1,6 @@
 ---
 title: "Gestionnaire de package, partage de code, industrialisation"
-weight: 29
+weight: 3
 draft: true
 description: "Comprendre la portabilité applicative et l'utilisation de dépendances logicielle"
 summary: "Comprendre la portabilité applicative et l'utilisation de dépendances logicielle"
