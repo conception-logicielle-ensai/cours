@@ -25,7 +25,7 @@ Un suivi sera réalisé après la séance du **9 février**, il faudra pour cela
 
 La dernière séance (**16 février**) sera dédiée a la réalisation des projets de votre côté et au retours de notre part.
 
-Le rendu final est exigé pour le mercredi **4 mars à 21h**.  
+Le rendu final est exigé pour le vendredi **6 mars à 21h**.  
 
 
 ## Rendu final
@@ -35,7 +35,7 @@ Le lien de votre dépôt git devra être envoyé par mail aux 2 mails :
 - `antoinebrunetti@gmail.com`
 - `oriane.foussard@insee.fr`
 
-avant la deadline du **4 mars** à 21h.
+avant la deadline du **6 mars** à 21h.
 
 > Pour information, pour les dépôts privés, il faudra également nous ajouter dans les membres. a défaut ajoutez le compte `ragatzino` et le compte `orianefoussard`. 
 
