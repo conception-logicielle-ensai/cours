@@ -4,8 +4,8 @@ weight: 10
 draft: false
 description: "Aide a la prise en main du poste linux et environnements d'execution contextuel au cours"
 summary: "Aide a la prise en main du poste linux et environnements d'execution contextuel au cours"
-slug: "prise-en-main-linux"
-tags: ["ubuntu", "linux", "démarrage"]
+slug: "aide-organisation-code"
+tags: ["aide","architecture applicative"]
 ---
 
 Ce module vous présente des propositions d'organisation du code en modules cohérents.
@@ -18,6 +18,7 @@ L'architecture multi-couches permet de séparer les différentes responsabilité
 
 Il faudra adapter votre architecture en ce sens.
 
+Lien vers le cours associé : 
 ### Python - fastapi/flask
 - Un dossier pour l'application : `app`
 - Un sous dossier de app pour chaque couche applicative : `router/controller` `dao` `business_object` ...
