@@ -134,7 +134,7 @@ curl -fsSL https://pyenv.run | bash # pyenv automatic installer
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
 echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"'  >> ~/.profile
 echo 'eval "$(pyenv init - bash)"'  >> ~/.profile
-
+source .profile
 pyenv install 3.13
 pyenv global 3.13
 echo "version python3 & pip apres installation via pyenv"
