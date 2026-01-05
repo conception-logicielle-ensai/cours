@@ -865,10 +865,16 @@ En programmation fonctionnelle, une donnée est dite immuable lorsqu’elle ne p
 
 En Python, certains types sont immuables par conception : une fois créés, ils ne peuvent pas être modifiés.
 
-Par exemple les génériques :[`int`,`float`,`bool`,`complex`,`str`]
+Par exemple les génériques : 
 
-Mais pas les types :[`dict`, `list`, `set`], pensés pour la manipulation
+```
+[int,float,bool,str]
+```
+Mais pas les types : 
 
+```
+[dict, list, set]
+```
 #### Exemples
 
 Cas entier :
