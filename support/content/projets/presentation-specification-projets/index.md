@@ -25,7 +25,7 @@ Un suivi sera réalisé après la séance du **9 février**, il faudra pour cela
 
 La dernière séance (**16 février**) sera dédiée a la réalisation des projets de votre côté et au retours de notre part.
 
-Le rendu final est exigé pour le mercredi **7 mars à 21h**.  
+Le rendu final est exigé pour le mercredi **4 mars à 21h**.  
 
 
 ## Rendu final
@@ -35,7 +35,7 @@ Le lien de votre dépôt git devra être envoyé par mail aux 2 mails :
 - `antoinebrunetti@gmail.com`
 - `oriane.foussard@insee.fr`
 
-avant la deadline du **7 mars** à 18h.
+avant la deadline du **4 mars** à 21h.
 
 > Pour information, pour les dépôts privés, il faudra également nous ajouter dans les membres. a défaut ajoutez le compte `ragatzino` et le compte `orianefoussard`. 
 
@@ -77,7 +77,8 @@ A titre indicatif, voici le barème de 2025, il évoluera probablement cette ann
 | Gestion du dépôt git |  2 pts | 
 | Documentation (présentation projet) |  2 pts | 
 | Portabilité | 3 pts |
-| Configuration | 2 pts |
+| Conteneurisation | 1 pts |
+| Déploiement | 1 pts |
 | Structure du code / architecture |    2 pts   | 
 | Applicatif fonctionnel | 4 pts |
 | Qualité du code - testing | 3 pts |

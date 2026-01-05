@@ -11,7 +11,7 @@ tags: ["ubuntu", "linux", "démarrage"]
 
 ![](https://static1.howtogeekimages.com/wordpress/wp-content/uploads/2021/11/what-is-ubuntu.png)
 
-Cette section a pour objectif de vous accompagner dans la **prise en main du poste Linux** qui vous a été fourni lors de la rentrée du **06/01/2025**.
+Cette section a pour objectif de vous accompagner dans la **prise en main du poste Linux** qui vous a été fourni lors de la rentrée du **05/01/2026**.
 
 Elle constitue une base de travail pour configurer un **environnement de développement fonctionnel, cohérent et proche des standards professionnels**, que nous utiliserons tout au long du cours et des travaux pratiques.
 
