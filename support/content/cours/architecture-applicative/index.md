@@ -364,16 +364,14 @@ D'autres architectures existent, l'architecture hexagonale qui isole le cœur m�
 > Un article pour s'intéresser a l'architecture hexagonale en python: https://medium.com/@miks.szymon/hexagonal-architecture-in-python-e16a8646f000
 
 
-## Programmation Orientée Objet (POO)
+## Programmation orientée objet (POO) : Principes de l'objet
 
 La programmation orientée objet (POO) repose sur plusieurs principes fondamentaux, parmi lesquels : **polymorphisme**, **encapsulation** et **héritage**. Ces concepts permettent de structurer le code de manière modulaire, réutilisable et extensible.
 
 
-### Principes de l'objet
-
 La programmation orientée objet (POO) repose sur plusieurs principes fondamentaux, parmi lesquels : **polymorphisme**, **encapsulation** et **héritage**. Ces concepts permettent de structurer le code de manière modulaire, réutilisable et extensible.
 
-#### Polymorphisme  
+### Polymorphisme  
 Le polymorphisme permet à une même méthode ou fonction d'avoir des comportements différents selon le contexte ou le type de données.Cela permet de définir des interfaces ou contrats génériques sans se soucier des détails d'implémentation. 
 
 Concrètement, on peut écrire du code qui manipule des objets de manière abstraite (via une interface commune), puis être libre d'ajouter de nouvelles implémentations concrètes sans modifier le code existant.
@@ -539,12 +537,18 @@ flight_reservation.display_info()
 flight_reservation.confirm()
 ```
 
-## Programmation orientée objet : Principes SOLID 
+##  Programmation orientée objet (POO) : Principes SOLID
 
 ![](https://cdn.prod.website-files.com/65cb885e207a8d416674eca1/668fc5664209f0b439cce300_Sans%20titre-4.png)
 
-### 1. **SRP : Principe de Responsabilité Unique (Single Responsibility Principle)**  
-Un module logiciel (classe, fonction, etc.) ne doit avoir qu'une seule raison de changer.  
+#### 1. **SRP : Principe de Responsabilité Unique (Single Responsibility Principle)**  
+Un module logiciel (classe, fonction, package...) ne doit avoir qu'**une seule raison de changer**.  
+
+Autrement dit, une classe doit avoir **une responsabilité claire et bien définie**.
+
+> [!TIP]+Typiquement
+> Une classe qui calcule, affiche et persiste des données viole le SRP.
+
 ```python
 # Mauvaise pratique : une seule classe gère plusieurs responsabilités.
 class Order:
@@ -554,7 +558,8 @@ class Order:
         pass  # Imprime la commande
     def save_to_db(self):
         pass  # Sauvegarde dans la base de données
-
+```
+```python
 # Bonne pratique : chaque classe gère une seule responsabilité.
 class Order:
     def calculate_total(self):
@@ -571,8 +576,11 @@ class OrderRepository:
 
 > Cela implique donc qu'il faut séparer fonctionnellement les implémentations entre des **couches** bien distinctes => Vues, Business_object, ...
 
-### 2. **OCP : Principe Ouvert-Fermé (Open-Closed Principle)**  
+#### 2. **OCP : Principe Ouvert-Fermé (Open-Closed Principle)**  
 Les modules logiciels doivent être **ouverts** à l’extension, mais **fermés** à la modification.  
+
+> [!TIP]+Typiquement
+> L’ajout d’un nouveau fonctionnement dans une fonctionnalité déjà développée ne doit pas nécessiter de modifier une classe existante.
 ```python
 # Mauvaise pratique : modification du code existant pour ajouter un comportement.
 class Discount:
@@ -581,7 +589,8 @@ class Discount:
             return price * 0.9
         elif discount_type == "fixed":
             return price - 10
-
+```
+```python
 # Bonne pratique : extension via des classes dérivées.
 from abc import ABC, abstractmethod
 
@@ -601,9 +610,11 @@ class FixedDiscount(Discount):
 
 > Cela vous permet de définir autant de versions différentes par extensions plutôt que de créer des chaines de **if**.
 
-### 3. **LSP : Principe de Substitution de Liskov (Liskov Substitution Principle)**  
-Les sous-types doivent être substituables à leurs types parents.  
-=> Les enfants doivent respecter le contrat d'interface des parents.
+#### 3. **LSP : Principe de Substitution de Liskov (Liskov Substitution Principle)**  
+Tout objet d’un type dérivé doit pouvoir être utilisé à la place de son type parent, sans altérer le comportement attendu.
+
+> [!TIP]+Dit autrement
+> Les enfants doivent respecter le contrat d'interface des parents.
 
 ```python
 # Mauvaise pratique : la classe dérivée casse le contrat de la classe parent.
@@ -614,7 +625,8 @@ class Bird:
 class Penguin(Bird):
     def fly(self):
         raise Exception("Les pingouins ne volent pas!")
-
+```
+```python
 # Bonne pratique : refactorisation pour respecter le contrat.
 from abc import ABC, abstractmethod
 
@@ -631,11 +643,10 @@ class NonFlyingBird(Bird):
     def move(self):
         print("Je marche!")
 ```
-### 4. **ISP : Principe de Ségrégation des Interfaces (Interface Segregation Principle)**  
+#### 4. **ISP : Principe de Ségrégation des Interfaces (Interface Segregation Principle)**  
 Un client ne doit pas être forcé de dépendre d'interfaces qu'il n'utilise pas.  
 - Ce principe prône la conception d’interfaces spécifiques à un usage précis, évitant les dépendances inutiles.  
 
-Il faut donc séparer lorsqu'il y a des dépendances non pertinentes pour définir un objet en plusieurs sous dépendances.
 
 ```python
 # Mauvaise pratique : une interface trop large.
@@ -654,7 +665,8 @@ class Dog(Animal):
         raise NotImplementedError()
     def swim(self):
         pass
-
+```
+```python
 # Bonne pratique : des interfaces spécifiques.
 from abc import ABC, abstractmethod
 
@@ -675,9 +687,14 @@ class Dog(Eater, Swimmer):
         print("Je nage!")
 ```
 
-### 5. **DIP : Principe d'Inversion des Dépendances (Dependency Inversion Principle)**  
+#### 5. **DIP : Principe d'Inversion des Dépendances (Dependency Inversion Principle)**  
 Les modules de haut niveau ne doivent pas dépendre des modules de bas niveau.  
-- Les détails doivent dépendre des abstractions, et non l’inverse. Cela permet une séparation claire entre la logique métier et les détails d’implémentation.
+
+> [!TIP]+ A retenir
+> On injecte des abstractions (interfaces) plutôt que des implémentations concrètes, ce qui permet de changer ces dernières sans modifier le code client.
+
+> Cela rentre dans les choix de design qui permettent de garder un code ouvert.
+
 
 ```python
 # Mauvaise pratique : dépendance directe sur une implémentation.
@@ -691,7 +708,8 @@ class UserRepository:
     def get_user(self, user_id):
         self.db.connect()
         print(f"Récupération de l'utilisateur {user_id}")
-
+```
+```python
 # Bonne pratique : dépendance sur une abstraction.
 from abc import ABC, abstractmethod
 
@@ -729,6 +747,24 @@ Ces principes permettent :
 
 ## Programmation Fonctionnelle
 
+![](/images/archi/functionnal_basics.webp)
+
+
+Cette partie présente des concepts détaillés dans le livre.
+> **Functional Programming in Scala**, Paul Chiusano and Rúnar Bjarnason.
+
+La programmation fonctionnelle est un paradigme qui vise à construire des programmes prévisibles, composables et faciles à raisonner, en s’appuyant principalement sur :
+
+- les fonctions pures,
+
+- l’immutabilité,
+
+- la composition,
+
+- la gestion explicite des effets de bord.
+
+
+### Qu'est ce qu'une fonction ?
 Les fonctions permettent de regrouper des instructions pour accomplir une tâche spécifique. Elles favorisent la réutilisabilité, la compréhension du code et son organisation.
 
 Exemple : 
@@ -757,5 +793,158 @@ def preparer_mousse_au_chocolat():
 preparer_mousse_au_chocolat()
 ```
 
-> Bilan : Les modules et fonctions permettent ainsi de créer des programmes bien structurés, organisés autour de blocs logiques qui favorisent la réutilisation et la compréhension du code.
+> [!TIP]+ A retenir
+> Le bon nommage des fonction et des paramètres permettent une abstraction qui rendent le code très lisible, veillez à cela.
 
+### Fonctions pures
+En programmation fonctionnelle, une fonction pure ne modifie jamais les données qu’elle reçoit.
+
+Une modification inclut par exemple les éléments suivants :
+- Modification d'une variable en entrée
+- Changement d'un état externe
+- Jeter une exception ou arrêter le traitement avec une erreur
+- Print dans la console ou attendre une action externe
+- Lire ou écrire dans un fichier
+
+Même lorsqu’elle manipule des objets complexes (dictionnaires, listes, objets métier), elle doit produire une nouvelle valeur, pas modifier une valeur existante.
+
+> [!TIP]+ Ouverture
+> Imaginez un mode de programmation ou on ne peut pas faire de l'assignation de variable, de boucles, de la gestion d'exception. C'est le cas pour certains languages.
+
+#### Exemple: Manipulation d'un dictionnaire
+
+Considérons un objet order représentant une commande.
+```python
+order = {
+    "id": 42,
+    "items": [
+        {"name": "vans", "price": 80},
+        {"name": "converse-xxx", "price": 100},
+        {"name": "noname", "price": 120}
+    ],
+    "total": 0
+}
+```
+
+Exemple de fonction, est elle pure ?
+
+```python
+def calculate_total(order):
+    total = sum(item["price"] for item in order["items"])
+    order["total"] = total
+    return order
+```
+
+Problèmes :
+
+- l’objet order est modifié sur place
+
+- la fonction a un effet de bord: elle modifie order
+
+- l’appelant ne peut pas savoir si l’objet a été altéré par la fonction
+
+Voici une version avec fonction pure:
+```python
+def calculate_total(order):
+    total = sum(item["price"] for item in order["items"])
+    return {
+        **order,
+        "total": total
+    }
+```
+
+**Comment on fait du coup?**
+
+On réaffecte directement, le changement est **explicite** : 
+```python
+order = calculate_total(order)
+```
+### Immutabilité
+
+En programmation fonctionnelle, une donnée est dite immuable lorsqu’elle ne peut pas être modifiée après sa création.
+
+En Python, certains types sont immuables par conception : une fois créés, ils ne peuvent pas être modifiés.
+
+Par exemple les génériques :[`int`,`float`,`bool`,`complex`,`str`]
+
+Mais pas les types :[`dict`, `list`, `set`], pensés pour la manipulation
+
+#### Exemples
+
+Cas entier :
+```python
+a = 10
+b = a
+a += 1
+
+print(a)  # 11
+print(b)  # 10
+```
+
+Une liste
+```python
+lst = [1, 2, 3]
+lst2 = lst
+lst2.append(4)  # mutation
+print(lst) # [1,2,3,4]
+```
+
+> [!TIP]+ Remarque
+> Cela conduit a un ensemble de bugs qu'on peut éviter a la conception
+
+#### Solutions en python
+
+Python n’est pas un langage purement fonctionnel :
+
+- les listes et dictionnaires sont mutables par défaut.
+
+- l’immutabilité est une discipline de programmation, pas une contrainte du langage.
+
+Cependant, Python offre des outils favorables :
+- tuples (tuple) plutôt que listes
+- dataclasses(frozen=True) pour les objets.
+
+```python
+from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Order:
+    id: int
+    items: list
+    total: float = 0.0
+
+order = Order(id=2,items=["vans"],total=0)
+order.total = 100  # ❌ FrozenInstanceError
+```
+
+Vous pensez que c'est vraiment immutable? Non.
+
+{{< alert >}}
+Limitez au maximum l'usage de types mutables
+{{</alert>}}
+```python
+class Order:
+    id: int
+    items: list
+    total: float = 0.0
+
+order = Order(id=2,items=["vans"],total=0)
+# Order(id=2, items=['vans'], total=100)
+liste = order.items
+liste.append("converse")
+# Order(id=2, items=['vans', 'converse'], total=100)
+```
+
+### Que retenir dans notre cadre ?
+
+La programmation fonctionnelle repose sur plusieurs principes fondamentaux, mais elle couvre un large éventail de cas d’usage que nous n’explorerons pas davantage dans ce cours.
+
+L’objectif ici est avant tout de mettre l’accent sur l’application de l’immutabilité dans vos développements, afin de :
+
+- limiter les effets de bord
+
+- améliorer la lisibilité et la testabilité du code
+
+- faciliter le raisonnement sur le comportement des programmes
+
+Ces notions peuvent être appliquées progressivement, y compris dans un code orienté objet ou impératif, sans adopter une approche strictement fonctionnelle.

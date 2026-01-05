@@ -1,0 +1,25 @@
+<div class="ba-wrapper">
+  <div class="ba-header">
+    <span>Mauvaise pratique</span>
+    <span>Bonne pratique</span>
+  </div>
+
+  <div class="ba-container" style="--pos:50%;">
+    <div class="ba-before">
+      {{ .Get "before" | markdownify }}
+    </div>
+
+    <div class="ba-after">
+      {{ .Get "after" | markdownify }}
+    </div>
+
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      class="ba-slider"
+      oninput="this.parentElement.style.setProperty('--pos', this.value + '%')"
+    >
+  </div>
+</div>

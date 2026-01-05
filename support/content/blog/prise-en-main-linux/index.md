@@ -136,6 +136,8 @@ pyenv global 3.13
 echo "version python3 & pip apres installation via pyenv"
 python3 --version
 pip --version
+echo "install uv"
+curl -LsSf https://astral.sh/uv/install.sh | sh
 # installation de nvm pour installer node et npmjs
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 source ~/.bashrc
