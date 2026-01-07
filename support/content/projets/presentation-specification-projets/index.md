@@ -25,7 +25,7 @@ Un suivi sera réalisé après la séance du **9 février**, il faudra pour cela
 
 La dernière séance (**16 février**) sera dédiée a la réalisation des projets de votre côté et au retours de notre part.
 
-Le rendu final est exigé pour le vendredi **6 mars à 21h**.  
+Le rendu final est exigé pour le mercredi **4 mars à 21h**.  
 
 
 ## Rendu final
