@@ -27,9 +27,9 @@
   weight = 4
 
 [[main]]
-  name = "Configuration"
+  name = "Bonnes pratiques"
   parent = "Cours"
-  pageRef = "cours/configuration"
+  pageRef = "cours/bonnes-pratiques"
   weight = 5
 
 [[main]]
