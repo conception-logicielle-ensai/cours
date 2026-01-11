@@ -1,14 +1,15 @@
 ---
-title: "Poetry : getting started"
+title: "Poetry : prise en main et intêret de l'outil"
 weight: 14
 draft: false
-description: ""
-summary: "Gestion de packages : éléments supprimés ressources tierces"
-slug: "poetry"
-tags: ["portabilite","packaging","poetry", "legacy"]
+description: "Présentation de poetry, autre outil pour la gestion des dépendances d'un projet python"
+summary: "Présentation de poetry, autre outil pour la gestion des dépendances d'un projet python"
+slug: "prise-en-main-poetry"
+tags: ["portabilite","packaging","poetry","cut"]
 ---
+![](/images/gestionnaire-de-package/competing-standard.webp)
 
-Cet article présente des notions sur poetry qui sont sorties du cours en 2026.
+Cet article présente des notions sur poetry qui sont sorties du cours en 2026 (cours 2025).
 
 Désormais, il est plutôt d'usage d'utiliser **UV** plutôt que **poetry**, donc le cours s'attelera plutôt sur UV. Mais poetry est encore dans quelques projets donc cela peut avoir encore du sens d'avoir accès a cette documentation.
 
@@ -41,11 +42,14 @@ poetry init
 ```
 
 Ensuite pour ajouter des package a un projet poetry :
-et pour démarrer une config pour poetry : 
 ```sh
 poetry add requests
 ```
 
+> (ici requests)
+
 Poetry fonctionne avec un fichier `pyproject.toml` qui est bien plus complexe que le simple fichier `requirements.txt`. C'est plus propre et cela vous permet d'administrer en fonction des versions de python les installation et les environnements virtuels a construire dans le projet. 
 
 Cela permet également une gestion des dépendances Dev dans le projet: Des paquets dév sont utiles en local (test, lint) mais pas pour le fonctionnement propre du code.
+
+La configuration s'appuie sur un dépôt de sources python type : `./src/...`

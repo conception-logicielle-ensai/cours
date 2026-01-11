@@ -1,16 +1,17 @@
 ---
 title: "Gestionnaire de package, partage de code, industrialisation"
 weight: 3
-draft: true
-description: "Comprendre la portabilité applicative et l'utilisation de dépendances logicielle"
-summary: "Comprendre la portabilité applicative et l'utilisation de dépendances logicielle"
-slug: "packages-portabilite"
+description: "Comprendre la portabilité applicative via l'utilisation de dépendances logicielles"
+summary: "Comprendre la portabilité applicative vis l'utilisation de dépendances logicielles"
+slug: "gestionnaire-de-package"
 tags: ["cours","portabilite", "librairie","package", "automatisation","environnement"]
 series: ["Cours"]
 series_order: 3
 ---
 
 Ce cours présente comment utiliser, mettre en place et partager un environnement de code fonctionnel. Cela assure la portabilité de votre application pour que l'on puisse l'utiliser ailleurs que sur votre poste. 
+
+> [!TIP]+ Exemple
 > https://coder.com/blog/it-works-on-my-machine-explained
 
 Pour information : Les exemples présentés dans le cours seront disponibles ici : [https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-3](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-3) 
@@ -31,13 +32,17 @@ Depuis un terminal, faites les commandes suivantes :
 - Ce package a ensuite été importé et utilisé directement en ligne de commande via python3, installé sur votre machine
 - Il a executé du code python : un print dans votre console.
 
-Optionnel: Faire en sorte de changer l'output du lancement de la commande `python3 -m helloensai` a partir du message dans la console.
+> **Sidequest 🐧** : faire en sorte de changer l'output du lancement de la commande `python3 -m helloensai` a partir du message dans la console.
+
+
 
 </p></details>
 
 ## Interpréteur/Compilateur
 
-<img src="/images/portabilite/interpretervscompiler.webp">
+[]
+> Référence : https://blog.amigoscode.com/p/java-vs-python
+### Python, un language interprété
 
 Python appartient à la catégorie des langages interprétés (tout comme Javascript et R, par exemple).  
 Un langage interprété possède un interpréteur (on parle aussi de `runtime`)
@@ -55,30 +60,87 @@ python3 --version
 
 > **Remarque** : il peut être disponible sur votre système mais pas défini dans un endroit connu du système voir : https://medium.com/towards-data-engineering/understanding-the-path-variable-in-linux-2e4bcbe47bf5
 
-> **Sidequest** : si vous vous demandez où `python` est installé, vous pouvez utiliser la commande `which` (ou `where` pour les systèmes Windows)
+> **Sidequest 🐧** : si vous vous demandez où `python` est installé, vous pouvez utiliser la commande `which` (ou `where` pour les systèmes Windows)
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin : Compilateur</strong> <br/> 
 
-Pour les languages compilés, il faut un compilateur qui nous permet depuis notre language a un autre language, souvent de plus bas niveau, executable soit directement par la machine soit par un autre interpréteur.
+### Compilateur Python : Cpython et le bytecode
 
-Pour python, on entend souvent parler de cython : <a href="https://cython.org/">"https://cython.org/"</a>
-</div>
+Même si Python est qualifié de *langage interprété*, l’exécution du code passe en réalité par une **étape de compilation**.
 
-<br />
+Dans la très grande majorité des cas, lorsque l’on parle de Python, on parle de **CPython**, l’implémentation officielle du langage.
 
-<br />
+> En pratique, CPython compile le code source Python en *bytecode*, qui est ensuite exécuté par une machine virtuelle (PVM).
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin : Transpileur </strong> <br/> 
-   Il existe également des transpileurs, pour convertir des languages en autres languages : ex pour javascript : <a href="https://fr.javascript.info/polyfills"> https://fr.javascript.info/polyfills </a>
-</div>
+Ce bytecode est stocké dans des fichiers `.pyc`, généralement situés dans un dossier `__pycache__`.
 
-## Environnement d'execution : runtime
+- Le bytecode n’est **pas du code machine**
+- Il est spécifique à une version de Python
+- Il permet d’accélérer les exécutions suivantes
 
-> Cette partie s'attele a présenter ce qu'on appelle l'environnement d'execution. 
+L’exécution se fait ensuite via la **Python Virtual Machine (PVM)**, intégrée à l’interpréteur.
 
-L'environnement d'execution, est l'ensemble des paramètres constituant le contexte d'execution du code:
+> **Remarque** : le dossier `__pycache__` peut être supprimé sans risque, il sera recréé automatiquement par Python si nécessaire.
+
+> [!TIP]+ Pour aller plus loin : PVM
+> https://www.geeksforgeeks.org/python/python-virtual-machine/)
+
+### Librairies natives Python : C et Cython
+
+
+Pour des raisons de performance, certaines parties de l’écosystème Python ne sont **pas écrites en Python**, mais en **C**.
+
+C’est le cas de nombreuses bibliothèques populaires comme :
+- `NumPy`
+- `pandas`
+- `scikit-learn`
+
+Pour faciliter l’écriture de ce type de modules, on utilise souvent **Cython**.
+
+Cython est :
+- Un **superset de Python** (du Python avec des extensions)
+- Un langage qui se **compile en C**, puis en code machine
+- Un outil permettant de créer des **modules utilisables directement en Python**
+
+Une fois compilé, un module Cython :
+- S’importe avec `import` comme n’importe quel module Python
+- S’exécute en code machine, donc beaucoup plus rapidement
+- Est chargé et utilisé par l’interpréteur Python
+
+> **Important** : l’utilisateur final n’a pas besoin de Cython pour utiliser ces bibliothèques, seulement de Python et du module compilé.
+
+> [!TIP]+ Un exemple
+> Un exemple de code Cython est disponible sur le [dépôt d'exemples]()
+
+### Transpileurs
+
+Il existe également des outils appelés **transpileurs**.
+
+Un transpileur permet de :
+- Convertir un langage source vers un autre langage
+- Tout en restant à un niveau d’abstraction similaire
+
+**Il existe également ce qu’on appelle les polyfills : ils proposent des implémentations de fonctionnalités récentes compatibles avec les anciennes versions.**.
+
+
+Par exemple :
+- TypeScript → JavaScript ⇒ transpileur (exemple : `babel`)
+- JavaScript moderne → JavaScript plus ancien ⇒ transpileur (exemple : `babel`)
+- Fonctionnalités manquantes à l’exécution du code ancien ⇒ polyfills (exemple : `core-js`)
+
+Contrairement à un compilateur classique :
+- Le résultat d’un transpileur est **du code source**
+- Et non un binaire ou du bytecode
+
+
+> [!TIP]+ Documentation pour approfondir
+> https://fr.javascript.info/polyfills
+
+
+## Environnement d'exécution
+
+> Cette partie s'attele a présenter ce qu'on appelle l'environnement d'exécution. 
+
+L'environnement d'exécution, est l'ensemble des paramètres constituant le contexte d'exécution du code:
 - L'OS et les fonctions noyau liées (puisque les fonctions des programmes s'appuyent dans leur coeur a des fonctions noyau)
 - Les librairies / modules installés
 - Pour la version de python
@@ -88,9 +150,16 @@ L'environnement d'execution, est l'ensemble des paramètres constituant le conte
 
 Lorsque vous voulez travailler avec des fichiers informatiques, les gestionnaires de paquets sont là pour vous.
 
-Ils permettent :
+Ils permettent notamment de :
 
-- d'installer/mettre à jour/désinstaller des logiciels/outils/code.
+- **installer, mettre à jour ou désinstaller** des logiciels, bibliothèques ou outils.
+- **partager et réutiliser** facilement des outils entre différents projets
+- s’appuyer sur des **dépôts centralisés (ou registres)** qui contiennent les packages disponibles
+
+> [!TIP]+ Exemple: en python
+> `pip` est le gestionnaire de paquets officiel.  
+> Il permet d’installer des bibliothèques depuis [PyPI (https://pypi.org/)](https://pypi.org/), le dépôt central de packages Python.
+
 
 Il en existe une Myriade, pour différents usages, languages.
 - `apt`, `snap` pour l'installation de paquet *debian* de manière simplifiée
@@ -98,7 +167,7 @@ Il en existe une Myriade, pour différents usages, languages.
 - `pip` `poetry` pour l'installation de modules *python*.
 - `npm` `yarn` pour l'installation de packages *javascript*
 - `maven` `gradle` pour l'installation de packages *java*
-
+- `docker` `podman` pour l'installation d'images docker
 
 Il faut en général pour définir un gestionnaire de paquets : 
 - Une norme sur le format partagé (.whl, .tar, ...)
@@ -146,7 +215,7 @@ Lien vers la référence de la commande
 > Fonctionnellement, a part le contrat d'interface sur l'import, le fonctionnement est équivalent, une fois l'import effectué.
 
 
-## Wheel : Le format de référence
+### Wheel : Le format de référence
 
 
 Lorsque vous installez des packages par l'extérieur vous utilisez déjà probablement des fichiers wheel ou `.whl`.
@@ -155,7 +224,7 @@ Une wheel est essentiellement un zip, ou tar qui a un nom qui peut être parsé 
 
 Regardez plutôt : `{dist}-{version}(-{build})?-{python}-{abi}-{platform}.whl`
 
-> Exemple : <a href="https://files.pythonhosted.org/packages/70/8e/0e2d847013cb52cd35b38c009bb167a1a26b2ce6cd6965bf26b47bc0bf44/requests-2.31.0-py3-none-any.whl">`requests-2.31.0-py3-none-any.whl`</a>
+> Exemple : <a href="https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl">`requests-2.32.5-py3-none-any.whl`</a>
 
 > Ce qui donne: `{requests}-{2.31.0}-{py3}-{none}-{any}`
 
@@ -180,13 +249,13 @@ Index du "tuto" Pypi pour construire et déployer un livrable : [**Build and pub
 </div>
 
 
-## Isolation des environnements d'execution : **Environnements virtuels**
+### Environnements virtuels : Isolation 
 
-<img style="max-width:60%;" src="/images/portabilite/python-virtualenv-project-structure.jpg"/>
+<img src="/images/portabilite/python-virtualenv-project-structure.jpg"/>
 
 Pour une isolation des paquets installés, et ne pas utiliser tout ce qui existe déjà sur un poste, python permet l'utilisation d'environnements virtuels (virtualenv ou venv).
 
-Ils s'installent au travers du module venv ex :
+Ils s'installent au travers du module venv installé comme un module de votre python ex :
 
 `python3 -m venv ./venv`
 
@@ -208,7 +277,7 @@ Une fois mis en place, vous pouvez le lancer en utiliser la commande en fonction
     - Vous avez maintenant une parenthèse vous indiquant que vous êtes bien dans votre venv dans votre terminal
     - consulter l'interpreteur python dans votre vscode
 
-💥 Attention à ne pas le versionner toutefois, réferez vous au .gitignore du chapitre git pour plus d'informations
+💥 Attention à ne pas le versionner toutefois, réferez vous au **.gitignore** du module [git avancé](/cours/git-avance/) pour plus d'informations
 
 🏁 maintenant vous pouvez mettre en place l'environnement via pip install -r requirements.txt par exemple
 <div class="alert alert-info">
@@ -223,17 +292,59 @@ Cela peut notamment être utile dans des environnements contraints de passer par
 Documentation ici : https://docs.anaconda.com/getting-started/
 </div>
 
+## Licences : dans quel cadre peut-on utiliser du code tierce ?
+
+![](/images/portabilite/license.png)
+
+Lorsque l’on utilise une bibliothèque (open source), on n’utilise pas uniquement du code, on accepte également une **licence**, qui définit les droits et obligations liés à son utilisation.
+
+> **Open source ne signifie pas sans règles.**
+
+### **Pourquoi les licences sont importantes**
+
+Chaque package open source est distribué avec une licence qui définit **ce que vous pouvez et ne pouvez pas faire** avec le code.  
+Par exemple, elle peut préciser si vous pouvez :
+
+- utiliser le package dans un projet personnel ou commercial,
+- le modifier pour l’adapter à vos besoins,
+- redistribuer votre version du code.
+
+### **Exemple concret** 
+
+La bibliothèque `requests` en Python utilise la licence [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+Comment le voir ? 
+- Soit directement sur le dépôt PyPI : ici https://pypi.org/project/requests/ (onglet métadonnées)
+- Soit directement sur votre environnement d'éxécution : `pip show requests`
+
+> Cette license spécifie : vous pouvez utiliser un package Apache 2.0 dans votre projet, le modifier, le vendre ou le distribuer, tant que vous gardez la notice de licence.
+
+À l’inverse, certaines licences plus strictes, comme la [GPL](https://www.gnu.org/licenses/gpl-3.0.html), obligent à publier votre code sous la même licence si vous redistribuez un logiciel qui utilise une bibliothèque sous GPL. **On parle alors de copyleft**.
+
+> [!TIP]+ Comparatif des licences open source
+> https://choosealicense.com/licenses/
 
 
-## Canoniser l'environnement d'execution
+{{< alert icon="fire" cardColor="#e63946" iconColor="#1d3557" textColor="#f1faee" >}}
+Pour tout projet, il est attendu de déclarer une License adaptée dans le coeur du projet (fichier LICENSE à la racine). Cela permet de préciser les droits et obligations liés à l'utilisation et à la redistribution de votre code.
+{{</alert>}}
 
 
-<img src="/images/portabilite/requirements.png"/>
+## Reproductibilité et portabilité
+
+![](/images/portabilite/port.png)
+
+
+
+
+Un des enjeux dans la conception logicielle est de construire des applicatifs qui sont maintenable et facile à faire évoluer.
+
+Une pratique essentielle à incorporer dans vos développement et de penser à **canoniser** l'environnement d'exécution pour permettre 
 
 ### Pip et un fichier canonique : *requirements.txt*
-
+![](/images/portabilite/requirements.jpg)
 Pour mieux partager un environnement qui permet de faire tourner le code,
-**pip** propose de sanctuariser les dépendances dans un fichier **requirements.txt**. C'est l'équivalent des fichiers `package.json` en Javascript (npm), `pom.xml` (Java / maven) ...
+**pip** propose de sanctuariser les dépendances dans un fichier **requirements.txt**.
 
 Exemple de fichier requirements.txt: 
 ```
@@ -253,31 +364,29 @@ pip install -r requirements.txt
 
 **Le fichier requirements.txt doit être versionné avec votre code sur git**
 
-> Bien évidemment, cela est pertinent a condition d'être dans un environnement virtuel nu
+> Bien évidemment, cela est pertinent a condition d'être dans un environnement virtuel **nu**
 
-**Remarque**: On peut également copier un environnement d'execution fonctionnel a partir de la fonction `pip freeze`
+**Remarque**: On peut également copier un environnement d'exécution fonctionnel a partir de la fonction `pip freeze`
 
-```
+```sh
 pip freeze > requirements.txt
 ```
 
-
 > Remarque, pip freeze ne fait que des opérations très basiques (lister l'environnement et le sortir dans un message). Il faut donc soit partir d'un environnement d'abord propre (environnement virtuel puis installation de toutes les dépendances), ou utiliser une autre librairie 
 
+On préconisera plutôt `pip-tools` pour sauvegarder un environnement propre:
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin</strong> <br/> 
-Il existe un linter qui permet de générer a partir d'une base de code, une approximation du fichier requirements.txt lien vers la documentation <a href="https://pypi.org/project/pipreqs/">https://pypi.org/project/pipreqs/</a>
-</div>
+```sh
+pip install pip-tools
+pip-compile requirements.in
+```
+### Industrialisation : Poetry, UV
+
+![image source : https://medium.com/@techne98/a-beginners-guide-to-the-uv-package-manager-in-python-eb677460a5bc](/images/portabilite/uv.webp)
 
 
-### Poetry : une alternative sérieuse à pip simplifiant la gestion des dépendances
+`pip` est le gestionnaire de package préconisé par défaut pour python, mais il réside dans son design différentes limites : 
 
-> https://github.com/python-poetry/poetry
-
-Projet plus récent, répondant a des besoins d'usage non couverts/ mal couverts par pip.
-
-Plusieurs limites existent dans l'utilisation de pip pour un projet de taille réelle :
 
 - Gestion des conflits dans l'installation de packages
 - Mauvaise gestion des versions de python // paquets
@@ -286,31 +395,80 @@ Plusieurs limites existent dans l'utilisation de pip pour un projet de taille r�
 - Gestion des venv pour le projet par rapport aux prérequis (version de python etc..)
 - Perennité dans l'installation de package figeant dans le temps une version fonctionnelle du code.
 
-Ici, poetry intègre les notions de versionning, de versions courantes fonctionnelles et crée un lien entre packages et environnement virtuel où l'on execute, ce qui limite naturellement quelques eceuils.
+Ces limites sont en général gérées côté utilisateur par l'installation de plusieurs versions de python et la gestion d'environnement isolés dans chaque projet via `venv`. Mais cela peut s'avérer lourd et pas nécessairement facile à industrialiser.
 
-Pour ce qui est du packaging, poetry est un facilitateur dans la mise en place de la configuration pour le déploiement de package. Tout est dans un fichier qui est le même que le fichier de versionning du projet, mais également tout s'effectue d'un seul coup et avec un seul outil.
+Précedemment on présentait [poetry]() mais il tend a être déprécié pour `uv`, plus rapide et simple a prendre en main par datascientist et dévs.
 
-Pour démarrer il faut l'installer
+
+> [!TIP]+ Pour les curieux
+> https://medium.com/@hitorunajp/poetry-vs-uv-which-python-package-manager-should-you-use-in-2025-4212cb5e0a14 et [doc prise en main poetry supprimée](/blog/prise-en-main-poetry)
+
+
+
+#### Démarrer avec UV
+
+UV propose plus que pip, il permet la gestion : 
+- des environnements virtuels python
+- des installations de python sur le poste
+- des projets et des besoins python pour le projet
+- des paquets sur le projet
+
+L'installation est simplifiée (linux):
+```sh
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
-pip install poetry
-```
 
-et pour démarrer une config pour poetry : 
+Sur un projet ayant déjà `uv` l'installation d'un environnement virtuel est simplifié : 
+```sh
+uv sync
 ```
-poetry init
-```
+**Cette commande est centrale dans l'utilisation d'uv**:
 
-Ensuite pour ajouter des package a un projet poetry :
-et pour démarrer une config pour poetry : 
-```
-poetry add requests
-```
+- Elle cherche une version de python correspondant au projet `pyproject.toml` sur votre système, si elle n'existe pas l'installe.
+- Crée un environnement virtuel python dans le projet.
+- Installe les dépendances dans l'environnement virtuel.
 
-Poetry fonctionne avec un fichier `pyproject.toml` qui est bien plus complexe que le simple fichier `requirements.txt`. C'est plus propre et cela vous permet d'administrer en fonction des versions de python les installation et les environnements virtuels a construire dans le projet. 
+> Vous pouvez ensuite activer l'environnement comme vu précédemment `source ./venv/bin/activate`
+> Ou utiliser une commande directement `uv run python ...`
 
-> Vous êtes libre dans le choix du gestionnaire de package (un autre également : pipenv ), mais vous devrez respectez la règle suivante : votre code devra pouvoir être récupéré et lancé de manière explicite (quelles commandes permettent d'arriver a un environnement fonctionnel dans le fichier **README.md** dans une section dédiée)
+On peut ensuite faire un balayage des commandes: 
+- `uv add` permet d'ajouter des librairies dans la configuration du projet
+- `uv remove` les enlève
+- `uv init` créer les fichiers de base pour uv dans un projet une `main.py`, un `pyproject.toml` et un `README.md`
 
-## Creation d'un package
+#### Lien avec l'environnement cible : grille de compatibilité et lockfile
+
+Un enjeu majeur dans les projets logiciels est de garantir la reproductibilité parfaite de l'environnement d'exécution. 
+
+Dans la plupart des languages, on privilégie plutôt de la gestion des dépendances plus aboutie:
+- Besoin de distinguer ce qui est nécessaire dans l'environnement : **version de python**, **dépendances et leurs versions exactes**. 
+- De ce qui est nécessaire pour le travail **dépendances pour le formattage, test..**.
+
+Mais également :
+
+Spécifier simplement des versions dans requirements.txt ne suffit pas à assurer qu'un environnement sera identique d'une installation à l'autre.
+
+UV (comme Poetry, npm, ou d'autres) utilise un fichier de verrouillage **lockfile**(`uv.lock`) qui enregistre :
+
+- Les versions exactes de toutes les dépendances, **directes** et [**transitives**](https://xygeni.io/fr/sscs-glossary/what-is-transitive-dependency/), résolues à un instant **T** dans un environnement bien identifié:.
+- Les hash cryptographiques (SHA-256) de chaque package téléchargé
+- Les métadonnées de résolution (quelle version de Python, quelle plateforme, etc.)
+
+> C'est donc un fichier à versionner
+
+#### Que retenir ?
+
+On souhaitera plutôt favoriser, pour des projets logiciels plus amples, des gestionnaires de paquets industriels:
+- `uv`et `poetry` pour du python
+- `npm` `yarn` `pnpm` pour js
+- `maven` `gradle` pour du java
+
+{{< alert icon="fire" cardColor="#e63946" iconColor="#1d3557" textColor="#f1faee" >}}
+Vous êtes libre dans le choix du gestionnaire de package (vous pouvez également vous renseigner sur  : poetry, pipenv), mais vous devrez respectez la règle suivante : votre code devra pouvoir être récupéré et lancé de manière explicite (quelles commandes permettent d'arriver a un environnement fonctionnel dans le fichier **README.md** dans une section dédiée)
+{{</alert>}}
+
+
+## Publier un package
 
 Les gestionnaires de paquets permettent a la fois d'utiliser des paquets existants, mais vous le devinez bien, il est possible d'en créer vous même.
 
@@ -325,9 +483,9 @@ L'idée de la création d'un package est de créer une brique réutilisable de c
 
 Cela peut être par exemple la réutilisation de classes entre différents projets ou la sauvegarde d'un sous ensemble de fonctions utiles que vous aimez utiliser sur les différents projets sur lesquels vous travaillez.
 
-Un package en python a cette forme :
+Un package en python à cette forme :
 
-```
+```sh
 projet
 ├── LICENSE
 ├── src/
@@ -338,37 +496,42 @@ projet
 ├── README.md
 └── pyproject.toml
 ```
+> [!TIP]+ Sources
+> - https://peps.python.org/pep-0517/
+> - https://peps.python.org/pep-0518/
 
-A la racine du package se trouve :
+**Remarque**:
+Les librairies installées (modules externes) se retrouvent directement dans lib : soit dans l'environnement virtuel, soit directement là ou est installé python sur votre poste et c'est comme cela que VSCODE réalise la résolution des imports.
 
-- un fichier pyproject.toml, qui contient des métadonnées sur la version, le nom de l'application, etc..
-  => Il s'agit d'un fichier python qui permet ensuite de construire un "livrable" au sens de python, prêt a être envoyé.
-- Un fichier LICENSE pour préciser le mode d'usage et de partage du package
-- un fichier README pour décrire l'usage
+La publication avec UV est simplifiée : 
+- A partir d'un projet bien constitué => `.pyproject.toml` et `README.md` bien constitué
 
-Puis il faut, dans cet ordre :
+Constitution d'un fichier `.whl` du code
+```sh
+uv build
+```
 
-- construire le livrable (avec un outil comme `buildtools`)
-- envoyer le livrable (avec un outil comme `twine`)
+Publication des fichiers `.whl` du projet
+```sh
+uv publish --token ....
+```
+
+Les tokens pouvant être récupérés directement en créant un compte sur l'instance de PyPi qui vous intéresse : 
+- https://pypi.org/
+- https://test.pypi.org/
 
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin</strong> <br/> 
-Comment packager un projet ? : <br/><a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">https://packaging.python.org/en/latest/tutorials/packaging-projects/</a>
-</div>
+{{< alert icon="bulb" cardColor="#757bffff" iconColor="#1d3557" textColor="#f1faee" >}}
+À retenir : un gestionnaire de paquets permet de réutiliser du code externe et de fournir des environnements reproductibles, afin que chacun puisse installer et exécuter un projet de manière fiable et cohérente.
+{{</alert>}}
 
+> Une fois l’environnement sauvegardé, sa mise en place peut être automatisée, soit via des fichiers Make, soit en utilisant des environnements conteneurisés, garantissant ainsi des projets prêts à l’emploi sur n’importe quelle machine. C'est ce qu'on verra dans la partie dédiée (à venir).
 
-## Travaux Pratiques
+## TP : Quelques questions
 
-L'objectif de ce TP est de manipuler les éléments de packaging.
-En effet, pour assurer la portabilité applicative, on sera amené a **canoniser** l'environnement d'execution de nos applicatifs.
+- Si vous ne l'avez pas fait, installez le package `helloensai` avec pip et lancez le via une commande python. 
 
-**1 ) Modules python**
-- Si vous ne l'avez pas fait, installez le package `helloensai` avec pip et lancez le via une commande python.
-- Consultez les projets exemples : [1](https://github.com/conception-logicielle-ensai/archi-exemple) , [2](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-3/gestionnaire-de-package/poetry-publish), [3](https://github.com/conception-logicielle-ensai/predicat). Répondez aux questions suivantes : est ce que le projet détaille comment arriver sur le projet? quel est le gestionnaire de paquet privilégié pour le projet ?
+- Consultez les projets exemples : [1](https://github.com/conception-logicielle-ensai/archi-exemple) , [2](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/gestionnaire-de-package/uv-publish), [3](https://github.com/conception-logicielle-ensai/predicat). 
+Répondez aux questions suivantes : est ce que le projet détaille comment arriver sur le projet? quel est le gestionnaire de paquet privilégié pour le projet ?
 
-**2 ) Portabilité applicative**
-- Dans un dossier bien choisi (par exemple votre projet ensai), créez un environnement virtuel et activez le.
-- Veillez a éviter que le venv soit non versionné.
-- Réfléchissez aux dépendances éventuelles pour former un fichier `requirements.txt` ou un fichier `pyproject.toml`
 
