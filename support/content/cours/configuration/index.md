@@ -5,7 +5,7 @@ draft: false
 description: "Comprendre comment gérer la configuration d’une application de manière propre, sécurisée et maintenable, indépendamment du code source"
 summary: "Gestion de la configuration et des variables d’environnement en développement logiciel"
 slug: "gestion-configuration"
-tags: ["configuration", "environnement", "conception"]
+tags: ["configuration", "environnement"]
 series: ["Cours"]
 series_order: 1
 
