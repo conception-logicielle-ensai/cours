@@ -17,6 +17,12 @@
   weight = 2
 
 [[main]]
+  name = "Configuration"
+  parent = "Cours"
+  pageRef = "cours/configuration"
+  weight = 5
+
+[[main]]
   name = "Projets"
   pre = "worktree"
   pageRef = "projets"
