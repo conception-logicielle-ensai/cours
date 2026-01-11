@@ -1,9 +1,9 @@
 ---
 title: "Création d'un package"
-weight: 15
-draft: false
-description: "Gestion de packages : éléments supprimés ressources tierces"
-summary: "Gestion de packages : éléments supprimés ressources tierces"
+weight: 16
+draft: true
+description: "Création d'un package avec pip, poetry et uv"
+summary: "Création d'un package avec pip, poetry et uv"
 slug: "creation-package-poetry"
 tags: ["portabilite","packaging","poetry", "legacy"]
 ---
@@ -32,7 +32,9 @@ Puis il faut, dans cet ordre :
 
 ## Création d'un package avec UV
 
-UV simplifie se processus en 
+Suivre la doc ici : https://docs.astral.sh/uv/guides/package/
 
 ## Creation d'un package avec poetry
+
+Suivre la doc ici : https://www.geeksforgeeks.org/python/how-to-build-and-publish-python-packages-with-poetry/
 

@@ -15,6 +15,16 @@
   parent = "Cours"
   pageRef = "cours/architecture-applicative"
   weight = 2
+[[main]]
+  name = "Gestion de packages et portabilité"
+  parent = "Cours"
+  pageRef = "cours/gestionnaire-de-package"
+  weight = 3
+[[main]]
+  name = "Configuration applicative"
+  parent = "Cours"
+  pageRef = "cours/configuration"
+  weight = 4
 
 [[main]]
   name = "Configuration"

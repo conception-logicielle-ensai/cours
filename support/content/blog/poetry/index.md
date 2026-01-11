@@ -1,7 +1,7 @@
 ---
 title: "Poetry : prise en main et intêret de l'outil"
-weight: 14
-draft: false
+weight: 13
+draft: true
 description: "Présentation de poetry, autre outil pour la gestion des dépendances d'un projet python"
 summary: "Présentation de poetry, autre outil pour la gestion des dépendances d'un projet python"
 slug: "prise-en-main-poetry"

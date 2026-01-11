@@ -8,11 +8,13 @@ slug: "projets-exemples-2026"
 tags: ["projet"]
 
 ---
+
 ## Propositions des sujets
 
-Les sujets sont proposés ci dessous. Vous devez choisir un projet dans une groupe de 2 à 4 personnes (si possible 3 svp), les propositions personnelles sont valorisées et il faudra réaliser un envoi de votre groupe + sujet validé avant le 19 janvier 17h ici : 
+Les sujets sont proposés ci dessous. Vous devez choisir un projet dans une groupe de 2 à 4 personnes (si possible 3 svp), les propositions personnelles sont valorisées et il faudra réaliser un envoi de votre groupe + sujet validé avant le 19 janvier 2026 17h ici : 
 
-[Lien du google forms](https://docs.google.com/forms/d/e/1FAIpQLSfe9r67gWk1Q9UxizWX96fpOTzzQUAkNXw56OoLoyBiEpNNFQ/viewform?pli=1)
+[https://forms.gle/i9H8tbQU78utnTZA9](https://forms.gle/i9H8tbQU78utnTZA9)
+
 
 **L'idée générale est de vous proposer des sujets, vous êtes ensuite libres de prioriser les développement et n'êtes pas obligés de suivre la trame précisée**
 
@@ -260,6 +262,7 @@ Vous pouvez évidemment proposer un sujet, sous réserve de validation. Pour max
 Envoyer un mail a antoine.brunetti@insee.fr et oriane.foussard@insee.fr
 </a>
 
+Pour appuyer la création de vos projets vous avez un ensemble d'API a disposition disponibles ici : 
 
 
 Exemples : 
@@ -268,3 +271,20 @@ Exemples :
 - Application pour le parcours d'annonces ou la reservation : **leboncoin**, comparateur **skyscanner**..
 - Application pour vos jeux : récupération de statistiques sur les autres joueurs etc..
 - Plugins pour la reservation : **courses a pied**, **événements**
+
+### Aide: Utilisation d'API au service de votre projet
+
+Une myriade d'API existent avec ou sans authentification : https://github.com/public-apis/public-apis
+
+#### Exemple pour un projet Cinéma - utilisation de https://imdbapi.dev/.
+Vous pourrez retrouver les films et des métadonnées
+
+```sh
+curl -X 'GET' \
+  'https://api.imdbapi.dev/search/titles?query=rubber&limit=1' \
+  -H 'accept: application/json'
+```
+
+Un **swagger** est disponible ici : https://imdbapi.dev/
+
+
