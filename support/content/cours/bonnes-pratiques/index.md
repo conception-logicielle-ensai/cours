@@ -27,443 +27,710 @@ L'identification des code smells aide à repérer les zones du code qui pourraie
 
 > Pour aller plus loin : On retrouve différents des principaux code smells ici : https://refactoring.guru/refactoring/smells
 
+
 ### Magic Numbers
 
-Le terme "magic number" désigne l'utilisation de constantes numériques non nommées dans le code source d'un programme. Cette pratique peut rendre le code difficile à comprendre et à maintenir, car elle obscurcit le sens des valeurs utilisées. En nommant explicitement toutes les constantes, on améliore la lisibilité, la compréhension et la maintenabilité du code, ce qui facilite la collaboration entre développeurs.
+Un *magic number* désigne une valeur numérique (ou littérale) utilisée directement dans le code sans être nommée ni expliquée.  
+Cette pratique nuit à la lisibilité et à la compréhension du code, car le sens métier de la valeur n’est pas explicite.
 
-#### Exemple de Code avec Magic Numbers
+Un code de qualité doit être **compréhensible sans contexte externe**.  
+Lorsqu’il contient des magic numbers, plusieurs problèmes apparaissent :
 
-Voici un exemple illustrant l'utilisation de magic numbers dans le calcul de valeurs extrêmes et de moyennes glissantes :
+- on ne comprend pas pourquoi cette valeur est utilisée ;
+- la logique métier est cachée dans des nombres arbitraires ;
+- toute modification devient risquée et coûteuse.
 
-```python
-import numpy as np
+**Règle générale**
+- **Toute valeur ayant une signification métier doit être nommée.**  
+- **Aucun nombre ou chaîne “en dur” ne doit apparaître sans justification.**
 
-def extreme(data):
-    # Calcul de la moyenne et de l'écart-type
-    mean = np.mean(data)
-    std_dev = np.std(data)
-    resultat = []  # Liste pour stocker les valeurs extrêmes
-    for x in data:
-        if abs(x - mean) > 3 * std_dev: 
-            resultat.append(x)  # Utilisation de append pour ajouter des éléments
-    return resultat  # Retourne la liste des valeurs extrêmes
+#### Cas — Valeurs numériques utilisées directement dans la logique
 
-# Calcul de la moyenne glissante sur une fenêtre de taille 3
-def moyenne_glissante(data):
-    """
-    Calcule une moyenne glissante sur une fenêtre de taille 3.
-    Les bords où il n'y a pas assez de valeurs retournent None.
-    """
-    if len(data) < 3:
-        return [None] * len(data)
-
-    resultats = [None]  # Padding initial pour le bord gauche
-    for i in range(1, len(data) - 1):
-        moyenne = np.mean(data[i - 1:i + 2])  # Calcul de la moyenne glissante
-        resultats.append(moyenne)
-    resultats.append(None)  # Padding final pour le bord droit
-    return resultats
-
-# Données
-data = [100, 102, 98, 97, 250, 101, 99, 102]
-# Identification des valeurs extrêmes (plus de 3 écarts-types de la moyenne)
-extremes = extreme(data)
-print(f"Valeurs extrêmes : {extremes}")
-# Calcul et affichage de la moyenne glissante
-glissement = moyenne_glissante(data)
-print(f"Moyenne glissante sur 3 : {glissement}")
-```
-
-<details><summary class="reponse"><b>Pourquoi éviter les Magic Numbers ? (Cliquez ici pour en savoir plus)</b></summary>
-<p>
-
-<h3>Pourquoi Éviter les Magic Numbers ?</h3>
-
-L'utilisation de **magic numbers** dans le code présente plusieurs inconvénients majeurs :
-
-- **Manque de clarté** : Lorsqu'un développeur lit le code, il peut se demander : « Pourquoi cette valeur ? ». Par exemple, une condition impliquant la valeur `3` pour un écart-type peut sembler arbitraire. Cela complique la compréhension rapide du code et nécessite une réflexion supplémentaire pour deviner la signification de la valeur.
-
-- **Ambiguïté** : Les magic numbers peuvent prêter à confusion lorsqu'ils sont utilisés pour représenter des concepts différents dans le même programme. Par exemple, si deux variables distinctes partagent la même valeur, cela complique l'identification de leur rôle respectif.
-
-- **Difficulté de maintenance** : Modifier une valeur magique peut entraîner des erreurs, car cette valeur est souvent utilisée à plusieurs endroits. Par exemple, pour passer d'une taille de moyenne glissante de `3` à `5`, un développeur pourrait remplacer toutes les occurrences de `3` par `5`. Cela risque d'introduire des bugs, notamment si certaines parties du code, comme une expression du type `[i - 1:i + 2]`, ne sont pas correctement adaptées.
-
-</p>
-</details>
-
-
-#### Amélioration du Code
-
-Pour éviter l'utilisation de magic numbers, il est préférable de définir des constantes nommées :
+##### Mauvaise approche
 
 ```python
 import numpy as np
 
-# Définition des constantes
-TAILLE_FENETRE_GLISSANTE = 3
-MULTIPLICATEUR_SEUIL = 3
 
-def extreme(data):
-    # Calcul de la moyenne et de l'écart-type
-    mean = np.mean(data)
-    std_dev = np.std(data)
-    resultat = []  # Liste pour stocker les valeurs extrêmes
-    for x in data:
-        if abs(x - mean) > MULTIPLICATEUR_SEUIL * std_dev:  # Utilisation de la constante
-            resultat.append(x)
-    return resultat  # Retourne la liste des valeurs extrêmes
+def detecter_valeurs_extremes(valeurs):
+    moyenne = np.mean(valeurs)
+    ecart_type = np.std(valeurs)
 
-# Calcul de la moyenne glissante sur une fenêtre de taille définie
-def moyenne_glissante(data):
-    """
-    Calcule une moyenne glissante sur une fenêtre de taille définie.
-    Les bords où il n'y a pas assez de valeurs retournent None.
-    """
-    if len(data) < TAILLE_FENETRE_GLISSANTE:
-        return [None] * len(data)
+    valeurs_extremes = []
+    for valeur in valeurs:
+        if abs(valeur - moyenne) > 3 * ecart_type:
+            valeurs_extremes.append(valeur)
 
-    resultats = [None]  # Padding initial pour le bord gauche
-    for i in range(1, len(data) - 1):
-        moyenne = np.mean(data[i - 1:i + TAILLE_FENETRE_GLISSANTE - 1])  # Utilisation de la constante
-        resultats.append(moyenne)
-    resultats.append(None)  # Padding final pour le bord droit
-    return resultats
+    return valeurs_extremes
 
-# Données
-data = [100, 102, 98, 97, 250, 101, 99, 102]
-# Identification des valeurs extrêmes (plus de 3 écarts-types de la moyenne)
-extremes = extreme(data)
-print(f"Valeurs extrêmes : {extremes}")
-# Calcul et affichage de la moyenne glissante
-glissement = moyenne_glissante(data)
-print(f"Moyenne glissante sur 3 : {glissement}")
+
+def calculer_moyenne_glissante(valeurs):
+    if len(valeurs) < 3:
+        return [None] * len(valeurs)
+
+    moyennes_glissantes = [None]
+    for index in range(1, len(valeurs) - 1):
+        moyenne_locale = np.mean(valeurs[index - 1:index + 2])
+        moyennes_glissantes.append(moyenne_locale)
+
+    moyennes_glissantes.append(None)
+    return moyennes_glissantes
 ```
 
-Dans ce code amélioré, la modification de la valeur de `TAILLE_FENETRE_GLISSANTE` ou `MULTIPLICATEUR_SEUIL` ne nécessite qu'une seule intervention, ce qui facilite la maintenance.
+**Problèmes**
 
-#### Comment Éviter les Magic Numbers ?
-
-Pour éviter les magic numbers :
-
-- **Utilisez des Constantes Nommées** : Déclarez les constantes en MAJUSCULES au début de vos fichiers ou fonctions. Cela facilite leur recherche et modification. Par exemple, `MULTIPLICATEUR_SEUIL = 3` peut être considéré comme une vérité statistique, donc il est peu probable qu'elle change.
-
-- **Paramètres de Fonction** : Pour les valeurs qui peuvent nécessiter des ajustements, passez-les en paramètres de fonction. Par exemple, dans `moyenne_glissante`, cela a plus de sens de les traiter comme un paramètre, ce qui permet d'associer une valeur explicite à la fenêtre glissante.
+* la valeur `3` apparaît sans explication ;
+* le lecteur doit deviner qu’il s’agit d’un seuil statistique et d’une taille de fenêtre ;
+* modifier la logique implique de retrouver toutes les occurrences concernées.
 
 
-Les problèmes liés aux magic numbers ne se limitent pas aux constantes numériques. Ce terme s'applique également à d'autres types de données. Par exemple, déclarer const string testNomUtilisateur = "Jean" est préférable à l'utilisation directe du mot "Jean" à plusieurs endroits dans le programme.
+##### Bonne approche — Introduire des constantes nommées
 
-> En gros dès que vous avez des string ou des nombre (entier ou flotant) écrit en dur, c'est que vous avez mal fait les chose.
+Les valeurs ayant une signification métier doivent être **extraites dans des constantes explicites**.
 
-### Code Dupliqué
+```python
+import numpy as np
 
-Le code dupliqué est un problème fréquent qui peut rendre votre programme plus difficile à maintenir. Chaque fois que vous dupliquez des structures similaires dans votre code, vous introduisez un risque d'incohérence. Si vous devez modifier une de ces copies, vous devez vous assurer que toutes les autres sont mises à jour en conséquence. Cela augmente la probabilité d'erreurs et complique la lecture et l'évolution du code. La solution consiste à unifier ces duplications en extrayant les parties communes.
+SEUIL_ECART_TYPE = 3
+TAILLE_FENETRE_MOYENNE = 3
+
+
+def detecter_valeurs_extremes(valeurs):
+    moyenne = np.mean(valeurs)
+    ecart_type = np.std(valeurs)
+
+    valeurs_extremes = []
+    for valeur in valeurs:
+        if abs(valeur - moyenne) > SEUIL_ECART_TYPE * ecart_type:
+            valeurs_extremes.append(valeur)
+
+    return valeurs_extremes
+
+
+def calculer_moyenne_glissante(valeurs):
+    if len(valeurs) < TAILLE_FENETRE_MOYENNE:
+        return [None] * len(valeurs)
+
+    moyennes_glissantes = [None]
+    for index in range(1, len(valeurs) - 1):
+        moyenne_locale = np.mean(
+            valeurs[index - 1:index + TAILLE_FENETRE_MOYENNE - 1]
+        )
+        moyennes_glissantes.append(moyenne_locale)
+
+    moyennes_glissantes.append(None)
+    return moyennes_glissantes
+```
+
+**Avantages**
+
+* la logique métier est immédiatement lisible ;
+* une seule modification suffit pour changer le comportement ;
+* le code devient plus robuste et plus explicite.
+
+#### Cas — Valeurs susceptibles d’évoluer
+
+##### Mauvaise approche
+
+Même avec des constantes, certaines valeurs peuvent dépendre du contexte d’utilisation.
+
+```python
+def calculer_moyenne_glissante(valeurs):
+    if len(valeurs) < 3:
+        return [None] * len(valeurs)
+```
+
+Ici, la taille de la fenêtre est figée et ne peut pas être ajustée sans modifier la fonction.
+
+##### Bonne approche — Paramétrer les valeurs variables
+
+Lorsque la valeur dépend du contexte, il est préférable de la passer en paramètre.
+
+```python
+def calculer_moyenne_glissante(valeurs, taille_fenetre: int):
+    if len(valeurs) < taille_fenetre:
+        return [None] * len(valeurs)
+
+    moyennes_glissantes = [None]
+    for index in range(1, len(valeurs) - 1):
+        moyenne_locale = np.mean(
+            valeurs[index - 1:index + taille_fenetre - 1]
+        )
+        moyennes_glissantes.append(moyenne_locale)
+
+    moyennes_glissantes.append(None)
+    return moyennes_glissantes
+```
+
+**Avantages**
+
+* fonction plus flexible ;
+* intention explicite lors de l’appel ;
+* réduction du couplage entre logique et configuration.
+
+#### Au-delà des nombres
+
+Les *magic numbers* ne concernent pas uniquement les valeurs numériques.
+Ils s’appliquent également :
+
+* aux chaînes de caractères ;
+* aux booléens implicites ;
+* aux valeurs codant un état ou une règle métier.
+
+```python
+# Mauvaise approche
+if utilisateur.nom == "Jean":
+    ...
+
+
+# Bonne approche
+UTILISATEUR_ADMIN = "Jean"
+
+if utilisateur.nom == UTILISATEUR_ADMIN:
+    ...
+```
+
+> **Dès qu’une valeur est écrite “en dur” et porte un sens métier, elle doit être nommée.**
 
 ---
 
-#### **1. Si le code dupliqué se trouve dans la même classe**
+### Code dupliqué
 
-Code avec des lignes dupliquées :
+Le code dupliqué est un problème fréquent qui rend un programme plus difficile à maintenir et à faire évoluer.  
+Lorsque plusieurs portions de code identiques ou très similaires existent, toute modification doit être répliquée à plusieurs endroits, ce qui augmente fortement le risque d’erreurs.
+
+Un code de qualité doit être **facile à modifier, cohérent et compréhensible**.  
+La duplication entraîne plusieurs problèmes :
+
+- risque d’incohérences entre les différentes copies ;
+- augmentation du coût de maintenance ;
+- baisse de la lisibilité globale du code.
+
+**Règle générale**
+- **Une logique métier ne doit exister qu’à un seul endroit.**  
+- **Tout code dupliqué doit être extrait et mutualisé.**
+
+#### Cas 1 — Le code dupliqué se trouve dans la même classe
+
+##### Mauvaise approche
 
 ```python
-class Calculateur:
-    def calculer_area_rectangle(self, largeur, hauteur):
-        print("L'aire d'un rectangle est largeur * hauteur")
-        return largeur * hauteur
+class Eleve:
+    SEUIL_ADMISSION = 10
 
-    def calculer_area_carre(self, cote):
-        print("L'aire d'un carré est cote * cote")
-        return cote * cote
+    def __init__(self, nom, prenom, notes):
+        self.nom = nom
+        self.prenom = prenom
+        self.notes = notes
+
+    def est_admis(self):
+        total = 0
+        for note in self.notes:
+            total += note
+        moyenne = total / len(self.notes)
+        return moyenne >= self.SEUIL_ADMISSION
+
+    def afficher_moyenne(self):
+        total = 0
+        for note in self.notes:
+            total += note
+        moyenne = total / len(self.notes)
+        print(f"Moyenne de {self.prenom} {self.nom} : {moyenne:.2f}")
 ```
 
-Dans cet exemple, la logique de multiplication est répétée dans les deux méthodes. Pour éviter cette duplication, nous pouvons extraire cette logique dans une méthode utilitaire.
+**Problèmes**
 
-Code mutualisé :
+* la même logique de calcul est répétée ;
+* toute modification du calcul doit être faite à plusieurs endroits ;
+* le risque d’erreur augmente avec le temps.
+
+##### Bonne approche — Extraire une méthode
+
+La solution consiste à **extraire la logique commune dans une méthode dédiée**, puis à la réutiliser.
 
 ```python
-class Calculateur:
-    def definition_aire(self, forme, formule):
-        return f"L'aire d'un {forme} est {formule}."  # Méthode extraite pour éviter la duplication
+class Eleve:
+    SEUIL_ADMISSION = 10
 
-    def calculer_area_rectangle(self, largeur, hauteur):
-        print(self.definition_aire("rectangle", "largeur*hauteur"))
-        return largeur*hauteur
+    def __init__(self, nom, prenom, notes):
+        self.nom = nom
+        self.prenom = prenom
+        self.notes = notes
 
-    def calculer_area_carre(self, cote):
-        print(self.definition_aire("carre", "cote*cote"))
-        return cote*cote
+    def calculer_moyenne(self) -> float:
+        total = 0
+        for note in self.notes:
+            total += note
+        return total / len(self.notes)
+
+    def est_admis(self) -> bool:
+        return self.calculer_moyenne() >= self.SEUIL_ADMISSION
+
+    def afficher_moyenne(self):
+        moyenne = self.calculer_moyenne()
+        print(f"Moyenne de {self.prenom} {self.nom} : {moyenne:.2f}")
 ```
 
-#### **2. Si le code dupliqué se trouve dans des sous-classes**
+**Avantages**
 
-Code avec des lignes dupliquées :
+* une seule source de vérité ;
+* évolution plus simple et plus sûre.
+
+
+#### Cas 2 — Le code dupliqué se trouve dans des sous-classes
+
+##### Mauvaise approche
 
 ```python
 class Forme:
-    def area(self):
-        pass  # Méthode à implémenter dans les sous-classes
+    pass
+
 
 class Rectangle(Forme):
     def __init__(self, largeur, hauteur):
         self.largeur = largeur
         self.hauteur = hauteur
 
-    def area(self):
-        print("L'aire d'un rectangle est largeur * hauteur")
-        return self.largeur * self.hauteur
+    def aire(self):
+        aire = self.largeur * self.hauteur
+        if aire < 0:
+            raise ValueError("Aire invalide")
+        return aire
+
 
 class Carre(Forme):
     def __init__(self, cote):
         self.cote = cote
 
-    def area(self):
-        print("L'aire d'un carré est cote * cote")
+    def aire(self):
+        aire = self.cote * self.cote
+        if aire < 0:
+            raise ValueError("Aire invalide")
+        return aire
+```
+
+**Problèmes**
+
+* duplication de la logique de validation.
+
+##### Bonne approche — Méthode *Pull Up*
+
+Lorsque plusieurs sous-classes partagent une logique commune, celle-ci doit être **remontée dans la classe parente**.
+
+```python
+from abc import ABC, abstractmethod
+
+
+class Forme(ABC):
+
+    def aire(self) -> float:
+        aire = self._calculer_aire()
+        if aire < 0:
+            raise ValueError("Aire invalide")
+        return aire
+
+    @abstractmethod
+    def _calculer_aire(self) -> float:
+        pass
+
+
+class Rectangle(Forme):
+    def __init__(self, largeur, hauteur):
+        self.largeur = largeur
+        self.hauteur = hauteur
+
+    def _calculer_aire(self) -> float:
+        return self.largeur * self.hauteur
+
+
+class Carre(Forme):
+    def __init__(self, cote):
+        self.cote = cote
+
+    def _calculer_aire(self) -> float:
         return self.cote * self.cote
 ```
 
-Ici, la logique de multiplication est dupliquée dans les méthodes `area` de `Rectangle` et `Carre`. Pour éviter cette duplication, nous pouvons utiliser la **méthode Pull Up**, qui consiste à déplacer le code commun dans la classe de base.
+**Avantages**
 
-Code mutualisé avec la méthode Pull Up :
-
-```python
-class Forme:
-    def multiplier(self, a, b):
-        return a * b  # Méthode partagée pour éviter la duplication
-
-    def definition_aire(self, forme, formule):
-        return f"L'aire d'un {forme} est {formule}." # Méthode générique à spécialiser dans les sous-classes
-
-class Rectangle(Forme):
-    def __init__(self, largeur, hauteur):
-        self.largeur = largeur
-        self.hauteur = hauteur
-
-    def area(self):
-        print(self.definition_aire("rectangle", "largeur*hauteur"))
-        return largeur*hauteur
-
-class Carre(Forme):
-    def __init__(self, cote):
-        self.cote = cote
-
-    def area(self):
-        print(self.definition_aire("carre", "cote*cote"))
-        return cote*cote
-```
+* suppression totale de la duplication ;
+* meilleure utilisation de l’héritage ;
+* logique métier centralisée et cohérente.
 
 ---
 
-Le refactoring est un processus itératif : commencez par des petits changements, testez régulièrement et continuez à améliorer le code progressivement.
-
 ### Fonctions trop longues
 
-Dans la programmation, il est souvent observé qu'une fonction trop longue devient difficile à comprendre. Dans le passé, les anciens langages de programmation avaient un inconvénient : appeler une sous-fonction était coûteux en termes de performance, ce qui dissuadait les développeurs d’utiliser des petites fonctions. Cependant, avec les langages modernes, ce coût est presque inexistant lorsqu’on reste dans le même processus.
+Une fonction trop longue est souvent difficile à comprendre, à tester et à faire évoluer.
+Elle tend à accumuler plusieurs responsabilités, ce qui nuit à la lisibilité du code.
 
-Aujourd'hui, la véritable contrainte liée aux petites fonctions réside dans le fait qu'elles demandent parfois un effort supplémentaire à ceux qui lisent le code, car il faut ouvrir chaque fonction pour comprendre son rôle. Heureusement, les outils de développement modernes nous simplifient la tâche : on peut naviguer facilement vers la définition d'une fonction ou afficher son contenu d'un simple clic.
+Une fonction de qualité doit être **courte, expressive et focalisée sur une seule responsabilité**.
+Lorsqu’elle devient trop longue, plusieurs problèmes apparaissent :
 
-Le véritable avantage des petites fonctions, c'est leur nom. Un nom clair et précis permet souvent de comprendre rapidement ce que fait la fonction, sans même avoir besoin d'en lire le contenu.
+* compréhension difficile ;
+* tests plus complexes ;
+* forte dépendance entre les différentes parties de la fonction.
 
-Prenons un exemple de fonction qui calcule le total d'une commande :
+**Règle générale**
 
-```java
-public double calculerTotalCommande(List<Article> articles) {
-    int SEUIL_QUANTITE_REMISE_SUPPLEMENTAIRE = 5;
-    double REMISE_PAR_ARTICLE = 0.1;
-    double REMISE_SUPPLEMENTAIRE_PAR_ARTICLE = 0.05;
+- **Une fonction doit faire une seule chose, et bien la faire.**
+- **Si une partie du code nécessite un commentaire, elle mérite souvent sa propre fonction.**
 
-    double total = 0;
-    for (Article article : articles) {
-        if (article.isEnPromotion()) {
-            total += article.getPrix() * (1- REMISE_PAR_ARTICLE); // Remise de 10%
-            if (article.getQuantite() > SEUIL_QUANTITE_REMISE_SUPPLEMENTAIRE) {
-                total -= article.getPrix() * REMISE_SUPPLEMENTAIRE_PAR_ARTICLE; // Remise supplémentaire pour les gros achats
-            }
-        } else {
-            total += article.getPrix();
-        }
-    }
-    return total;
-}
-```
 
-Ici, un bloc de code qui est accompagné d’un commentaire peut être remplacé par une méthode dont le nom résume cette explication. Même une simple ligne de code peut justifier son extraction si elle nécessite un éclaircissement. Les conditions et les boucles nous donnent également des pistes pour effectuer cette extraction. Par exemple, un gros switch peut être divisé en appels de fonctions individuelles, et si plusieurs switch utilisent les mêmes conditions, on peut appliquer le polymorphisme pour améliorer la lisibilité.
+#### Cas — Une fonction concentre trop de responsabilités
 
-Pour les boucles, il est également judicieux d'extraire la boucle et son contenu dans une méthode séparée. Si vous avez du mal à nommer une boucle extraite, cela peut indiquer qu'elle réalise deux tâches différentes. Dans ce cas, n’hésitez pas à diviser les boucles pour isoler les différentes tâches.
-
-Voici comment nous pourrions refactoriser la fonction pour la rendre plus lisible :
-
-```java
-public double calculerTotalCommande(List<Article> articles) {
-    double total = 0;
-    for (Article article : articles) {
-        total += calculerPrixArticle(article);
-    }
-    return total;
-}
-
-private double calculerPrixArticle(Article article) {
-    double REMISE_PAR_ARTICLE = 0.1;
-
-    double prixFinal = article.getPrix();
-    if (article.isEnPromotion()) {
-        prixFinal *= (1 - REMISE_PAR_ARTICLE); // Remise de 10%
-        prixFinal -= calculerRemiseSupplementaire(article);
-    }
-    return prixFinal;
-}
-
-private double calculerRemiseSupplementaire(Article article) {
-    int SEUIL_QUANTITE_REMISE_SUPPLEMENTAIRE = 5;
-    double REMISE_SUPPLEMENTAIRE_PAR_ARTICLE = 0.05;
-
-    return article.getQuantite() > SEUIL_QUANTITE_REMISE_SUPPLEMENTAIRE ? article.getPrix() * REMISE_SUPPLEMENTAIRE_PAR_ARTICLE : 0; // Remise supplémentaire pour les achats de plus de 5 articles
-}
-```
-
-### Liste de paramètres longues
-
-Lorsque vous programmez, vous avez probablement appris à passer tous les éléments nécessaires à une fonction en tant que paramètres. Cependant, avoir une longue liste de paramètres peut rapidement devenir source de confusion.
-
-Je vais vous présenter deux cas pour illustrer ce point.
-
-#### Cas 1 : Tous les paramètres proviennent de la même classe
-
-Prenons l’exemple d’une classe `Voiture` qui a plusieurs attributs :
+##### Mauvaise approche
 
 ```python
-class Voiture:
-    def __init__(self, marque, modele, annee, couleur, kilometrage, prix):
-        self.marque = marque
-        self.modele = modele
-        self.annee = annee
-        self.couleur = couleur
-        self.kilometrage = kilometrage
+class Article:
+    def __init__(self, prix: float, quantite: int, en_promotion: bool):
         self.prix = prix
-        # D'autres attributs non nécessaires pour la méthode d'affichage
-        self.type_carburant = None
-        self.nombre_portes = None
+        self.quantite = quantite
+        self.en_promotion = en_promotion
 
-class GestionnaireDeVoiture:
-    @staticmethod
-    def afficher_informations_voiture(marque, modele, annee, couleur, kilometrage, prix):
-        print(f"Voiture: {marque} {modele}, {annee} - "
-              f"Couleur: {couleur}, Kilométrage: {kilometrage} km, "
-              f"Prix: {prix} €.")
+
+class CommandeService:
+
+    def calculer_total_commande(self, articles: list[Article]) -> float:
+        SEUIL_QUANTITE_REMISE_SUPPLEMENTAIRE = 5
+        REMISE_PAR_ARTICLE = 0.10
+        REMISE_SUPPLEMENTAIRE_PAR_ARTICLE = 0.05
+
+        total = 0
+
+        for article in articles:
+            prix_final = article.prix
+
+            if article.en_promotion:
+                prix_final *= (1 - REMISE_PAR_ARTICLE)
+
+                if article.quantite > SEUIL_QUANTITE_REMISE_SUPPLEMENTAIRE:
+                    prix_final -= article.prix * REMISE_SUPPLEMENTAIRE_PAR_ARTICLE
+
+            total += prix_final * article.quantite
+
+        return total
 ```
 
-Ici, lorsque nous voulons afficher les informations de la voiture, nous devons passer tous ses attributs comme paramètres :
+**Problèmes**
+
+* plusieurs règles métier imbriquées ;
+* logique difficile à lire ;
+* fonction complexe à tester.
+
+##### Bonne approche — Extraire des fonctions explicites
+
+On découpe la logique en **petites fonctions nommées**, chacune représentant une intention claire.
 
 ```python
-# Utilisation
-ma_voiture = Voiture("Toyota", "Corolla", 2020, "Rouge", 15000, 20000)
+class CommandeService:
 
-# Appel de la méthode avec une longue liste de paramètres
-GestionnaireDeVoiture.afficher_informations_voiture(
-    ma_voiture.marque,
-    ma_voiture.modele,
-    ma_voiture.annee,
-    ma_voiture.couleur,
-    ma_voiture.kilometrage,
-    ma_voiture.prix
+    def calculer_total_commande(self, articles: list[Article]) -> float:
+        total = 0
+        for article in articles:
+            total += self._calculer_total_article(article)
+        return total
+
+    def _calculer_total_article(self, article: Article) -> float:
+        prix_unitaire = self._calculer_prix_unitaire(article)
+        return prix_unitaire * article.quantite
+
+    def _calculer_prix_unitaire(self, article: Article) -> float:
+        prix = article.prix
+
+        if article.en_promotion:
+            prix -= self._calculer_remise(article)
+
+        return prix
+
+    def _calculer_remise(self, article: Article) -> float:
+        REMISE_BASE = 0.10
+        SEUIL_QUANTITE = 5
+        REMISE_SUPPLEMENTAIRE = 0.05
+
+        remise = article.prix * REMISE_BASE
+
+        if article.quantite > SEUIL_QUANTITE:
+            remise += article.prix * REMISE_SUPPLEMENTAIRE
+
+        return remise
+```
+
+**Avantages**
+
+* fonctions courtes et lisibles ;
+* logique métier clairement exprimée par les noms ;
+* tests unitaires plus simples et plus précis.
+
+
+---
+
+### Liste de paramètres trop longue
+
+Lorsque vous programmez, vous avez probablement appris à transmettre à une fonction tous les éléments nécessaires via des paramètres. Toutefois, une liste de paramètres trop longue devient rapidement une source de confusion.
+
+Une fonction doit être **facile à lire, à appeler et à faire évoluer**.  
+Lorsqu’elle possède trop de paramètres, plusieurs problèmes apparaissent :
+
+- il est facile de se tromper dans l’ordre des arguments ;
+- l’appel devient difficile à lire ;
+- la moindre évolution du besoin oblige à modifier **tous les appels existants**.
+
+**Règle générale**
+- **Si plusieurs paramètres proviennent du même objet, passez l’objet.**  
+- **Si plusieurs paramètres sont systématiquement utilisés ensemble, créez un objet dédié.**
+
+#### Cas 1 — Tous les paramètres proviennent du même objet
+
+##### Mauvaise approche
+
+```python
+class CompteBancaire:
+    def __init__(
+        self,
+        proprietaire,
+        date_creation,
+        est_ouvert,
+        solde,
+        plafond_journalier,
+        montant_deja_vire_aujourdhui,
+        est_bloque,
+        autorisation_decouvert
+    ):
+        self.proprietaire = proprietaire
+        self.date_creation = date_creation
+        self.est_ouvert = est_ouvert
+        self.solde = solde
+        self.plafond_journalier = plafond_journalier
+        self.montant_deja_vire_aujourdhui = montant_deja_vire_aujourdhui
+        self.est_bloque = est_bloque
+        self.autorisation_decouvert = autorisation_decouvert
+
+
+class GestionnaireVirement:
+    @staticmethod
+    def peut_effectuer_virement(
+        solde,
+        plafond_journalier,
+        montant_deja_vire_aujourdhui,
+        compte_bloque,
+        autorisation_decouvert
+    ) -> bool:
+        if compte_bloque:
+            return False
+
+        if montant_deja_vire_aujourdhui >= plafond_journalier:
+            return False
+
+        if solde < 0 and not autorisation_decouvert:
+            return False
+
+        return True
+```
+
+**Problèmes**
+
+```python
+compte_bancaire_marcel = CompteBancaire(
+    "Marcel Dupont",
+    "09-12-2025",
+    True,
+    145603,
+    15000,
+    3456,
+    False,
+    True
+)
+
+marcel_peut_effectuer_paiement = GestionnaireVirement.peut_effectuer_virement(
+    compte_bancaire_marcel.solde,
+    compte_bancaire_marcel.plafond_journalier,
+    compte_bancaire_marcel.montant_deja_vire_aujourdhui,
+    compte_bancaire_marcel.est_bloque,
+    compte_bancaire_marcel.autorisation_decouvert
 )
 ```
 
-Dans ce cas, même si tous les attributs ne sont pas nécessaires à la méthode, il est préférable de passer l'objet complet. C'est ce qu'on appelle le principe de **Préserver l'Objet Complet** :
+* appel verbeux et fragile ;
+* la logique métier est éclatée ;
+* l’ajout ou la suppression d’un champ oblige à modifier **tous les appels**.
+
+
+##### Bonne approche — Préserver l’objet complet
+
+Lorsque plusieurs paramètres proviennent du même objet, il est préférable de transmettre l’objet lui-même.
+Ce principe est connu sous le nom de **Préserver l’objet complet** (*Preserve Whole Object*).
 
 ```python
-class GestionnaireDeVoiture:
+class GestionnaireVirement:
     @staticmethod
-    def afficher_informations_voiture(voiture):
-        print(f"Voiture: {voiture.marque} {voiture.modele}, {voiture.annee} - "
-              f"Couleur: {voiture.couleur}, Kilométrage: {voiture.kilometrage} km, "
-              f"Prix: {voiture.prix} €.")
+    def peut_effectuer_virement(compte: CompteBancaire) -> bool:
+        if compte.est_bloque:
+            return False
+
+        if compte.montant_deja_vire_aujourdhui >= compte.plafond_journalier:
+            return False
+
+        if compte.solde < 0 and not compte.autorisation_decouvert:
+            return False
+
+        return True
 ```
 
-Maintenant, nous pouvons appeler la méthode de cette manière :
-
 ```python
-# Appel de la méthode statique avec l'objet complet
-GestionnaireDeVoiture.afficher_informations_voiture(ma_voiture)
+compte_bancaire_marcel = CompteBancaire(
+    "Marcel Dupont",
+    "09-12-2025",
+    True,
+    145603,
+    15000,
+    3456,
+    False,
+    True
+)
+
+marcel_peut_effectuer_paiement = GestionnaireVirement.peut_effectuer_virement(
+    compte_bancaire_marcel
+)
 ```
 
-#### Cas 2 : Les paramètres proviennent de classes différentes
+**Avantages**
 
-Imaginons maintenant que nous ayons une classe `Personne` et une classe `Adresse` :
+* appel clair et concis ;
+* réduction du risque d’erreur ;
+
+#### Cas 2 — Les paramètres proviennent de plusieurs objets
+
+##### Mauvaise approche
 
 ```python
-class Personne:
-    def __init__(self, nom, prenom, age):
-        self.nom = nom
-        self.prenom = prenom
-        self.age = age
-        # D'autres attributs
-        self.sexe = None
-        self.date_naissance = None
+class Commande:
+    def __init__(self, prix_total, stock_disponible, frais_livraison):
+        self.prix_total = prix_total
+        self.stock_disponible = stock_disponible
+        self.frais_livraison = frais_livraison
+
+
+class Client:
+    def __init__(self, est_premium):
+        self.est_premium = est_premium
+
 
 class Adresse:
-    def __init__(self, rue, ville, code_postal):
-        self.rue = rue
-        self.ville = ville
-        self.code_postal = code_postal
-        # D'autres attributs
-        self.pays = None
-        self.region = None
+    def __init__(self, est_valide):
+        self.est_valide = est_valide
 
-def envoyer_invitation(nom, prenom, age, rue, ville, code_postal):
-    print(f"Invitation envoyée à {prenom} {nom}, {age} ans, à l'adresse suivante : {rue}, "
-          f"{ville}, {code_postal}.")
+
+class Paiement:
+    def __init__(self, est_actif):
+        self.est_actif = est_actif
+
+
+class GestionnaireCommande:
+    @staticmethod
+    def valider_commande(
+        prix_total,
+        est_client_premium,
+        stock_disponible,
+        adresse_valide,
+        moyen_paiement_actif,
+        montant_frais_livraison
+    ) -> bool:
+        if not stock_disponible:
+            return False
+
+        if not adresse_valide:
+            return False
+
+        if not moyen_paiement_actif:
+            return False
+
+        if est_client_premium:
+            return prix_total >= 20
+
+        return True
 ```
 
-Dans cet exemple, nous devons passer plusieurs paramètres provenant de deux classes différentes :
+**Problèmes**
 
 ```python
-# Utilisation
-personne = Personne("Dupont", "Jean", 30)
-adresse = Adresse("10 Rue des Fleurs", "Paris", "75000")
+commande = Commande(150, True, 13)
+client = Client(True)
+adresse = Adresse(True)
+paiement = Paiement(False)
 
-# Appel de la fonction avec une longue liste de paramètres
-envoyer_invitation(
-    personne.nom,
-    personne.prenom,
-    personne.age,
-    adresse.rue,
-    adresse.ville,
-    adresse.code_postal
+est_valide = GestionnaireCommande.valider_commande(
+    commande.prix_total,
+    client.est_premium,
+    commande.stock_disponible,
+    adresse.est_valide,
+    paiement.est_actif,
+    commande.frais_livraison
 )
 ```
 
-Pour simplifier cela, nous pouvons combiner les informations de la personne et de l'adresse en un seul objet. C'est ce qu'on appelle le principe d’**Introduire un Objet Paramètre**. Cela est encore plus utile si ces attributs sont souvent utilisés ensemble :
+* appel long et peu lisible ;
+* toute évolution du besoin entraîne des modifications en cascade.
+
+##### Bonne approche — Introduire un objet paramètre
+
+Lorsque les paramètres proviennent de plusieurs objets mais sont **toujours utilisés ensemble**, il est pertinent de créer un objet qui **représente le contexte métier**.
 
 ```python
-class InformationsClient:
-    def __init__(self, personne, adresse):
-        self.nom = personne.nom
-        self.prenom = personne.prenom
-        self.age = personne.age
-        self.rue = adresse.rue
-        self.ville = adresse.ville
-        self.code_postal = adresse.code_postal
+class ContexteCommande:
+    def __init__(self, commande, client, adresse, paiement):
+        self.commande = commande
+        self.client = client
+        self.adresse = adresse
+        self.paiement = paiement
+```
 
-class GestionnaireDeClient:
+```python
+class GestionnaireCommande:
     @staticmethod
-    def envoyer_invitation(informations_client):
-        print(f"Invitation envoyée à {informations_client.prenom} {informations_client.nom}, "
-              f"{informations_client.age} ans, à l'adresse suivante : {informations_client.rue}, "
-              f"{informations_client.ville}, {informations_client.code_postal}.")
-```
+    def valider_commande(contexte: ContexteCommande) -> bool:
+        if not contexte.commande.stock_disponible:
+            return False
 
-Voici comment nous utilisons ce nouveau système :
+        if not contexte.adresse.est_valide:
+            return False
+
+        if not contexte.paiement.est_actif:
+            return False
+
+        if contexte.client.est_premium:
+            return contexte.commande.prix_total >= 20
+
+        return True
+```
 
 ```python
-# Utilisation
-personne = Personne("Dupont", "Jean", 30)
-adresse = Adresse("10 Rue des Fleurs", "Paris", "75000")
-informations_client = InformationsClient(personne, adresse)
+commande = Commande(150, True, 13)
+client = Client(True)
+adresse = Adresse(True)
+paiement = Paiement(False)
 
-GestionnaireDeClient.envoyer_invitation(informations_client)
+contexte = ContexteCommande(
+    commande=commande,
+    client=client,
+    adresse=adresse,
+    paiement=paiement
+)
+
+est_valide = GestionnaireCommande.valider_commande(contexte)
 ```
 
+**Avantages**
 
+* appel simple et expressif ;
+* meilleure représentation du métier ;
+* code plus robuste face aux évolutions.
+
+---
 
 > Il existe de nombreux autres types de *code smells*, tels que les **Noms mystérieux**, qui désignent des noms de variables ou de fonctions peu clairs et ambigus, et la **Mutabilité des variables**, qui se réfère à la modification d'une variable après sa création, rendant le code moins prévisible. Bien que nous n'ayons pas le temps d'explorer ces concepts en cours, je vous encourage à faire des recherches à leur sujet, notamment dans le livre mentionné dans l'introduction.
+
+---
 
 ## Normalisation des nommages : Introduction aux normes de nommage en Python
 
@@ -1012,7 +1279,7 @@ if __name__ == "__main__":
 
 L'avantage est l'isolation des données d'entrée et de sortie du système et de ne pas demander la saisie intégrale du champ user alors que l'on a seulement besoin d'un identifiant ou identifiant et mail par exemple.
 
-> ️‍🔥️‍🔥️‍🔥 Si l'on doit faire évoluer, on peut faire évoluer seulement l'entrée, ou seulement l'objet a l'intérieur du système. 🔥️‍🔥️‍🔥
+> ️Si l'on doit faire évoluer, on peut faire évoluer seulement l'entrée, ou seulement l'objet a l'intérieur du système.
 
 
 Remarque il en existe évidemment beaucoup d'autres, et chacune de ces implémentations à ces limites donc il faut veiller a les utiliser lorsque c'est pertinent.
