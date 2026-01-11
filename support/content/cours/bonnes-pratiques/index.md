@@ -809,11 +809,11 @@ On distingue classiquement 3 catégories des 23 design patterns classiques :
 Dans les faits, leur mise en place est spécifique a différentes situations, il est important de garder a l'esprit leur existence pour l'application dans des cas appropriés.
 
 
-## Quelques exemples
+### Quelques exemples
 Dans cette partie on retrouve différents patterns que l'on présente dans le cadre de ce cours et que l'on souhaiterait voir appliqués a différents éléments de vos logiciels.
 
 
-### 1. Singleton 
+#### 1. Singleton 
 
 Dans votre projet , l'utilitaire de connexion a la base de données était unique.
 
@@ -905,7 +905,7 @@ if __name__ == "__main__":
 
 ```
 
-### 2. Builder
+#### 2. Builder
 
 L'idée du pattern builder est de permettre de construire des classes qui contiennent beaucoup d'attributs de manière customisée. Cela permet donc d'alimenter la construction petit a petit et d'aboutir toutefois a un objet cohérent, puisque le builder s'appuie sur le réel constructeur de la classe.
 
@@ -1014,7 +1014,7 @@ if __name__ == "__main__":
     print(custom_sandwich)
     # Sandwich(bread=Italian, protein=Chicken Teriyaki, cheese=Swiss, vegetables=['Lettuce','Tomato','Pickles'], sauces=['Honey Mustard', 'Chipotle Southwest'])
 ```
-### 3. Factory
+#### 3. Factory
 
 Le principe du pattern Factory et de construire un objet a partir d'une classe père sans donner la classe, cela permet de découpler les constructeurs des créations d'objets, puisqu'on peut être amenés a faire évoluer les constructeurs de manière indépendante pour plusieurs classes filles par exemple.
 
@@ -1097,7 +1097,7 @@ if __name__ == "__main__":
 
 
 ```
-### 4. Data Transfer Object 
+#### 4. Data Transfer Object 
 
 Le pattern DTO (Data Transfer Object) est utilisé pour transporter des données entre différentes couches d'une application.
 
