@@ -1,6 +1,6 @@
 ---
 title: "Architecture applicative"
-weight: 2
+weight: 28
 draft: false
 description: "Appréhender l'organisation structurelle d’une application logicielle"
 summary: "Appréhender les enjeux de l'architecture logicielle pour la conception logicielle"
@@ -10,7 +10,7 @@ series: ["Cours"]
 series_order: 2
 ---
 > [!TIP]+ Accès aux exemples
-> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/architecture-applicative
 
 
 

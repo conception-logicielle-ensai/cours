@@ -1,6 +1,6 @@
 ---
 title: "Gestionnaire de package, partage de code, industrialisation"
-weight: 3
+weight: 27
 description: "Comprendre la portabilité applicative via l'utilisation de dépendances logicielles"
 summary: "Comprendre la portabilité applicative vis l'utilisation de dépendances logicielles"
 slug: "gestionnaire-de-package"
@@ -9,9 +9,14 @@ series: ["Cours"]
 series_order: 3
 ---
 
+> [!TIP]+ Accès aux exemples
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : 
+https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/gestionnaire-de-package
+
+
 Ce cours présente comment utiliser, mettre en place et partager un environnement de code fonctionnel. Cela assure la portabilité de votre application pour que l'on puisse l'utiliser ailleurs que sur votre poste. 
 
-> [!TIP]+ Exemple
+> Exemple :
 > https://coder.com/blog/it-works-on-my-machine-explained
 
 Pour information : Les exemples présentés dans le cours seront disponibles ici : [https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-3](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-3) 
@@ -40,7 +45,10 @@ Depuis un terminal, faites les commandes suivantes :
 
 ## Interpréteur/Compilateur
 
-[]
+
+![](/images/gestionnaire-de-package/compiler-interprete.png)
+
+
 > Référence : https://blog.amigoscode.com/p/java-vs-python
 ### Python, un language interprété
 
@@ -205,7 +213,7 @@ Lien vers la référence de la commande
 
 ### Modules et dépendance
 
-<img style="max-width:40%;" src="https://imgs.xkcd.com/comics/dependency.png" />
+<img src="https://imgs.xkcd.com/comics/dependency.png" />
 
 > Source https://xkcd.com/2347/
 
@@ -251,7 +259,7 @@ Index du "tuto" Pypi pour construire et déployer un livrable : [**Build and pub
 
 ### Environnements virtuels : Isolation 
 
-<img src="/images/portabilite/python-virtualenv-project-structure.jpg"/>
+<img src="/images/gestionnaire-de-package/python-virtualenv-project-structure.jpg"/>
 
 Pour une isolation des paquets installés, et ne pas utiliser tout ce qui existe déjà sur un poste, python permet l'utilisation d'environnements virtuels (virtualenv ou venv).
 
@@ -294,7 +302,7 @@ Documentation ici : https://docs.anaconda.com/getting-started/
 
 ## Licences : dans quel cadre peut-on utiliser du code tierce ?
 
-![](/images/portabilite/license.png)
+![](/images/gestionnaire-de-package/license.png)
 
 Lorsque l’on utilise une bibliothèque (open source), on n’utilise pas uniquement du code, on accepte également une **licence**, qui définit les droits et obligations liés à son utilisation.
 
@@ -332,7 +340,7 @@ Pour tout projet, il est attendu de déclarer une License adaptée dans le coeur
 
 ## Reproductibilité et portabilité
 
-![](/images/portabilite/port.png)
+![](/images/gestionnaire-de-package/port.png)
 
 
 
@@ -342,7 +350,7 @@ Un des enjeux dans la conception logicielle est de construire des applicatifs qu
 Une pratique essentielle à incorporer dans vos développement et de penser à **canoniser** l'environnement d'exécution pour permettre 
 
 ### Pip et un fichier canonique : *requirements.txt*
-![](/images/portabilite/requirements.jpg)
+![](/images/gestionnaire-de-package/requirements.jpg)
 Pour mieux partager un environnement qui permet de faire tourner le code,
 **pip** propose de sanctuariser les dépendances dans un fichier **requirements.txt**.
 
@@ -382,7 +390,7 @@ pip-compile requirements.in
 ```
 ### Industrialisation : Poetry, UV
 
-![image source : https://medium.com/@techne98/a-beginners-guide-to-the-uv-package-manager-in-python-eb677460a5bc](/images/portabilite/uv.webp)
+![image source : https://medium.com/@techne98/a-beginners-guide-to-the-uv-package-manager-in-python-eb677460a5bc](/images/gestionnaire-de-package/uv.webp)
 
 
 `pip` est le gestionnaire de package préconisé par défaut pour python, mais il réside dans son design différentes limites : 

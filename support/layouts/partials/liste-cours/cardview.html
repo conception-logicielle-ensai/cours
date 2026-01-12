@@ -5,7 +5,7 @@
 <section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
   {{ range first $recentArticles (
       .Paginate (
-        sort (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) "Weight" "desc"
+        sort (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) "Weight" "asc"
       )
     ).Pages
   }}

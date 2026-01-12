@@ -1,15 +1,20 @@
 ---
 title: "Configuration du code en fonction de l'environnement"
-weight: 4
+weight: 26
 draft: false
 description: "Comprendre comment gérer la configuration d’une application de manière propre, sécurisée et maintenable, indépendamment du code source"
 summary: "Gestion de la configuration et des variables d’environnement en développement logiciel"
 slug: "gestion-configuration"
 tags: ["configuration", "environnement"]
 series: ["Cours"]
-series_order: 1
+series_order: 4
 
 ---
+
+> [!TIP]+ Accès aux exemples
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : 
+https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/configuration
+
 
 Lorsqu’on exécute un programme, il est souvent nécessaire de le configurer, de le paramétrer ou de lui associer des éléments spécifiques à l’environnement depuis lequel il est lancé. Par exemple, il peut s’agir de travailler avec des données stockées dans un répertoire particulier ou d’injecter des paramètres de connexion à une base de données que l’on souhaite garder confidentiels et non versionnés.
 

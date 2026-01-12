@@ -1,15 +1,18 @@
 ---
 title: "Bonnes pratiques du développement et design patterns"
-weight: 5
+weight: 25
 draft: false
 description: "Identifier et corriger les mauvaises pratiques de développement afin d’améliorer la lisibilité, la maintenabilité et l’évolutivité du code"
 summary: "Bonnes pratiques de code, détection des code smells et introduction aux design patterns"
 slug: "bonnes-pratiques-et-design-patterns"
 tags: ["bonnes-pratiques", "code-smell", "design-pattern"]
 series: ["Cours"]
-series_order: 1
+series_order: 5
 
 ---
+
+> [!TIP]+ Accès aux exemples
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/bonnes-pratiques
 
 Cette partie est largement basée des concepts et exemples présentés dans le livre :
 
