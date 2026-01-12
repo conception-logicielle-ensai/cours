@@ -46,7 +46,7 @@ Depuis un terminal, faites les commandes suivantes :
 ## Interpréteur/Compilateur
 
 
-![](/images/gestionnaire-de-package/compiler-interprete.png)
+![ ](images/gdp/compile-interprete.png)
 
 
 > Référence : https://blog.amigoscode.com/p/java-vs-python
@@ -145,6 +145,9 @@ Contrairement à un compilateur classique :
 
 
 ## Environnement d'exécution
+
+![](https://imgs.xkcd.com/comics/python_environment_2x.png)
+> Source : https://xkcd.com/1987/
 
 > Cette partie s'attele a présenter ce qu'on appelle l'environnement d'exécution. 
 
@@ -259,7 +262,7 @@ Index du "tuto" Pypi pour construire et déployer un livrable : [**Build and pub
 
 ### Environnements virtuels : Isolation 
 
-<img src="/images/gestionnaire-de-package/python-virtualenv-project-structure.jpg"/>
+![](images/gdp/venv.jpg)
 
 Pour une isolation des paquets installés, et ne pas utiliser tout ce qui existe déjà sur un poste, python permet l'utilisation d'environnements virtuels (virtualenv ou venv).
 
@@ -302,7 +305,7 @@ Documentation ici : https://docs.anaconda.com/getting-started/
 
 ## Licences : dans quel cadre peut-on utiliser du code tierce ?
 
-![](/images/gestionnaire-de-package/license.png)
+![](images/gdp/license.png)
 
 Lorsque l’on utilise une bibliothèque (open source), on n’utilise pas uniquement du code, on accepte également une **licence**, qui définit les droits et obligations liés à son utilisation.
 
@@ -340,7 +343,7 @@ Pour tout projet, il est attendu de déclarer une License adaptée dans le coeur
 
 ## Reproductibilité et portabilité
 
-![](/images/gestionnaire-de-package/port.png)
+![](images/gdp/port.png)
 
 
 
@@ -350,7 +353,7 @@ Un des enjeux dans la conception logicielle est de construire des applicatifs qu
 Une pratique essentielle à incorporer dans vos développement et de penser à **canoniser** l'environnement d'exécution pour permettre 
 
 ### Pip et un fichier canonique : *requirements.txt*
-![](/images/gestionnaire-de-package/requirements.jpg)
+![](images/gdp/requirements.png)
 Pour mieux partager un environnement qui permet de faire tourner le code,
 **pip** propose de sanctuariser les dépendances dans un fichier **requirements.txt**.
 
@@ -390,7 +393,7 @@ pip-compile requirements.in
 ```
 ### Industrialisation : Poetry, UV
 
-![image source : https://medium.com/@techne98/a-beginners-guide-to-the-uv-package-manager-in-python-eb677460a5bc](/images/gestionnaire-de-package/uv.webp)
+![image source : https://medium.com/@techne98/a-beginners-guide-to-the-uv-package-manager-in-python-eb677460a5bc](/images/gdp/uv.webp)
 
 
 `pip` est le gestionnaire de package préconisé par défaut pour python, mais il réside dans son design différentes limites : 
@@ -476,8 +479,8 @@ Vous êtes libre dans le choix du gestionnaire de package (vous pouvez égalemen
 {{</alert>}}
 
 
-## Publier un package
-
+## Dépots distants : Vers la publication
+![](https://realpython.com/cdn-cgi/image/width=1920,format=auto/https://files.realpython.com/media/How-to-publish-an-open-source-Python-package-to-PyPI_Watermark.0f9c2da132aa.jpg)
 Les gestionnaires de paquets permettent a la fois d'utiliser des paquets existants, mais vous le devinez bien, il est possible d'en créer vous même.
 
 Les dépots de packets peuvent être :
