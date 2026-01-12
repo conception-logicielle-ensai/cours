@@ -2,7 +2,7 @@
 title: "Gestionnaire de package, partage de code, industrialisation"
 weight: 27
 description: "Comprendre la portabilité applicative via l'utilisation de dépendances logicielles"
-summary: "Comprendre la portabilité applicative vis l'utilisation de dépendances logicielles"
+summary: "Comprendre la portabilité applicative via l'utilisation de dépendances logicielles"
 slug: "gestionnaire-de-package"
 tags: ["cours","portabilite", "librairie","package", "automatisation","environnement"]
 series: ["Cours"]
