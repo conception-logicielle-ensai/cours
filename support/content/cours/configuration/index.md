@@ -151,6 +151,8 @@ CLE=valeur
 
 > **Remarque :** Les noms des variables d'environnement suivent la notation `UPPER_SNAKE_CASE`.
 
+### Librairie `python-dotenv`
+
 En Python, la gestion des variables d'environnement peut être facilitée avec la librairie `python-dotenv`. Celle-ci permet de lire un fichier **.env** et d'exporter son contenu dans l'environnement d'exécution.
 
 #### Exemple d'un fichier .env
@@ -192,6 +194,48 @@ if os.path.exists(local_env_path):
     load_dotenv(dotenv_path=local_env_path, override=True)
 ```
 
+### L’outil système `uv`
+
+L’outil `uv` permet également de charger des variables d’environnement à partir d’un fichier *dotenv* lors de l’exécution d’un programme, grâce à la commande `uv run`.
+
+Contrairement à `python-dotenv`, `uv` ne charge pas les variables d’environnement via du code Python. Celles-ci sont injectées directement au moment de l’exécution du programme.
+
+Par défaut, `uv` recherche les fichiers dans le répertoire courant.
+
+#### Exemple
+
+Supposons que vous disposiez d’un fichier `.env` contenant les variables suivantes :
+
+```env
+ENVIRONNEMENT=local
+CLE_API=macledapi
+```
+
+Et d’un fichier Python nommé `load_fichier_dotenv_uv.py` :
+
+```python
+import os
+
+for key, value in os.environ.items():
+    print(f"{key}={value}")
+```
+
+Vous pouvez alors exécuter ce script avec la commande suivante :
+
+```bash
+uv run --env-file .env python3 load_fichier_dotenv_uv.py
+```
+
+Où, si votre fichier `.env` se trouve dans un autre répertoire, en précisant explicitement son chemin :
+
+```bash
+uv run --env-file path/.env python3 load_fichier_dotenv_uv.py
+```
+
+Dans cet exemple, `path/` correspond au chemin vers le dossier contenant le fichier `.env`, relatif à votre répertoire courant.
+
+L’exécution affichera l’ensemble des variables d’environnement disponibles pour le programme, notamment `ENVIRONNEMENT` et `CLE_API`.
+
 <div class="alert alert-info">
   <strong> Pour aller plus loin </strong> <br/>Variables d'environnement :  <a href="https://kinsta.com/knowledgebase/what-is-an-environment-variable/">https://kinsta.com/knowledgebase/what-is-an-environment-variable/</a>
 </div>
@@ -206,7 +250,7 @@ if os.path.exists(local_env_path):
    - Un faux mot de passe de base de données
    - La version actuelle de votre application (par défaut, utilisez `0.1` si vous n'avez pas encore commencé votre projet).  
 
-2. Créez un fichier `.env.template` qui liste toutes les variables présentes dans le fichier `.env.local`. Ce fichier servira de modèle pour permettre aux développeurs de créer leur propre fichier `.env` localement.  
+2. Créez un fichier `.env.template` qui liste toutes les variables présentes dans le fichier `.env.local`. Ce fichier servira de modèle pour permettre aux développeurs de créer leur propre fichier `.env.local` localement.  
 
 3. Ajoutez le fichier `.env.local` au `.gitignore` pour éviter qu'il soit versionné.  
 
