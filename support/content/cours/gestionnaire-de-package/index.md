@@ -46,10 +46,8 @@ Depuis un terminal, faites les commandes suivantes :
 ## Interpréteur/Compilateur
 
 
-![ ](images/gdp/compile-interprete.png)
+![ ](https://miro.medium.com/v2/resize:fit:1100/format:webp/1*MxoB8Iv2jfDyNVIbzhYMGQ.jpeg)
 
-
-> Référence : https://blog.amigoscode.com/p/java-vs-python
 ### Python, un language interprété
 
 Python appartient à la catégorie des langages interprétés (tout comme Javascript et R, par exemple).  
