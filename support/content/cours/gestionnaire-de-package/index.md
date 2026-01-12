@@ -179,6 +179,7 @@ Il en existe une Myriade, pour différents usages, languages.
 - `npm` `yarn` pour l'installation de packages *javascript*
 - `maven` `gradle` pour l'installation de packages *java*
 - `docker` `podman` pour l'installation d'images docker
+- `renv` `packrat` pour l'installation de projet R
 
 Il faut en général pour définir un gestionnaire de paquets : 
 - Une norme sur le format partagé (.whl, .tar, ...)
@@ -385,10 +386,22 @@ pip freeze > requirements.txt
 
 > Remarque, pip freeze ne fait que des opérations très basiques (lister l'environnement et le sortir dans un message). Il faut donc soit partir d'un environnement d'abord propre (environnement virtuel puis installation de toutes les dépendances), ou utiliser une autre librairie 
 
-On préconisera plutôt `pip-tools` pour sauvegarder un environnement propre:
+On préconisera plutôt `pip-tools` pour sauvegarder un environnement propre si l'on utilise `pip`.
+
+> https://pypi.org/project/pip-tools/
+
 
 ```sh
 pip install pip-tools
+```
+
+Puis constituer un fichier requirements.in, avec les packages que l'on souhaite installer
+exemple
+```yaml
+fastapi
+```
+Puis pour créer un fichier 
+```sh
 pip-compile requirements.in
 ```
 ### Industrialisation : Poetry, UV
