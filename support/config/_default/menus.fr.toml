@@ -30,7 +30,7 @@
   pageRef = "cours/bonnes-pratiques"
   weight = 5
 [[main]]
-  name = "Bonnes pratiques"
+  name = "Analyse statique"
   parent = "Cours"
   pageRef = "cours/analyse-statique"
   weight = 6
