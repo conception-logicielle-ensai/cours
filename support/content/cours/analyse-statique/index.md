@@ -1,5 +1,5 @@
 ---
-title: "Outils d'analyse statique d'une base de codet"
+title: "Outils d'analyse statique d'une base de code"
 weight: 24
 draft: false
 description: "Comprendre et mettre en place l’analyse statique pour améliorer la qualité et la sécurité d’une base de code"
