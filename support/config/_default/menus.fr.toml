@@ -9,7 +9,6 @@
   parent = "Cours"
   pageRef = "cours/git-avance"
   weight = 1
-
 [[main]]
   name = "Architecture applicative"
   parent = "Cours"
@@ -25,12 +24,16 @@
   parent = "Cours"
   pageRef = "cours/configuration"
   weight = 4
-
 [[main]]
   name = "Bonnes pratiques"
   parent = "Cours"
   pageRef = "cours/bonnes-pratiques"
   weight = 5
+[[main]]
+  name = "Bonnes pratiques"
+  parent = "Cours"
+  pageRef = "cours/analyse-statique"
+  weight = 6
 
 [[main]]
   name = "Projets"
