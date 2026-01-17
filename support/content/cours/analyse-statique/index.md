@@ -9,7 +9,7 @@ tags: ["qualimetrie", "linting", "formatting", "SAST"]
 series: ["Cours"]
 series_order: 6
 
-------
+---
 
 > L'analyse statique du code consiste à l'analyser SANS le lancer.
 
