@@ -117,44 +117,59 @@ Voici quelques exemples de sous-dossiers essentiels que vous pouvez trouver dans
 
    ```bash
     #!/bin/bash
-
     set -e
 
-    # Récupération des fichiers Python présents dans le staging
-    STAGED_FILES=$(git diff --cached --name-only --diff-filter=d | grep '\.py$' || true)
+    echo "=== Hook pre-commit ==="
 
-    if [[ -z "$STAGED_FILES" ]]; then
-        echo "Aucun fichier Python à vérifier."
+    # Tous les fichiers du staging (sauf suppressions)
+    STAGED_FILES=$(git diff --cached --name-only --diff-filter=d || true)
+
+    if [ -z "$STAGED_FILES" ]; then
+        echo "Aucun fichier à analyser."
         exit 0
     fi
 
-    echo "Vérifications Ruff sur les fichiers ajoutés au staging..."
+    echo "Fichiers analysés :"
+    echo "$STAGED_FILES"
+    echo
 
-    # 1. Formatage
-    echo "Formatage avec Ruff..."
-    uv run ruff format $STAGED_FILES
-
-    # 2. Corrections automatiques de lint
-    echo "Corrections automatiques avec Ruff..."
-    uv run ruff check --fix $STAGED_FILES
-
-    # 3. Vérification finale bloquante
-    echo "Vérification finale avec Ruff..."
-    uv run ruff check $STAGED_FILES
-    RUFF_STATUS=$?
-
-    if [[ $RUFF_STATUS -ne 0 ]]; then
-        echo "Erreur : des problèmes Ruff non corrigeables automatiquement subsistent."
+    # ---------------------------------------------------
+    # Étape 1 — Formatage automatique
+    # ---------------------------------------------------
+    echo "[1/2] Formatage automatique (ruff format)"
+    if uv run ruff format $STAGED_FILES; then
+        echo "Formatage terminé avec succès."
+    else
+        echo "Erreur lors du formatage."
+        echo "Le commit est bloqué."
         exit 1
     fi
+    echo
 
-    # Ré-ajout au staging
-    echo "Ajout des fichiers modifiés au staging..."
+    # ---------------------------------------------------
+    # Étape 2 — Corrections automatiques
+    # ---------------------------------------------------
+    echo "[2/2] Corrections automatiques (ruff check --fix)"
+    if uv run ruff check --fix $STAGED_FILES; then
+        echo "Corrections automatiques appliquées."
+    else
+        echo "Certaines règles Ruff ne peuvent pas être corrigées automatiquement."
+        echo "Des erreurs Ruff nécessitent une correction manuelle."
+        echo "Le commit est bloqué."
+        exit 1
+    fi
+    echo
+
+
+    # ---------------------------------------------------
+    # Mise à jour du staging
+    # ---------------------------------------------------
+    echo "Mise à jour du staging..."
     git add $STAGED_FILES
 
-    echo "Toutes les vérifications sont passées. Commit autorisé."
+    echo "Toutes les vérifications Ruff sont passées."
+    echo "Commit autorisé."
     exit 0
-
    ```
    > `$(...)` est utilisé pour exécuter une commande et insérer son résultat dans une autre commande ou une variable.
    
