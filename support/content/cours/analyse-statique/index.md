@@ -11,6 +11,9 @@ series_order: 6
 
 ---
 
+> [!TIP]+ Accès aux exemples
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/architecture-applicative
+
 > L'analyse statique du code consiste à l'analyser SANS le lancer.
 
 ## Petite définition

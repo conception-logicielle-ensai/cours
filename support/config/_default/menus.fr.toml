@@ -34,6 +34,11 @@
   parent = "Cours"
   pageRef = "cours/analyse-statique"
   weight = 6
+[[main]]
+  name = "Automatisation des contrôles"
+  parent = "Cours"
+  pageRef = "cours/automatisation-controle"
+  weight = 8
 
 [[main]]
   name = "Projets"
