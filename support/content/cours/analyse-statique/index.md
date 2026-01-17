@@ -146,13 +146,8 @@ ignore = [
     "E501", # Longueur de ligne (gérée par le formatter)
 ]
 
-
-# -------------------------------------------------
-# Gestion des imports
-# -------------------------------------------------
-
 [lint.isort]
-
+# Gestion des imports
 combine-as-imports = true
 force-sort-within-sections = true
 lines-after-imports = 2
