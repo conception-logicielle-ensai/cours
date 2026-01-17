@@ -1,10 +1,10 @@
 ---
 title: "Outils d'analyse statique d'une base de codet"
-weight: 26
+weight: 24
 draft: false
-description: ""
-summary: ""
-slug: "gestion-configuration"
+description: "Comprendre et mettre en place l’analyse statique pour améliorer la qualité et la sécurité d’une base de code"
+summary: "Analyse statique, linting, formatting et SAST"
+slug: "analyse-statique"
 tags: ["qualimetrie", "linting", "formatting", "SAST"]
 series: ["Cours"]
 series_order: 6
