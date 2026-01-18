@@ -35,6 +35,12 @@
   pageRef = "cours/analyse-statique"
   weight = 6
 [[main]]
+  name = "Analyse dynamique"
+  parent = "Cours"
+  pageRef = "cours/analyse-dynamique"
+  weight = 8
+
+[[main]]
   name = "Automatisation des contrôles"
   parent = "Cours"
   pageRef = "cours/automatisation-controle"

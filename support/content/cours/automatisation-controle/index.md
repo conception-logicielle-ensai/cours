@@ -7,7 +7,7 @@ summary: ""
 slug: "automatisation"
 tags: ["automatisation","git hooks", "git actions"]
 series: ["Cours"]
-series_order: 2
+series_order: 8
 ---
 
 > [!TIP]+ Accès aux exemples
@@ -199,3 +199,158 @@ Voici quelques exemples de sous-dossiers essentiels que vous pouvez trouver dans
 ### Points importants
 
 Si un fichier ne respecte pas les règles, `ruff` bloquera le commit. Vous devrez corriger les erreurs avant de réessayer.
+
+
+## Automatisation des contrôles sur des dépots hébergés
+
+Les Forges Logicielles : Gitlab, Github (etc ...) proposent une infrastructure de **runners** et **executeurs** qui permettent d'éxecuter des traitements lors d'événements liés a la mise a jour, publication ou autre de votre code.
+
+L'un des principaux usages de ces fonctionnalité, c'est de faire tourner des vérifications statiques et dynamiques de votre code. Ainsi, vous n'avez plus a penser a vos contrôles, ils s'executent a chaque nouveau commit par exemple et donc cela vous permet de voir apparaître les bugs, les régression et d'avoir des arguments objectifs pour la validation ou le rejet d'ajout du code d'un collègue. 
+
+> Cela permet également l'hébergement de pages web construites (comme ce site web par exemple 🔥).
+
+### Github Actions, une introduction
+
+![](/images/automatisation-controle/ghactions.webp)
+
+GitHub Actions est un outil d'intégration et de déploiement continu (CI/CD) natif à GitHub, qui permet d’automatiser des workflows directement dans vos dépôts. Il repose sur trois concepts principaux :
+
+- les Workflows : Définissent une suite d'actions à exécuter. Ils sont configurés via des fichiers YAML placés dans le dossier `.github/workflows/` du projet sur github.
+
+- les Jobs : Chaque workflow est composé de jobs qui s’exécutent dans des environnements distincts.
+
+- les Steps : Un job est lui-même décomposé en une séquence d'étapes, comprenant des actions prédéfinies ou personnalisées.
+
+> Les traitements sont executés sur des machines fournies par github, vous pouvez voir la typologie des machines ici : https://docs.github.com/en/actions/using-github-hosted-runners/using-github-hosted-runners/about-github-hosted-runners#standard-github-hosted-runners-for--private-repositories 
+
+> **Dans le TP d'aujourd'hui et dans vos projets on privilégiera d'utiliser une machine qui est un `ubuntu-22.04` comme votre environnement personnel.**
+
+
+Le format des workflow est en **YAML**, c'est un format de fichier comme le **JSON**, le **XML** ou le **CSV**. On le retrouve spécifiquement pour la configuration de fichier d'intégration et de configuration car il est assez *léger* a la lecture : il repose comme le python sur de l'indentation.
+
+Exemple avec un yaml "de base".
+
+```yaml
+name: Simple Python Workflow
+
+on: [push]
+
+jobs:
+  simple-check:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run a simple Python command
+        run: python --version
+```
+
+Le principe est le suivant : 
+- D'une machine nue on peut executer des commandes pour lui installer ou bien lancer des commandes a partir de ce qui est déjà installé sur la machine. 
+
+Avec en plus : des jobs déjà construits par d'autres personnes c'est ce que l'on voit dans `actions/checkout@v4` `actions/setup-python@v5`
+
+> On peut voir le code source ici pour le `actions/setup-python par exemple ici : https://github.com/actions/setup-python => https://github.com/actions/setup-python/releases/tag/v5.3.0  => https://github.com/actions/setup-python/blob/0b93645e9fea7318ecaed2b359559ac225c90a2b/src/setup-python.ts (oui c'est peu compréhensible de but en blanc, mais lors de problèmes c'est pratique de pouvoir voir du code, pour comprendre #opensource)
+
+### Que souhaite-t-on automatiser ?
+
+- La création et configuration des environnements
+
+- Exécution automatique des tests
+
+- Analyse de la qualité du code (lint)
+
+- Validation de la qualimétrie via des outils et bots
+
+> [!TIP]+ Nos préconisations
+> 👉 Nous préconisons la mise en place systématique des tests et du lint sur vos projets, de façon transverse, en complément des githooks locaux, afin de garantir une qualité de code constante dès les premières étapes du développement.
+
+
+### Scripts exemples fonctionnels
+
+Pour une application qui utilise UV nous avons un script exemple ici :
+
+```yaml
+name: CI Python avec uv
+
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  lint:
+    name: Linting avec Ruff
+    runs-on: ubuntu-22.04
+    
+    steps:
+    - name: Récupérer le code
+      uses: actions/checkout@v4
+    
+    - name: Installer uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+    
+    - name: Configurer Python
+      run: uv python install
+    
+    - name: Installer les dépendances
+      run: uv sync --dev
+    
+    - name: Vérification avec Ruff
+      run: uv run ruff check .
+  
+  test:
+    name: Tests avec pytest
+    runs-on: ubuntu-22.04
+    
+    steps:
+    - name: Récupérer le code
+      uses: actions/checkout@v4
+    
+    - name: Installer uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+    
+    - name: Configurer Python
+      run: uv python install
+    
+    - name: Installer les dépendances
+      run: uv sync --dev
+    
+    - name: Lancer les tests avec pytest
+      run: uv run pytest
+```
+
+Ici : 
+
+- 2 jobs : un Job Lint, un Job test
+
+Qui s'executent sur toutes les branches : 
+```yaml
+on:
+  push:
+    branches: [ '**' ]
+  pull_request:
+    branches: [ main, develop ]
+```
+
+Les 2 jobs s'appuient sur des actions déjà construites: 
+- `actions/checkout@v4` : récupère le code en l'état git
+- `astral-sh/setup-uv@v4` : installe uv dans l'environnement
+
+Puis des scripts de `test` ou d'analyse via `ruff`
+
+{{< alert icon="fire" cardColor="#e63946" iconColor="#1d3557" textColor="#f1faee" >}}
+Ces 2 parties sont plutôt rapides à mettre en place et valent quelques précieux points. Nous vous conseillons de les mettre en place au plus vite (genre aujourd'hui) au sein de l'équipe et au niveau du dépôt de code.
+{{</alert>}}
