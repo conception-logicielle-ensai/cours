@@ -49,6 +49,12 @@ mon_projet/
     └── tests.py             # Tests unitaires
 ```
 
+**Notamment niveau archi**:
+
+On a `mon_projet` : nom du projet dans git par exemple
+`nom_projet/nom_projet/` : nom du projet serveur qui hébergera les N sites, et permettra l'execution
+`nom_projet/mon_app` : notre application, là ou on développe
+
 Les trois couches principales sont :
 
 **Models (models.py)** : définissent la structure de vos données et gèrent l'interaction avec la base de données via l'ORM Django (on verra cela dans le cours sur la persistence). Chaque modèle correspond généralement à une table .
