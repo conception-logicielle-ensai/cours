@@ -154,30 +154,19 @@ Nous vous préconisons de suivre le tutoriel très bien réalisé par django, no
 
 Pour démarrer si vous partez sur cette solution :
 
-**Exemple simple**
-
-https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/http-api-webservices/django/exemple_simple
-
-
-> Il s'agit d'un projet mis en place assez simplement, inspirez vous du README
-**Suivez un des tutoriels**
-
-https://openclassrooms.com/fr/courses/7172076-debutez-avec-le-framework-django
-
-https://docs.djangoproject.com/en/5.1/intro/
+**AVANT TOUT, suivez un de ces tutoriels**
+- Plutôt celui là, il est assez complet : https://docs.djangoproject.com/en/6.0/intro/
+- Ou sinon celui là: https://openclassrooms.com/fr/courses/7172076-debutez-avec-le-framework-django
 
 
+> [!TIP]+ **Exemple simple**
+> https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/http-api-webservices/django/exemple_simple
 
-<div class="alert alert-info">
-  <strong> Pour aller plus loin 1</strong> <br/> 
+> [!TIP]+ Documentation **overview**
+> [https://docs.djangoproject.com/en/5.1/intro/overview/](https://docs.djangoproject.com/en/5.1/intro/overview/)
 
-Documentation **overview**: [https://docs.djangoproject.com/en/5.1/intro/overview/](https://docs.djangoproject.com/en/5.1/intro/overview/)
-
-</div>
-<div class="alert alert-info">
-  <strong> Pour aller plus loin 2</strong> <br/> 
-
-Exemple "avancé" : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/http-api-webservices/django/app le README est également constitué a façon pour vous permettre de démarrer.
+> [!TIP]+ Exemple avancé
+>  https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/http-api-webservices/django/app le README est également constitué a façon pour vous permettre de démarrer.
 
 
 </div>
