@@ -59,7 +59,7 @@ Les trois couches principales sont :
 
 ## Exemple pratique : migrations et création d'objets
 
-Créons un modèle simple pour illustrer le workflow Django. Dans `mon_app/models.py` :
+Voici un modèle simple pour illustrer le workflow Django. Dans `mon_app/models.py` :
 
 ```python
 from django.db import models
@@ -88,7 +88,6 @@ python manage.py migrate
 ```
 
 Les migrations sont versionnées et permettent de suivre l'évolution du schéma de base de données. Créons maintenant quelques objets. Dans `mon_app/views.py` :
-
 ```python
 from django.shortcuts import render
 from .models import Article
@@ -118,6 +117,10 @@ def creer_article(request):
         'articles': tous_les_articles
     })
 ```
+
+> C'est l'équivalent de DAO, et le model au sens bdd, vous pouvez toutefois penser a faire des objets métiers purs ou développer des fonctionnalités dans les Model
+
+> ATTENTION AUX COUCHES, je vous vois venir, l'an dernier ils ont eu une mauvaise note en archi car rien n'était respecté.
 
 ## Configuration : setup.py et gestion des settings
 
