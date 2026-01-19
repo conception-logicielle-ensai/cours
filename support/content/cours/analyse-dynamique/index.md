@@ -3,8 +3,8 @@ title: "Analyse dynamique d'une base de code"
 weight: 23
 draft: false
 description: "Qu'est ce que l'analyse dynamique ? "
-summary: "Analyse statique, linting, formatting et SAST"
-slug: "analyse-statique"
+summary: "Analyse dynamique, tests unitaires, fonctionnels et de charge"
+slug: "analyse-dynamique"
 tags: ["tests", "unitaire", "fonctionnel", "charge"]
 series: ["Cours"]
 series_order: 7
