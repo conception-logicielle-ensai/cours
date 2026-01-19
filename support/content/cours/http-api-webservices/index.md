@@ -2,12 +2,15 @@
 title: "HTTP: Consommation et construction d'API webservice"
 weight: 21
 draft: false
-summary: "🌐 API webservices et HTTP, FastAPI."
+summary: "API webservices et HTTP, FastAPI."
 slug: "http-api-webservices"
 tags: ["http", "api","webservice","django","fastapi"]
 series: ["Cours"]
 series_order: 9
 ---
+
+> [!TIP]+ Accès aux exemples
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/architecture-applicative
 
 Dans cette partie, on va voir ce qu'est un web service, pourquoi on en utilise et comment en construire un en Python.  
 
@@ -77,12 +80,9 @@ Un client peut envoyer des requêtes HTTP au serveur sur :
 - **Le port 443** pour des connexions sécurisées en **HTTPS** (nécessitant des certificats de chiffrement).  
 
 
-<div class="alert alert-info">
-  <strong> Pour aller plus loin </strong> <br/>Spécification RFC HTTP 1.1 :  <a href="https://www.rfc-editor.org/rfc/rfc2616">https://www.rfc-editor.org/rfc/rfc2616</a>
-</div>
-<div class="alert alert-info">
-  <strong> Pour aller plus loin </strong> <br/>Three-way handshake TCP :  <a href="https://www.rfc-editor.org/rfc/rfc2616">https://fr.wikipedia.org/wiki/Three-way_handshake</a>
-</div>
+> [!TIP]+ Pour aller plus loin
+> [Spécification RFC HTTP 1.1](https://www.rfc-editor.org/rfc/rfc2616)
+> [Three-way handshake TCP](https://fr.wikipedia.org/wiki/Three-way_handshake)
 
 
 ### Client HTTP - Quelques rappels  
@@ -137,19 +137,11 @@ print(response.status_code)  # Affiche le code de statut
 # print(response.text)  # Si la réponse est en texte brut
 ```
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin</strong> 
-  Le client léger qu'on préconise pour python c'est requests, on retrouve la doc ici :
+> [!TIP]+ Pour aller plus loin
+> Le client léger qu'on préconise pour python c'est `requests`, on retrouve la doc ici : [Faire une requête avec le module requests](https://requests.readthedocs.io/en/latest/user/quickstart/#)
 
-[Faire une requête avec le module requests](https://requests.readthedocs.io/en/latest/user/quickstart/#)
-
-</div>
-<div class="alert alert-info">
-  <strong>Pour aller plus loin</strong> 
-
-Souvent, les requêtes Curl sont fournies dans la documentation Swagger pour accéder aux services. Le site [Curlconverter](https://curlconverter.com/) permet de convertir ces requêtes Curl en requêtes dans le langage de votre choix. Cela peut être utile si vous devez interagir avec une API externe dans votre programme.  
-
-</div>
+> [!TIP]+ Pour aller plus loin
+> Souvent, les requêtes Curl sont fournies dans la documentation Swagger pour accéder aux services. Le site [Curlconverter](https://curlconverter.com/) permet de convertir ces requêtes Curl en requêtes dans le langage de votre choix. Cela peut être utile si vous devez interagir avec une API externe dans votre programme.
 
 
 ### Requête HTTP - Structure d’une réponse HTTP  
@@ -160,7 +152,7 @@ Une réponse HTTP contient :
 2. **Des en-têtes HTTP** (type de contenu, encodage…)  
 3. **Un corps de message** (souvent un fichier HTML ou JSON)  
 
-[Référence complète des codes de réponse HTTP](https://developer.mozilla.org/fr/docs/Web/HTTP/Status)
+> [Référence complète des codes de réponse HTTP](https://developer.mozilla.org/fr/docs/Web/HTTP/Status)
 
 Les différents codes retours :
 
@@ -171,7 +163,9 @@ Les différents codes retours :
 
 Les **navigateurs web** sont des clients HTTP qui envoient des requêtes `GET` lorsqu’on navigue sur une page et `POST` lorsqu’on soumet un formulaire.  
 
-💡 **Bonnes pratiques** : Il est utile d’implémenter des codes de réponse HTTP pertinents dans vos applications pour faciliter le diagnostic des erreurs et l’interaction avec les clients.  
+
+> [!TIP]+ Bonnes pratiques
+> Il est utile d’implémenter des codes de réponse HTTP pertinents dans vos applications pour faciliter le diagnostic des erreurs et l’interaction avec les clients.
 
 
 ### Requête HTTP : Gestion des identités et session
@@ -182,36 +176,123 @@ Parfois pour accéder il est nécessaire de s'authentifier, cela se fait en gén
 
 La méthode la plus simple repose sur un couple utilisateur / mot de passe.
 
-Les identifiants sont concaténés sous la forme `user:password`
+L’authentification **Basic Auth** consiste à :
 
-Puis encodés en Base64
+1. Concaténer l’identifiant et le mot de passe sous la forme :
 
-Le tout est envoyé dans le header `Authorization`
+```
+username:password
+```
+
+2. Encoder cette chaîne en **Base64**
+
+3. Envoyer le résultat dans l’en-tête HTTP :
+
+```
+Authorization: Basic <base64(username:password)>
+```
+**Exemple avec `curl`**
+
+```bash
+curl -X GET https://api.exemple.com/api/books \
+  -H "Authorization: Basic YWxpY2U6c2VjcmV0MTIz"
+```
+
+> À noter : `curl` sait aussi gérer automatiquement le header Basic Auth :
+
+```bash
+curl -u alice:secret123 https://api.exemple.com/api/books
+```
+
 
 #### 2. Authentification par jeton (Token-based authentication)
 
-Aujourd’hui, on utilise majoritairement des jetons à durée de vie limitée, transmis dans le header `Authorization`.
+Aujourd’hui, on utilise majoritairement des jetons à durée de vie limitée.
 
-Exemple avec un Bearer Token
-```sh
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30
+**Exemple avec un Bearer Token**l
+
+L’authentification par jeton repose sur les étapes suivantes :
+
+1. L’utilisateur s’authentifie une première fois (login / OAuth / SSO, etc.).
+2. Le serveur d’authentification émet un **jeton signé**, généralement à **durée de vie limitée**.
+3. Le client stocke ce jeton.
+4. Le jeton est transmis **à chaque requête** dans l’en-tête HTTP :
+
+```
+Authorization: Bearer <token>
 ```
 
-Le jeton est émis après une authentification réussie (par exemple via OAUTH en déléguant l'authentification à d'autres services (google..))
+**Exemple concret**
+
+1. Authentification initiale (login)
+
+Requête :
+
+```
+POST /auth/login HTTP/1.1
+Host: api.exemple.com
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "secret123"
+}
+```
+
+Réponse du serveur :
+
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "Bearer",
+  "expires_in": 3600
+}
+```
+
+2. Utilisation du jeton pour accéder à une ressource protégée
+
+```
+GET /api/books HTTP/1.1
+Host: api.exemple.com
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
 
 > Remarque : Le jeton expire, il faut donc avoir des mécanismes en place pour surveiller la date d'expiration et le renouveler.
 
 #### 3. Gestion de sessions
-On gère également souvent cela dans des sessions dédiées plutôt qu'a importer on utilisera l'injection de dépendance avec un wrapper de session http et des méthodes de rafraîchissement des jetons.
+
+Dans les applications clientes (API consumer, micro-services, scripts métiers), il est courant de **centraliser la gestion de l’authentification HTTP** au sein d’une **session dédiée**, plutôt que de manipuler directement les headers et les jetons dans chaque appel.
+L'objectifs de cette approche est d'éviter la duplication du code d’authentification et séparer les préoccupations (authentification vs logique métier).
+
+1. Une session HTTP est créée avec :
+
+   * une URL de base
+   * un **access token**
+   * un **refresh token**
+2. Chaque requête utilise automatiquement le jeton courant
+3. En cas de réponse `401 Unauthorized` :
+
+   * le jeton est rafraîchi
+   * la requête est rejouée
+4. Le reste de l’application n’a **aucune connaissance** de ces mécanismes
 
 
-Exemple d'une classe de configuration pour la gestion de la session.
+**Exemple d’implémentation**
+
 ```python
 import requests
-from typing import Optional
+from typing import Any
 
 
 class HttpSession:
+    """
+    Wrapper de session HTTP gérant automatiquement l'authentification
+    et le rafraîchissement des jetons.
+    """
+
     def __init__(self, base_url: str, access_token: str, refresh_token: str):
         self.base_url = base_url
         self.access_token = access_token
@@ -219,11 +300,17 @@ class HttpSession:
         self.session = requests.Session()
 
     def _auth_headers(self) -> dict:
+        """
+        Génère les headers d'authentification pour les requêtes sortantes.
+        """
         return {
             "Authorization": f"Bearer {self.access_token}"
         }
 
     def refresh_access_token(self) -> None:
+        """
+        Rafraîchit l'access token à l'aide du refresh token.
+        """
         response = self.session.post(
             f"{self.base_url}/auth/refresh",
             json={"refresh_token": self.refresh_token}
@@ -233,7 +320,11 @@ class HttpSession:
         data = response.json()
         self.access_token = data["access_token"]
 
-    def get(self, path: str, **kwargs):
+    def get(self, path: str, **kwargs) -> Any:
+        """
+        Exécute une requête GET authentifiée avec gestion automatique
+        de l'expiration du jeton.
+        """
         response = self.session.get(
             f"{self.base_url}{path}",
             headers=self._auth_headers(),
@@ -250,6 +341,26 @@ class HttpSession:
 
         response.raise_for_status()
         return response.json()
+```
+
+```python
+class BookService:
+    def __init__(self, http_session: HttpSession):
+        self.http = http_session
+
+    def list_books(self):
+        return self.http.get("/api/books")
+```
+
+```python
+session = HttpSession(
+    base_url="https://api.exemple.com",
+    access_token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    refresh_token="def50200a1b2c3..."
+)
+
+book_service = BookService(session)
+books = book_service.list_books()
 ```
 
 
@@ -448,7 +559,7 @@ Les formats les plus courants sont :
 Les requêtes envoyées à une API sont aussi souvent en JSON ou XML.
 
 
-**Remarque** : une fois `pythonisés` ces formats seront récupérés comme des objets ou des dictionnaires. Mais pour cela il faut parler de sérialisation / désérialisation.
+> **Remarque** : une fois `pythonisés` ces formats seront récupérés comme des objets ou des dictionnaires. Mais pour cela il faut parler de sérialisation / désérialisation.
 
 ### Sérialisation / Désérialisation
 
@@ -456,37 +567,78 @@ Les requêtes envoyées à une API sont aussi souvent en JSON ou XML.
 
 Un des enjeux du travail avec des ressources externes d'un programme est de savoir convertir les entrées d'un programme en des formes connues de notre programme (désérialisation), mais également de pouvoir exposer des objets connus de notre programme dans un format utilisable par d'autres programmes (sérialisation).
 
-En Python, vous êtes plutôt habitués à utiliser la sérialisation avec le module intégré `json`.
+> *faire le pont entre le monde externe (JSON, HTTP, API) et le monde interne du programme (objets, classes, invariants).*
 
-**Sérialisation en JSON**
+**Exemple : une entité métier `User`**
+
+```python
+from dataclasses import dataclass
+
+
+@dataclass
+class User:
+    name: str
+    age: int
+    city: str
+```
+
+#### Désérialisation (JSON → objet)
+
+```json
+json_data = {
+    "name": "Alice",
+    "age": 25,
+    "city": "Paris"
+}
+```
+
+Conversion vers un objet métier
+
+```python
+def user_from_dict(data: dict) -> User:
+    return User(
+        name=data["name"],
+        age=data["age"],
+        city=data["city"],
+    )
+
+
+user = user_from_dict(json_data)
+print(user.name)  # Alice
+```
+
+## Sérialisation (objet → JSON)
+
+```python
+def user_to_dict(user: User) -> dict:
+    return {
+        "name": user.name,
+        "age": user.age,
+        "city": user.city,
+    }
+```
+
+Encodage JSON
+
 ```python
 import json
 
-# Objet Python (dictionnaire)
-data = {"nom": "Alice", "âge": 25, "ville": "Paris"}
-
-# Conversion en JSON (sérialisation)
-json_data = json.dumps(data)  # Chaîne JSON
-print(json_data)  # {"nom": "Alice", "âge": 25, "ville": "Paris"}
-```
-
-**Désérialisation depuis JSON**
-```python
-# Conversion JSON -> objet Python (désérialisation)
-data_reconstruit = json.loads(json_data)
-print(data_reconstruit["nom"])  # Alice
+json_string = json.dumps(user_to_dict(user))
+print(json_string)
 ```
 
 Cette logique doit être intégrée dans la conception de vos logiciels : toujours contrôler les entrées et les convertir en un format connu du système.
 
 Par exemple, en programmation orientée objet, il sera attendu qu'entre deux couches de séparation architecturale, vous introduisiez des objets de type `DTO` (Data Transfer Object). Ainsi, des DTO seront utilisés entre la couche service et DAO, mais aussi entre la couche contrôleur et service. Cela permet une conversion et, par conséquent, de pérenniser le modèle dans chacune des couches de votre système.
 
-> Tout cela a déjà été expliqué dans cette partie du cours [🔰 Bonnes pratiques du développement et design patterns](/docs/bonnes-pratiques-dev/#4-data-transfer-object).
+> Tout cela a déjà été expliqué dans cette partie du cours [Bonnes pratiques du développement et design patterns](/cours/bonnes-pratiques-dev/#4-data-transfer-object).
 
 <div class="alert alert-info">
   <strong>Pour aller plus loin</strong> <br/> Architecture hexagonale => Gérer les entrées/sorties => <a href="https://alistair.cockburn.us/hexagonal-architecture/">https://alistair.cockburn.us/hexagonal-architecture/</a>
 </div>
 
+> [!TIP]+ Pour aller plus loin
+> [Architecture hexagonale => Gérer les entrées/sorties](https://alistair.cockburn.us/hexagonal-architecture/)
 
 ### Optimisation : Synchronicité / Asynchronicité
 
@@ -537,17 +689,13 @@ async def main():
 asyncio.run(main())
 ```
 
-<div class="alert alert-warning">
-  Attention : l'introduction de l'asynchronicité dans des fonctions où elle n'est pas nécessaire peut alourdir le code.
-</div>
+{{< alert icon="fire" cardColor="#e63946" iconColor="#1d3557" textColor="#f1faee" >}}
+Attention : l'introduction de l'asynchronicité dans des fonctions où elle n'est pas nécessaire peut alourdir le code.
+{{</alert>}}
 
-<div class="alert alert-info">
+> [!TIP]+ Pour aller plus loin
+> [Hébergement : ASGI(Asynchronous Server Gateway Interface) vs WSGI(Web Server Gateway Interface)](https://www.youtube.com/watch?v=vKjCkeJGbNk&pp=ygUJYXNnaSB3c2dp)
 
-  <strong> Pour aller plus loin </strong> <br/>
-
-Hébergement : ASGI(Asynchronous Server Gateway Interface) vs WSGI(Web Server Gateway Interface) : [https://www.youtube.com/watch?v=vKjCkeJGbNk&pp=ygUJYXNnaSB3c2dp](https://www.youtube.com/watch?v=vKjCkeJGbNk&pp=ygUJYXNnaSB3c2dp)
-
-</div>
 
 ## Quelques mots sur FastAPI  
 
@@ -557,7 +705,7 @@ Il repose sur deux autres frameworks :
 - Starlette pour les fonctionnalités liées au web.
 - Pydantic pour la gestion des données.
 
-FastAPI est open source et est utilisé par de nombreuses entreprises, telles que Netflix, Uber et Microsoft.
+FastAPI est open source et est utilisé par de nombreuses entreprises, telles que Netflix, Uber et Microsoft. Il est très utilisé dans le mon de la datascience.
 
 FastAPI facilite la gestion des requêtes asynchrones.
 
@@ -566,11 +714,13 @@ FastAPI facilite la gestion des requêtes asynchrones.
 Pour installer FastAPI, utilisez les commandes suivantes :  
 
 ```bash
-pip install fastapi
-pip install "uvicorn[standard]"
+uv add fastapi
+uv add "uvicorn[standard]"
 ```
 
-### Création de votre application  
+### Structure d'un projet 
+
+### Exemple pratique :
 
 1. Créez un fichier nommé `main.py` avec le contenu suivant :  
 
@@ -640,3 +790,108 @@ Ressources officielles:
 - Pour en savoir plus sur FastAPI, lisez la [documentation officielle](https://fastapi.tiangolo.com/fr/).  
 - tutoriel realpython : https://realpython.com/fastapi-python-web-apis/
 
+
+## CORS et Middleware d’authentification
+
+## 1. Problématique générale
+
+Une API exposée sur le Web doit répondre à **deux problématiques distinctes** :
+
+1. **Qui a le droit d’appeler l’API depuis un navigateur ?**
+   → *CORS (Cross-Origin Resource Sharing)*
+
+2. **Qui a le droit d’accéder aux ressources métier ?**
+   → *Authentification / Autorisation*
+
+Ces deux notions sont **complémentaires mais totalement indépendantes**.
+
+---
+
+## 2. CORS Middleware
+
+### Rôle du CORS
+
+Le CORS permet au **navigateur** de savoir si une API accepte des requêtes provenant d’une autre origine (domaine, port, protocole).
+
+> Le CORS **ne protège pas l’API**.
+> Il protège uniquement le navigateur.
+
+---
+
+### Exemple de configuration CORS dans FastAPI
+
+```python
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://frontend.exemple.com"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+```
+
+## 3. Middleware d’authentification
+
+### Rôle du middleware
+
+Un middleware d’authentification :
+
+* intercepte **toutes les requêtes**
+* vérifie la présence et la validité d’un token
+* bloque la requête si nécessaire
+
+> Il s’agit d’un **filtre global**, technique.
+
+
+### Middleware personnalisé
+
+```python
+from fastapi import Request
+from fastapi.responses import JSONResponse
+from starlette.middleware.base import BaseHTTPMiddleware
+import jwt
+
+SECRET_KEY = "secret"
+ALGORITHM = "HS256"
+
+
+class AuthMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        # Routes publiques
+        if request.url.path in {"/health", "/docs", "/openapi.json"}:
+            return await call_next(request)
+
+        authorization = request.headers.get("Authorization")
+
+        if not authorization or not authorization.startswith("Bearer "):
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "Unauthorized"},
+            )
+
+        token = authorization.replace("Bearer ", "")
+
+        try:
+            payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+            request.state.user_id = payload["sub"]
+        except jwt.PyJWTError:
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "Invalid or expired token"},
+            )
+
+        return await call_next(request)
+```
+
+---
+
+## 5. Enregistrement des middlewares
+
+```python
+app.add_middleware(AuthMiddleware)
+`
