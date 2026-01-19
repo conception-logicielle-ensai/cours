@@ -287,6 +287,28 @@ on:
     branches: [ main, develop ]
 
 jobs:
+  format:
+    name: Format check avec Ruff
+    runs-on: ubuntu-22.04
+    
+    steps:
+    - name: Récupérer le code
+      uses: actions/checkout@v4
+    
+    - name: Installer uv
+      uses: astral-sh/setup-uv@v4
+      with:
+        version: "latest"
+    
+    - name: Configurer Python
+      run: uv python install
+    
+    - name: Installer les dépendances
+      run: uv sync --dev
+ 
+    - name: Vérification format avec Ruff
+      run: uv run ruff format --check
+
   lint:
     name: Linting avec Ruff
     runs-on: ubuntu-22.04
@@ -306,9 +328,9 @@ jobs:
     - name: Installer les dépendances
       run: uv sync --dev
     
-    - name: Vérification avec Ruff
+    - name: Vérification lint avec Ruff
       run: uv run ruff check .
-  
+
   test:
     name: Tests avec pytest
     runs-on: ubuntu-22.04
@@ -330,11 +352,12 @@ jobs:
     
     - name: Lancer les tests avec pytest
       run: uv run pytest
+
 ```
 
 Ici : 
 
-- 2 jobs : un Job Lint, un Job test
+- 3 jobs : un Job `format`, un Job `Lint`, un Job `test`
 
 Qui s'executent sur toutes les branches : 
 ```yaml
@@ -345,7 +368,7 @@ on:
     branches: [ main, develop ]
 ```
 
-Les 2 jobs s'appuient sur des actions déjà construites: 
+Les 3 jobs s'appuient sur des actions déjà construites: 
 - `actions/checkout@v4` : récupère le code en l'état git
 - `astral-sh/setup-uv@v4` : installe uv dans l'environnement
 

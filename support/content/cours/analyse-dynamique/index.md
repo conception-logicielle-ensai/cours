@@ -23,22 +23,36 @@ On peut l'executer de différentes manières, et de manière contrôlée, via de
 
 **On détaille donc différentes granularités de test**
 
-- Executer une fonction isolément dans autres en controllant les input et en vérifiant qu'un output est bien l'attendu : on parle alors de tests unitaires.
+**Les tests unitaires**
 
-Executer un scénario de test sur une chaine plus grande:
-- Vérifier que le module développé s'intègre au reste: **test d'intégration**
-> Si j'exécute le module dans un environnement controlé, alors l'application doit me renvoyer la réponse attendue. 
-- Executer un scénario de test sur toute une fonctionnalité: 
+Executer une fonction isolément dans autres en controllant les input et en vérifiant qu'un output est bien l'attendu.
+
+> Le code développé respecte bien les attendus unitaires?
+
+**Les tests d'intégration**
+
+Executer un scénario de test sur une chaine plus grande, vérifier que le module développé s'intègre au reste existant. On reste dans un cas contrôlé.
+
+> Le code développé s'intègre-t-il bien avec l'existant?
+
+**Tests End To End ou fonctionnels**
+
+Executer un scénario de test sur toute une fonctionnalité, soit dans un environnement iso environnement cible, soit directement sur l'environnement cible. 
+
 > Si l'application tourne quelque part, je peux vérifier qu'elle fonctionne. 
 
-**On parle alors de tests fonctionnels si on est dans un environnement fermé ou test End To End en condition réelle.**
 
+**Tests de Charge**
 
+Executer un scénario de montée en charge de l'application.
 
-- Executer un scénario de montée en charge (Tests de Charge)
 > Si toutes les secondes quelqu'un demande a mon application différents objets, est ce que l'application va tenir le coup ou est ce que le service va s'arrêter.
-- Executer un scénario en évaluant la performance
+
+**Tests de performance**
+
+Executer un scénario en évaluant la performance
 > Si je demande a l'application de m'afficher une liste, elle doit me répondre en moins de 1 secondes (a définir). C'est ici un test de performances.
+> Si je lance un traitement avec 100000 entrées, il doit tourner en moins de 5 minutes
 
 ## Tests unitaires
 
