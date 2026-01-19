@@ -122,7 +122,7 @@ Voici quelques exemples de sous-dossiers essentiels que vous pouvez trouver dans
     echo "=== Hook pre-commit ==="
 
     # Tous les fichiers du staging (sauf suppressions)
-    STAGED_FILES=$(git diff --cached --name-only --diff-filter=d || true)
+    STAGED_FILES=$(git diff --cached --name-only --diff-filter=d | grep '\.py$' || true)
 
     if [ -z "$STAGED_FILES" ]; then
         echo "Aucun fichier à analyser."
