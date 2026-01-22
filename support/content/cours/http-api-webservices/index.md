@@ -38,7 +38,7 @@ Une application est un programme conçu pour répondre à des demandes et fourni
 - **Applications "client / serveur"** : elles sont partiellement installées sur l’ordinateur de l’utilisateur, mais communiquent avec un serveur distant pour accéder aux données ou exécuter certaines tâches.  
   *Exemple : l'outil Git en ligne de commande, qui envoie et récupère des fichiers depuis un serveur distant.*  
 
-Ce modèle **client / serveur** est largement utilisé, car il simplifie la gestion des mises à jour : une seule mise à jour sur le serveur suffit pour que tous les utilisateurs en bénéficient. De plus, les données sont centralisées, ce qui évite les pertes d’information dispersées sur plusieurs appareils.  
+Ce modèle **client / serveur** est largement utilisé, car il simplifie la gestion des mises à jour : **une seule mise à jour sur le serveur suffit pour que tous les utilisateurs en bénéficient**. De plus, les données sont centralisées, ce qui **évite les pertes d’information** dispersées sur plusieurs appareils.   
 
 - **Applications "n-tiers"** : elles suivent le principe du client / serveur, mais avec plusieurs couches intermédiaires pour mieux répartir les traitements.  
   *Exemple : SNCF Connect, qui repose sur plusieurs services interconnectés.*  
@@ -53,26 +53,25 @@ Voici comment ça fonctionne :
 2. Cette requête est transmise au serveur via un protocole comme SOAP, REST ou HTTP.  
 3. Le serveur traite la demande et répond dans le même format : XML, JSON ou HTTP.  
 
-En résumé, un web service est un moyen de connecter des applications entre elles, en utilisant une communication standardisée.  
+En résumé, **un web service est un moyen de connecter des applications entre elles**, en utilisant une communication standardisée.  
 
 
 ## Protocole HTTP  
 
-### Protocoles de communication  
+### Protocoles de communication 
 
+![ ](/images/webservice/TCPUDP.png)
 
 Pour qu’une communication puisse avoir lieu entre deux machines sur un réseau, il faut suivre un ensemble de règles, appelées **protocoles**.  
 
 Les deux protocoles fondamentaux utilisés pour la transmission des données sont :  
 
 - **TCP (Transmission Control Protocol)** : permet un échange de données fiable et contrôlé. Chaque paquet envoyé est vérifié, garantissant une transmission sans erreur. Il y a donc un aspect transactionnel, l'échange de données est considéré complet lorsque les derniers bit émis le signalent. 
-- **UDP (User Datagram Protocol)** : plus rapide mais moins sécurisé, il ne vérifie pas la bonne réception des paquets, ce qui peut entraîner des pertes d’informations. Les données sont envoyées de manière brut.
-
-Ces protocoles constituent la base de la communication entre les applications et les réseaux (LAN, MAN, WAN, PAN).  
+- **UDP (User Datagram Protocol)** : plus rapide mais moins sécurisé, il ne vérifie pas la bonne réception des paquets, ce qui peut entraîner des pertes d’informations. Les données sont envoyées de manière brut. *Ce protocole est couramment utilisé pour le streaming de contenus audio et vidéo*.
 
 ### HTTP et transmission des données  
 
-Le **protocole HTTP (HyperText Transfer Protocol)** est un protocole de niveau supérieur basé sur **TCP**. Il permet l’échange de ressources (pages web, API, fichiers…) entre un client et un serveur.  
+Le **protocole HTTP (HyperText Transfer Protocol)** est un protocole de niveau supérieur **basé sur TCP**. Il permet l’échange de ressources (pages web, API, fichiers…) entre un client et un serveur.  
 
 Un client peut envoyer des requêtes HTTP au serveur sur :  
 
@@ -209,7 +208,7 @@ curl -u alice:secret123 https://api.exemple.com/api/books
 
 Aujourd’hui, on utilise majoritairement des jetons à durée de vie limitée.
 
-**Exemple avec un Bearer Token**l
+**Exemple avec un Bearer Token**
 
 L’authentification par jeton repose sur les étapes suivantes :
 
@@ -508,7 +507,7 @@ Selon vous, quelle est la réponse la mieux adaptée pour échanger des données
 
 > Les API sont également une belle prouesse pour l'**interopérabilité** des services. En effet, elles répondent à une norme agnostique au langage.
 
-**Exemple** : si je développe une application pour afficher des prévisions météorologiques, je peux créer mes modèles de Machine Learning en Python et mes régressions en R. En exposant les résultats via deux API au format identique, mon site Web pourra afficher les résultats de manière cohérente, quel que soit le langage utilisé pour les générer.
+_**Exemple** : si je développe une application pour afficher des prévisions météorologiques, je peux créer mes modèles de Machine Learning en Python et mes régressions en R. En exposant les résultats via deux API au format identique, mon site Web pourra afficher les résultats de manière cohérente, quel que soit le langage utilisé pour les générer._
 
 
 ### Comment fonctionne une API ?
@@ -563,7 +562,7 @@ Les requêtes envoyées à une API sont aussi souvent en JSON ou XML.
 
 ### Sérialisation / Désérialisation
 
-<img src="/images/webservice/serialisation-deserialisation.webp" />
+![ ](/images/webservice/serialisation-deserialisation.webp)
 
 Un des enjeux du travail avec des ressources externes d'un programme est de savoir convertir les entrées d'un programme en des formes connues de notre programme (désérialisation), mais également de pouvoir exposer des objets connus de notre programme dans un format utilisable par d'autres programmes (sérialisation).
 
@@ -602,12 +601,11 @@ def user_from_dict(data: dict) -> User:
         city=data["city"],
     )
 
-
-user = user_from_dict(json_data)
+user = user_from_dict(json.loads(json_data))
 print(user.name)  # Alice
 ```
 
-## Sérialisation (objet → JSON)
+#### Sérialisation (objet → JSON)
 
 ```python
 def user_to_dict(user: User) -> dict:
@@ -627,15 +625,11 @@ json_string = json.dumps(user_to_dict(user))
 print(json_string)
 ```
 
-Cette logique doit être intégrée dans la conception de vos logiciels : toujours contrôler les entrées et les convertir en un format connu du système.
+> Cette logique doit être intégrée dans la conception de vos logiciels : toujours contrôler les entrées et les convertir en un format connu du système.
 
 Par exemple, en programmation orientée objet, il sera attendu qu'entre deux couches de séparation architecturale, vous introduisiez des objets de type `DTO` (Data Transfer Object). Ainsi, des DTO seront utilisés entre la couche service et DAO, mais aussi entre la couche contrôleur et service. Cela permet une conversion et, par conséquent, de pérenniser le modèle dans chacune des couches de votre système.
 
-> Tout cela a déjà été expliqué dans cette partie du cours [Bonnes pratiques du développement et design patterns](/cours/bonnes-pratiques-dev/#4-data-transfer-object).
-
-<div class="alert alert-info">
-  <strong>Pour aller plus loin</strong> <br/> Architecture hexagonale => Gérer les entrées/sorties => <a href="https://alistair.cockburn.us/hexagonal-architecture/">https://alistair.cockburn.us/hexagonal-architecture/</a>
-</div>
+> Tout cela a déjà été expliqué dans cette partie du cours [Bonnes pratiques du développement et design patterns](/cours/bonnes-pratiques-et-design-patterns/#4-data-transfer-object).
 
 > [!TIP]+ Pour aller plus loin
 > [Architecture hexagonale => Gérer les entrées/sorties](https://alistair.cockburn.us/hexagonal-architecture/)
@@ -774,7 +768,7 @@ async def read_items() -> list[Item]:
 2. Lancez le serveur avec la commande :  
 
 ```bash
-uvicorn main:app --reload
+uv run uvicorn main:app --reload
 ```
 
 Votre application sera disponible à l'adresse suivante, que vous pouvez ouvrir dans votre navigateur :  
@@ -793,8 +787,6 @@ Ressources officielles:
 
 ## CORS et Middleware d’authentification
 
-## 1. Problématique générale
-
 Une API exposée sur le Web doit répondre à **deux problématiques distinctes** :
 
 1. **Qui a le droit d’appeler l’API depuis un navigateur ?**
@@ -805,20 +797,24 @@ Une API exposée sur le Web doit répondre à **deux problématiques distinctes*
 
 Ces deux notions sont **complémentaires mais totalement indépendantes**.
 
----
 
-## 2. CORS Middleware
+### CORS Middleware
 
 ### Rôle du CORS
 
 Le CORS permet au **navigateur** de savoir si une API accepte des requêtes provenant d’une autre origine (domaine, port, protocole).
 
+Tout cela sont des origines différentes:
+- http://localhost
+- https://localhost
+- http://localhost:8080
+
 > Le CORS **ne protège pas l’API**.
 > Il protège uniquement le navigateur.
 
----
+Pour cela, le backend (API) doit avoir une liste des "origines autorisées".
 
-### Exemple de configuration CORS dans FastAPI
+#### Exemple de configuration CORS dans FastAPI
 
 ```python
 from fastapi import FastAPI
@@ -834,8 +830,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 ```
+> [!TIP]+ Pour aller plus loin
+> [Tutoriel FastAPI : CORS (Partage de ressources d'origine croisée)](https://fastapi.tiangolo.com/tutorial/cors/#use-corsmiddleware)
 
-## 3. Middleware d’authentification
+
+### Middleware d’authentification
 
 ### Rôle du middleware
 
@@ -845,10 +844,10 @@ Un middleware d’authentification :
 * vérifie la présence et la validité d’un token
 * bloque la requête si nécessaire
 
-> Il s’agit d’un **filtre global**, technique.
+> Il s’agit d’un **filtre global**.
 
 
-### Middleware personnalisé
+### Exemple de configuration du Middleware  dans FastAPI
 
 ```python
 from fastapi import Request
@@ -888,10 +887,6 @@ class AuthMiddleware(BaseHTTPMiddleware):
         return await call_next(request)
 ```
 
----
-
-## 5. Enregistrement des middlewares
-
 ```python
 app.add_middleware(AuthMiddleware)
-`
+```
