@@ -9,44 +9,73 @@ series: ["Cours"]
 series_order: 9
 ---
 
+> [!TIP]+ Accès aux exemples
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/architecture-applicative
+
 <img src="https://d1pnnwteuly8z3.cloudfront.net/images/4d5bf260-c3d0-4f21-b718-8ede8d4ca716/febf9de6-8a5a-4055-b274-e685485496f5.jpeg" />
 
-Le web scraping désigne les techniques d’extraction du contenu des sites internet. C'est une pratique que l'on envisage lorsque l'on a accès a des données utiles publiquement mais qu'il ne nous est pas fourni de fichiers produits ou d'API pour les traiter. 
+## Introduction au Web Scraping
 
-Elle s'appuie donc sur l'utilisation de client HTTP pour traiter des données non formattées pour l'utilisation, typiquement des pages web mises a disposition aux utilisateurs au format `HTML`.
+Le **web scraping** désigne les techniques d’**extraction de contenu depuis des sites internet**. C'est une pratique que l'on envisage lorsque l'on a accès à des données publiquement disponibles, mais qu'aucun **fichier fourni ou API** n'est mis à disposition pour les exploiter.
 
-> Le terme fait généralement référence à l’usage de bots pour collecter ces contenus automatiquement.
+Elle repose sur l'utilisation de **clients HTTP** pour traiter des données **non formatées** pour l'utilisation, typiquement des pages web accessibles aux utilisateurs au format `HTML`.
 
-Le webscraping peut s'apprécier au travers de processus de type `ETL` (Extract Transform Load) :
-- Extract : on réalise l'extraction des données brutes a partir de pages web.
-- Transform : on effectue un traitement a partir des données brutes pour les rendre exploitables. `parsing`
-- Load : on les sauvegarde dans un fichier, une base de données ou autre.
+> Le terme fait généralement référence à l’usage de **bots** pour collecter automatiquement ces contenus.
 
-> Le plan de ce cours s'articulera selon ces parties avec une partie sur la persistence en 3ème partie de ce cours.
+Le web scraping peut s'appréhender à travers des processus de type `ETL` (Extract, Transform, Load) :
 
-> **Comme pour les autres parties, les exemples sont disponibles ici : [https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-5/webscrapping](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-5/webscrapping)**
+* **Extract** : extraction des données brutes à partir de pages web.
+* **Transform** : traitement des données brutes pour les rendre exploitables (`parsing`).
+* **Load** : stockage des données dans un fichier, une base de données ou un autre format exploitable.
 
-## Exemples d'utilisation
+### Exemples d'utilisation :
 
-- Effectuer des suivi de prix : Marché / Bourse / Site d'annonces / Comparateur de prix - C'est le cas par exemple a l'INSEE dans la section **IPC**.
-- Récupération de données textuelles massives : commentaires, tweets, .. - lecture des avis googles pour 
-- Récupération de listes de contact : Annuaires, pages jaunes, pages blanches - Base de sondage entreprises via pages jaunes
-- Aggrégation de statistiques déjà calculées : google trends, ..
+* **Suivi de prix** : marchés, bourses, sites d'annonces, comparateurs de prix. Exemple : l'INSEE dans la section **IPC**.
+* **Récupération de données textuelles massives** : commentaires, tweets, avis Google, etc.
+* **Récupération de listes de contacts** : annuaires, Pages Jaunes, Pages Blanches, bases de sondage d'entreprises.
 
-## 🩶 Webscrapping et légalité : existence d'une `zone grise`
+## Webscrapping et légalité : existence d'une zone grise
 
-Le webscraping est l'une des pratiques les plus courantes pour la récupération de données sur le web. Il peut être utilisé pour récupérer des données publiquement accessibles, mais ces données sont parfois protégées par le `droit d'auteur` ou pour les `données personnelles`. C'est ce qui explique qu'il y a là une zone grise.
+Le webscraping est l'une des pratiques les plus courantes pour la récupération de données sur le web. 
+Le web scraping permet d’extraire des données disponibles publiquement, mais certaines données sont **protégées par le droit d'auteur**, et d'autres concernent des **informations personnelles, soumises à des règles de confidentialité**.
+C'est ce qui explique qu'il y a là une zone grise.
 
-Droit des données :
 
-- En Europe, actuellement il y a la [General Data Protection Regulation (GDPR) (ou RGPD) ](https://gdpr-info.eu/) qui protègent les données personnelles mais ne précisent pas le traitement dans le cas d'usage du webscraping.
+### Droit des données :
+
+- En Europe, actuellement il y a la [General Data Protection Regulation (GDPR) (ou RGPD) ](https://www.cnil.fr/fr/reglement-europeen-protection-donnees) qui protègent les données personnelles mais ne précisent pas le traitement dans le cas d'usage du webscraping.
 
 - Aux états unis : [California Privacy Rights Act (CPRA)](https://thecpra.org/), c'est une loi en californie, mais rien n'existe côté fédéral sur le droit des données.
+
 > Il est donc préférable d'utiliser des APIs au maximum pour la récupération de données lorsque celles-ci sont disponibles.
 
+Même si le web scraping est légal sous certaines conditions, les sites web peuvent mettre en place des mécanismes techniques pour se protéger contre le scraping abusif.
+
+## Protection contre le webscrapping : Humaniser nos processus
+
+La récupération de données en utilisant du webscrapping peut s'assimiler à une attaque informatique de type `DDOS` (Denial Of Service).
+
+Ainsi certains sites ont mis en oeuvre des solutions pour se protéger contre le DDOS et le webscraping **abusif**. 
+Ces solutions reposent sur les principes suivants : 
+
+- Les sites bloquent des requêtes répétées sur des intervalles de temps trop proches venant d'une même IP (~même machine)
+- Les sites modifient contenu des balises html pour empêcher l'automatisation
+- Création de `Honeypot` : liens invisibles que seul un bot "cliquerait" pour bloquer les bots/botteurs.
+- Authentification exigée au bout d'un certain nombre d'usages.
+
+Ils proposent donc différentes guidelines générales pour les utilisateurs qui souhaitent webscraper : 
+
+- **Respecter les règles définies par le site** :
+   Les sites indiquent souvent ce que les robots sont autorisés à faire via le fichier `robots.txt`. Par exemple : [https://www.google.com/robots.txt](https://www.google.com/robots.txt). Avant de scraper un site, il est important de consulter ce fichier et de respecter ses directives.
+
+- **Espacer les requêtes** :
+   Pour éviter de surcharger les serveurs, il est recommandé de **laisser un intervalle entre chaque requête**. Cela réduit les risques de blocage et limite l'impact sur les performances du site.
+
+- **Choisir les périodes de faible trafic** :
+   Éviter de lancer des requêtes pendant les heures de forte activité du site. Par exemple, pour les administrations ou services publics français, il est préférable de planifier le scraping **la nuit** ou pendant des périodes où le service est moins sollicité.
 
 
-## 🌑 Récupération des données : Client HTTP
+## Récupération des données : Client HTTP
 
 Les clients http sont nécessaires pour la récupération des données exposées sur les sites. Il en existe de différents types.
 
@@ -59,7 +88,9 @@ Les outils comme **Wget** et **cURL** permettent d'envoyer des requêtes HTTP di
 
 > Ils permettent de scripter des requêtes et sont disponibles sur la plupart des OS.
 
-> **Remarque : Nous vous avons présenté curl dans la session précédente. Il est très utile puisqu'il est commun d'échanger des commandes curl entre des équipes de développeur (DEV) ou des équipes de maintenance d'infrastructure (OPS)**
+
+> [!TIP]+ Remarque
+> Nous vous avons présenté curl dans la session précédente. Il est très utile puisqu'il est commun d'échanger des commandes curl entre des équipes de développeur (DEV) ou des équipes de maintenance d'infrastructure (OPS).
 
 ### Clients utilitaires
 
@@ -69,13 +100,8 @@ Il existe des clients utilitaires comme **Insomnia** et **Postman** offrent une 
 - `Insomnia` : Similaire à `Postman`, axé sur la simplicité et l’expérience utilisateur.
 
 
-<div class="alert alert-info">
-  <strong> Pour aller plus loin </strong> <br/>
-
-Lien vers les sites pour télécharger/get started avec ces clients http : [Postman](https://www.postman.com/) et  [Insomnia](https://insomnia.rest/)
-
-</div>
-
+> [!TIP]+ Pour aller plus loin
+> Lien vers les sites pour télécharger/get started avec ces clients http : [Postman](https://www.postman.com/) et  [Insomnia](https://insomnia.rest/)
 
 
 > Ils peuvent être très pratiques si vous travaillez avec des collègues ne maitrisant pas python puisque vous pouvez leur partager vos scripts.
@@ -88,8 +114,8 @@ Les navigateurs sont des clients HTTP très adaptés pour effectuer des requête
 
 Ils proposent :
 - Un onglet Réseau : Cela permet de traquer les requêtes HTTP effectuées par le navigateur. Cela peut être utile pour les stocker ou les reproduire via script.
-- Un onglet debug: interface debug côté client (nos pages executant du javascript cela permet de comprendre un bug d'affichage par ex)
-- Une console: elle permet d'executer du javascript sur la page
+- Un onglet debug : interface debug côté client (nos pages executant du javascript, cela permet de comprendre un bug d'affichage par exemple)
+- Une console : elle permet d'executer du javascript sur la page
 - Un inspecteur : permet de scanner les éléments et de récupérer des informations sur celles ci.
 
 **...Et d'autres fonctionnalités..**
@@ -98,17 +124,16 @@ Consultons ensemble cette documentation :
 
 - [https://firefox-source-docs.mozilla.org/devtools-user/](https://firefox-source-docs.mozilla.org/devtools-user/)
 
-<div class="alert alert-info">
-  <strong> Pour aller plus loin </strong> <br/>
 
-Lien vers une vidéo présentant les outils de développements chrome : [https://www.youtube.com/watch?v=BrsyIyYSP1c](https://www.youtube.com/watch?v=BrsyIyYSP1c)
-</div>
+> [!TIP]+ Pour aller plus loin
+> Lien vers une vidéo présentant les outils de développements chrome : [https://www.youtube.com/watch?v=BrsyIyYSP1c](https://www.youtube.com/watch?v=BrsyIyYSP1c)
 
 
-### Utilisation de requests
-Pour effectuer des requêtes http on utilisera a nouveau la librairie client http `requests`.
+### Utilisation de `requests`
 
-Les requêtes seront cette fois effectuées pour la récupération de pages web, pour récupérer des fichiers HTML bruts, et donc on privilégiera la récupération du text dans les réponses : 
+Pour effectuer des requêtes http, on utilisera la librairie client http `requests`.
+
+Les requêtes seront cette fois effectuées pour la récupération de pages web, pour **récupérer des fichiers HTML bruts**, et donc on privilégiera la récupération du text dans les réponses : 
 
 ```py
 import requests
@@ -145,7 +170,7 @@ async function fetchPageFetch() {
 </script>
 </div>
 
-<details><summary class="reponse" >Code source html / js avec la librairie fetch</summary>
+<details><summary class="reponse" >Code source html / js avec la librairie `fetch`</summary>
 <p>
 
 ```html
@@ -174,7 +199,8 @@ async function fetchPageFetch() {
 
 </p></details>
 
-Pour une meilleure gestion des client http, plutôt que de devoir reparamétrer les urls, on préconise un usage d'axios dans ce cours, voici un exemple sur une page statique.
+Pour simplifier la gestion des requêtes HTTP et éviter de devoir construire manuellement les URLs, ce cours recommande l’utilisation de Axios, une librairie qui facilite les requêtes, la gestion des erreurs et des paramètres.
+Voici un exemple d’utilisation pour récupérer le contenu d’une page web statique.
 
 <div id="axios">
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Import Axios -->
@@ -226,7 +252,9 @@ Pour une meilleure gestion des client http, plutôt que de devoir reparamétrer 
 
 > Remarque, c'est exactement la même base de code pour la récupération de données depuis une API, ce qui d'ailleurs est plus fréquent en **JS**.
 
-### 🕷 Web Crawling: exemple avec `Selenium`
+
+### Web Crawling: exemple avec `Selenium`
+
 <img src="https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fznde9s4sx4iysia7doil.png">
 
 Le web crawling est un autre mode de `webscraping`, l'objectif ici est d'utiliser un site web et de le parcourir comme un utilisateur a l'aide d'un script. Cela peut être très utile lorsque vous désirez extraire des données d'un site qui nécessite une authentification, ou que vous désirez réaliser des scénarios plus complexes d'extractions.
@@ -251,109 +279,35 @@ Les cas d'utilisation de sélénium est le parcours de page pour récupérer des
 - **Tests fonctionnels** De la même manière, on peut effectuer des tests de non regression et des tests d'intégration sur nos applications frontend et nos API avec selenium. Il suffit de vérifier qu'en allant a une adresse connue, on ait des éléments de réponse attendus valides.
 
 
-## Manipulation des données
+## Extraction de données HTML : `str`, regex et parsing
 
-Une fois les pages récupérées, il faut les traiter pour en récupérer des données exploitables pour des traitements internes a nos applicatifs.
+Une fois les pages récupérées, les données **ne sont pas directement exploitables**, elles nécessitent un retraitement pour isoler l’information utile des éléments d’affichage (balises, styles, scripts…).
 
 Par exemple, on peut vouloir aggréger les indicateurs récupérés ou préparer des données textuelles pour ensuite pouvoir entrainer un modèle sur ces données.
 
-### 🔎 Regex, Expressions régulières : Isoler et capturer des données textuelles
+### Extraction simple avec les fonctions natives de `str`
 
-<img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=630/uploads/users/1251/posts/93367/image-upload/password_check_regex.jpg">
+On peut extraire des informations **manuellement** avec les fonctions natives Python sur les chaînes de caractères (`str`) : `find`, `replace`, boucles, etc.
 
-Les expressions **régulières**, ou **regex** pour faire court, sont des motifs que vous pouvez utiliser pour rechercher du texte dans une chaîne de caractères. 
-On parle assez souvent de `pattern` `matching`. On va donc ici élaborer des patterns pour récupérer les ensembles cohérents de chaine de caractères qui respectent ce pattern.
+**Exemple : récupérer les titres des parties de cours dans une page HTML**
 
-Quel intêret ? On va pouvoir dans nos traitements identifier et récupérer des données a l'intérieur de balises par exemple, ou pour rechercher des occurences de certains mots dans des grandes chaines de texte. 
-
-Python prend en charge les expressions régulières grâce au module `re` déjà présent dans sa bibliothèque standard.
-
-> C'est un concept qui est présent dans la plupart des languages. Il est donc réutilisable lors de problématiques de traitement de données au format `str`
-
-#### Syntaxe 
-
-| Ancres | Description                                               |
-|--------|-----------------------------------------------------------|
-| ^      | Début de ligne. Correspond au début d'une chaîne de caractères. |
-| $      | Fin de ligne. Correspond à la fin d'une chaîne de caractères. |
-| \b     | Limite de mot. Correspond à la position entre un caractère de mot (\w) et un caractère qui n'est pas un caractère de mot. |
-
-| Symbole spécial | Description                                               |
-|-----------------|-----------------------------------------------------------|
-| .               | Correspond à n'importe quel caractère, sauf un saut de ligne. |
-| *               | Correspond à zéro ou plusieurs occurrences du caractère précédent. |
-| \d              | Correspond à un chiffre. Équivalent à [0-9].              |
-| \D              | Correspond à tout caractère qui n'est pas un chiffre. Équivalent à [^0-9]. |
-| \w              | Correspond à un caractère alphanumérique (lettres, chiffres, souligné). Équivalent à [a-zA-Z0-9_]. |
-| \W              | Correspond à tout caractère qui n'est pas alphanumérique. Équivalent à [^a-zA-Z0-9_]. |
-| \s              | Correspond à un caractère d'espacement (espace, tabulation, retour à la ligne). |
-| \S              | Correspond à tout caractère qui n'est pas un caractère d'espacement. |
-
-Exemples d'utilisation : 
-
-- **^abc** : Correspond à la chaîne "abc" au début de la ligne.
-- **xyz$** : Correspond à la chaîne "xyz" à la fin de la ligne.
-- **\d{3}** : Correspond à trois chiffres consécutifs.
-- **\w+** : Correspond à un ou plusieurs caractères alphanumériques.
-- **^toto.*** récupère toute la ligne si elle contient toto au début
-#### Groupes de Capture :
-Les groupes de capture sont utilisés pour capturer une partie spécifique d'une correspondance d'expression régulière. Ils sont délimités par des parenthèses.
-
-| Expression régulière | Description                                |
-|----------------------|--------------------------------------------|
-| (.*)                 | Capture toute la chaine                    |
-| `<li>(.*?)</li>`     | Capture tout ce qui est entre la balise li |
-
-On peut ensuite utiliser les groupes de capture avec `\1` ou `\0`
-
-**Exemple pour récupérer le nombre de parties du cours envoyées sur le site du cours:**
-```python
-import re
-def extract_with_regex(html):
-    """
-    Recuperation de toutes les données qui sont dans les balises summary a l'aide du groupe de capture
-    """
-    pattern = r"<summary>(.*?)</summary>"
-    matches = re.findall(pattern, html, re.DOTALL)
-    return [match.strip() for match in matches]
-
-parties = extract_with_regex(html)
-print(parties)
-# ['💬 A propos', 
-#   '🗂️ Projets', 
-# 'Cours 1 - architecture de base et évolution',
-#  'Cours 2 - qualification et bonnes pratiques', 
-#  'Cours 3 - configuration et portabilité',
-#  'Cours 4 - API webservice et développement web',
-#  'Cours 5 - Interfaces Homme-Machine et données',
-#  'Cours 6 - Déploiement et hébergement applicatifs'] 
-```
-
-<details><summary class="reponse" ><b>Ce qu'il faut désormais limiter </b></summary>
-<p>
-
-#### Fonctions natives de str
-La récupération des données issues d'un site au format `html` est possible par différents outils de type client `HTTP`. Ces données ne sont pas exploitables telles quelles, elle nécessitent a minima un retraitement par rapport a tous les éléments d'affichage inutiles pour l'exploitation des données.
-
-Ce retraitement peut se fait de manière manuelle dans les str, avec les fonctions `find`, des boucles .. Mais cela n'est pas efficient et n'est pas adapté a des changements de casse dans le site (saut de ligne, espace, ajout d'une classe sur les summary..)
-
-**Exemple pour récupérer le nombre de parties du cours envoyées sur le site du cours:**
 ```python
 def recuperation_partie_summary(ligne):
     """
-    Recupère l'intérieur de la partie summary pour le html qui contient le nom de la partie
+    Récupère le contenu d'une balise <summary> dans une ligne HTML
     """
     if "<summary>" in ligne:
-            part = ligne.strip().replace("<summary>", "").replace("</summary>", "")
-            return part
+        part = ligne.strip().replace("<summary>", "").replace("</summary>", "")
+        return part
     return None
+
 def extraction_grandes_parties_raw(html:str):
     """
-    Fonction qui extrait les sous parties de la page dans la balise navigation
-    Développée sans fonctionnalités de parsing
+    Extrait les titres des parties depuis la balise <nav role="navigation">.
+    Méthode basique, sans parsing spécifique.
     """
     balise_contenant_parties = "<nav role=\"navigation\">"
-    balise_finissant_parties= "</nav>"
+    balise_finissant_parties = "</nav>"
     
     start_idx = html.find(balise_contenant_parties)
     end_idx = html.find(balise_finissant_parties, start_idx)
@@ -366,38 +320,142 @@ def extraction_grandes_parties_raw(html:str):
     
     for line in interieur_navigation.split("\n"):
         partie = recuperation_partie_summary(line)
-        if partie != None:
-             parts.append(partie)
+        if partie is not None:
+            parts.append(partie)
     
     return parts
 
-
+# Exemple d’utilisation
 extraction_grandes_parties_raw(html)
-# ['💬 A propos', 
-#   '🗂️ Projets', 
-# 'Cours 1 - architecture de base et évolution',
-#  'Cours 2 - qualification et bonnes pratiques', 
-#  'Cours 3 - configuration et portabilité',
-#  'Cours 4 - API webservice et développement web',
-#  'Cours 5 - Interfaces Homme-Machine et données',
-#  'Cours 6 - Déploiement et hébergement applicatifs'] 
+# ['💬 A propos', '🗂️ Projets', 'Cours 1 - architecture de base et évolution', ...]
 ```
 
-</details>
+**Limites :**
 
-<div class="alert alert-info">
-  <strong> Pour aller plus loin </strong> <br/>
-    Un jeu qui vous permet d'apprendre les regex et de pratiquer : <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">https://regexcrossword.com/</a>
-</div>
+* Fragile face aux **modifications de structure HTML** (ajout de classes, espaces, sauts de ligne…).
+* Peu efficace pour des pages longues ou complexes.
 
+### Extraction avec les expressions régulières (Regex)
 
-### 🔪 Parsing - Parser Html avec beautiful soup
+<img src="https://cms-assets.tutsplus.com/cdn-cgi/image/width=630/uploads/users/1251/posts/93367/image-upload/password_check_regex.jpg">
+
+Les **expressions régulières**, ou **regex** pour faire court, sont des **motifs** que l’on utilise pour **rechercher et manipuler du texte**. On parle souvent de `pattern matching`.
+L’idée est de créer un **modèle** qui va correspondre à des ensembles cohérents de chaînes de caractères.
+
+**Pourquoi utiliser les regex ?**
+
+* Identifier et extraire des données à l’intérieur de balises HTML ou XML.
+* Rechercher des occurrences de mots ou motifs spécifiques dans de longues chaînes de texte.
+* Valider ou filtrer des informations (emails, numéros de téléphone, codes…).
+
+> Les regex ne servent pas uniquement au web scraping : elles sont utiles dans tous types de traitement de texte.
+
+#### Utiliser les regex avec Python
+
+Python propose le module `re` dans sa bibliothèque standard pour travailler avec les expressions régulières.
+
+```python
+import re
+```
+#### Syntaxe de base
+
+**Ancres**
+
+| Ancres | Description  |
+| ------ |------------------------------------------------------------------ |
+| `^`    | Début de ligne. Correspond au début d'une chaîne.                                                 |
+| `$`    | Fin de ligne. Correspond à la fin d'une chaîne.                                                   |
+| `\b`   | Limite de mot. Correspond à la position entre un caractère de mot (`\w`) et un caractère non-mot. |
+
+**Symboles spéciaux**
+
+| Symbole spécial | Description                                                        |
+| --------------- | ------------------------------------------------------------------ |
+| `.`             | Correspond à n'importe quel caractère sauf un saut de ligne.       |
+| `*`             | Correspond à zéro ou plusieurs occurrences du caractère précédent. |
+| `\d`            | Correspond à un chiffre (équivalent à `[0-9]`).                    |
+| `\D`            | Tout caractère qui n'est pas un chiffre (`[^0-9]`).                |
+| `\w`            | Caractère alphanumérique (`[a-zA-Z0-9_]`).                         |
+| `\W`            | Tout caractère non-alphanumérique (`[^a-zA-Z0-9_]`).               |
+| `\s`            | Caractère d’espacement (espace, tabulation, retour à la ligne).    |
+| `\S`            | Tout caractère qui n’est pas un espacement.                        |
+
+**Exemples simples**
+
+```text
+^abc      → "abc" au début de la ligne
+xyz$      → "xyz" à la fin de la ligne
+\d{3}     → trois chiffres consécutifs
+\w+       → un ou plusieurs caractères alphanumériques
+^toto.*   → toute ligne qui commence par "toto"
+```
+
+#### Groupes de capture
+
+Les **groupes de capture** permettent d’isoler **une portion spécifique** d’un motif. Ils sont définis avec des **parenthèses `( )`**.
+
+| Expression régulière | Description                                         |
+| -------------------- | --------------------------------------------------- |
+| `(.*)`               | Capture **toute la chaîne**                         |
+| `<li>(.*?)</li>`     | Capture **tout ce qui est entre `<li>` et `</li>`** |
+
+**Récupération des groupes**
+
+* `\0` → correspond **au match complet**
+* `\1` → premier groupe capturé
+* `\2` → deuxième groupe capturé, etc.
+
+#### Exemple concret en Python
+
+```python
+import re
+
+texte = "<li>Cours 1 - architecture</li>"
+
+# Deux groupes : le tag ouvrant et le contenu
+pattern = r"(<li>)(.*?)</li>"
+
+match = re.search(pattern, texte)
+if match:
+    print("Groupe 0 :", match.group(0))  # <li>Cours 1 - architecture</li>
+    print("Groupe 1 :", match.group(1))  # <li>
+    print("Groupe 2 :", match.group(2))  # Cours 1 - architecture
+```
+
+#### Exemple pratique : extraire des titres de cours
+
+```python
+import re
+
+def extract_with_regex(html, pattern):
+    """
+    Récupération de toutes les données correspondant à un pattern regex
+    """
+    matches = re.findall(pattern, html, re.DOTALL)
+    return [match.strip() for match in matches]
+
+# Tous les titres
+pattern_titre_cours = r"<summary>(.*?)</summary>"
+
+# Titres commençant par A
+pattern_titre_cours_commencant_par_a = r"<summary>(A.*?)</summary>"
+
+titre_cours = extract_with_regex(html, pattern_titre_cours)
+titre_cours_commencant_par_a = extract_with_regex(html, pattern_titre_cours_commencant_par_a)
+
+print("Tous les titres :", titre_cours)
+print("Titres commençant par A :", titre_cours_commencant_par_a)
+```
+
+### Parsing HTML avec `BeautifulSoup`
 
 <img src="https://oxylabs.io/_next/image?url=https%3A%2F%2Foxylabs.io%2Foxylabs-web%2FZpBvKB5LeNNTxEoc_NWNiMmRiN2MtNzlkNC00OGIxLTg4NGUtZjZlMWY1ZWQ4NmMz_using-python-and-beautiful-soup-to-parse-data-intro-tutorial2x-3.png%3Fauto%3Dformat%2Ccompress&w=3840&q=75=">
 
-Beautiful Soup permet d'encapsuler l'arborescence des éléments html et xml dans un objet afin de pouvoir assez facilement le parcourir.
+Pour **un parsing plus stable et robuste**, on utilise **BeautifulSoup**, une librairie externe :
 
-C'est une librairie externe on doit l'installer avec `pip` : `pip3 install beautifulsoup4`
+```bash
+pip3 install beautifulsoup4
+```
 
 ```python
 from bs4 import BeautifulSoup
@@ -409,80 +467,77 @@ html = res.text
 soup = BeautifulSoup(html, "html.parser")
 ```
 
-Il se base sur les selecteurs css pour la récupération de données : 
+BeautifulSoup permet de naviguer dans l’arborescence HTML et d’extraire facilement les éléments souhaités.
 
-*Exemple on souhaite récupérer tous les titres `<h2>` à l'intérieur d'un `<div class="content">`*
+#### Sélection avec CSS ou structure HTML
 
+Supposons qu'on a ce fichier HTML :
 
-Cela donne en python:
-```python
-soup.select("div.content h2")
+```html
+<html>
+  <head>
+    <title>Exemple de page</title>
+  </head>
+  <body>
+    <div class="content">
+      <h2>Introduction</h2>
+      <h2>Chapitre 1 - Concepts</h2>
+      <h2>Chapitre 2 - Applications</h2>
+      <p>Voici du texte dans la section content.</p>
+    </div>
+
+    <div class="article-body">
+      <p>Paragraphe principal de l'article.</p>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="page1.html">Page 1</a></li>
+        <li><a href="page2.html">Page 2</a></li>
+        <li><a href="https://externe.com">Lien externe</a></li>
+      </ul>
+    </nav>
+  </body>
+</html>
 ```
 
-On peut également récupérer en cherchant dans la structure:
+- Pour récupérer tous les `<h2>` à l'intérieur de `<div class="content">` :
 
-*La balise `<a>` representant un lien dans la page*
 ```python
-# Oneliner avec l'operateur list comprehension en python
+from bs4 import BeautifulSoup
+
+html = """ ...HTML ci-dessus... """
+soup = BeautifulSoup(html, "html.parser")
+
+# Sélection avec CSS selector
+h2_titles = soup.select("div.content h2")
+print([h2.text for h2 in h2_titles]) 
+# ['Introduction', 'Chapitre 1 - Concepts', 'Chapitre 2 - Applications']
+```
+
+- Pour récupérer tous les liens `<a>` de la page
+
+```python
 links = [a["href"] for a in soup.find_all("a", href=True)]
+print(links)
+# ['page1.html', 'page2.html', 'https://externe.com']
 ```
 
-Ou chercher par des attributs sur l'element HTML: 
-```python
-soup.find("div", class_="article-body")
-```
 
-<details><summary class="reponse" ><b>Exemple  : récupération des grandes parties du cours </b></summary>
-<p>
+- Pour récupérer un élément par balise et attribut
 
 ```python
-def extract_parties_avec_beautifulsoup(html):
-    soup = BeautifulSoup(html, "html.parser")
-    return [summary.text.strip() for summary in soup.find_all("summary")]
-
-parties = extract_parties_avec_beautifulsoup(html)
-print(parties)
-# ['💬 A propos', 
-#   '🗂️ Projets', 
-# 'Cours 1 - architecture de base et évolution',
-#  'Cours 2 - qualification et bonnes pratiques', 
-#  'Cours 3 - configuration et portabilité',
-#  'Cours 4 - API webservice et développement web',
-#  'Cours 5 - Interfaces Homme-Machine et données',
-#  'Cours 6 - Déploiement et hébergement applicatifs'] 
+article = soup.find("div", class_="article-body")
+print(article.text.strip())
+# 'Paragraphe principal de l\'article.'
 ```
+> Plus de documentation, dans [la documentation oficielle](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
-</p>
-</details>
+> [!TIP]+ Pour aller plus loin
+> [Documentation officielle : BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
-**Cela permet au global un meilleur parsing et une meilleure stabilité dans le traitement des fichiers html, c'est ce que l'on privilégiera pour le webscraping**
-
-<div class="alert alert-info">
-  <strong> Pour aller plus loin </strong> <br/>
-    Doc officielle : <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">https://www.crummy.com/software/BeautifulSoup/bs4/doc/</a>
-</div>
-<div class="alert alert-info">
-  <strong> Pour aller plus loin </strong> <br/>
-    Un autre outil très complet pour des  projets python : <a href="https://scrapy.org/">scrapy </a>
-</div>
-
-## 🔐 Protection contre le webscrapping : `Humaniser nos processus`.
-
-La récupération de données en utilisant du webscrapping peut s'assimiler à une attaque informatique de type `DDOS` (Denial Of Service).
-
-Ainsi certains sites ont mis en oeuvre des solutions pour se protéger contre le DDOS et le webscraping **abusif**. 
-Ces solutions reposent sur les principes suivants : 
-
-- Les sites bloquent des requêtes répétées sur des intervalles de temps trop proches venant d'une même IP (~même machine)
-- Les sites modifient contenu des balises html pour empêcher l'automatisation
-- Création de Honeypot 🍯 : liens invisibles que seul un bot "cliquerait" pour bloquer les bots/botteurs.
-- Authentification exigée au bout d'un certain nombre d'usages.
-
-Ils proposent donc différentes guidelines générales pour les utilisateurs qui souhaitent webscraper : 
-- Les sites précisent ce qu'ils permettent aux robots sur un endpoint particulier le endpoint `robots.txt`, exemple : [https://www.google.com/robots.txt](https://www.google.com/robots.txt)
-- Il faut en général essayer d'espacer un minimum les requêtes, il y a en général des couches réseau "Anti DDOS" qui bloquent les requêtes venant d'une même IP dans des intervalles de temps ressérrés.
-- Eviter d'effectuer des requêtes dans des périodes d'usage intensif des services récupérés. Par exemple pour une administration française, privilégier d'effectuer nos commandes de webscraping pendant la nuit via la planification du traitement.
-
+> [!TIP]+ Pour aller plus loin
+>  Un autre outil très complet pour des  projets python : [`scrapy`](https://scrapy.org/)
 
 
 ## Ressources externes (pour aller plus loin)
