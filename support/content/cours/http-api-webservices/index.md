@@ -800,7 +800,7 @@ Ces deux notions sont **complémentaires mais totalement indépendantes**.
 
 ### CORS Middleware
 
-### Rôle du CORS
+#### Rôle du CORS
 
 Le CORS permet au **navigateur** de savoir si une API accepte des requêtes provenant d’une autre origine (domaine, port, protocole).
 
@@ -836,7 +836,7 @@ app.add_middleware(
 
 ### Middleware d’authentification
 
-### Rôle du middleware
+#### Rôle du middleware
 
 Un middleware d’authentification :
 
@@ -847,7 +847,7 @@ Un middleware d’authentification :
 > Il s’agit d’un **filtre global**.
 
 
-### Exemple de configuration du Middleware  dans FastAPI
+#### Exemple de configuration du Middleware  dans FastAPI
 
 ```python
 from fastapi import Request
