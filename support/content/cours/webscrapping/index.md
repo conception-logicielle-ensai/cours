@@ -139,7 +139,7 @@ Les requêtes seront cette fois effectuées pour la récupération de pages web,
 import requests
 
 URL_COURS = "https://conception-logicielle.abrunetti.fr/"
-response = requests.get(url)
+response = requests.get(URL_COURS)
 print(response.text)  # Affiche le contenu HTML de la page
 ```
 
@@ -292,42 +292,51 @@ On peut extraire des informations **manuellement** avec les fonctions natives Py
 **Exemple : récupérer les titres des parties de cours dans une page HTML**
 
 ```python
-def recuperation_partie_summary(ligne):
-    """
-    Récupère le contenu d'une balise <summary> dans une ligne HTML
-    """
-    if "<summary>" in ligne:
-        part = ligne.strip().replace("<summary>", "").replace("</summary>", "")
-        return part
-    return None
+import requests
 
-def extraction_grandes_parties_raw(html:str):
+H2_OPEN_TAG = "<h2>"
+H2_CLOSE_TAG = "</h2>"
+
+LEN_H2_OPEN = len(H2_OPEN_TAG)
+LEN_H2_CLOSE = len(H2_CLOSE_TAG)
+
+
+def extraction_noms_cours_raw(html: str) -> list[str]:
     """
-    Extrait les titres des parties depuis la balise <nav role="navigation">.
-    Méthode basique, sans parsing spécifique.
+    Extrait les titres des cours depuis les balises <h2> contenues
+    dans les <article>.
+    Parsing volontairement naïf basé sur les chaînes.
     """
-    balise_contenant_parties = "<nav role=\"navigation\">"
-    balise_finissant_parties = "</nav>"
-    
-    start_idx = html.find(balise_contenant_parties)
-    end_idx = html.find(balise_finissant_parties, start_idx)
-    
-    if start_idx == -1 or end_idx == -1:
-        return []
-    
-    interieur_navigation = html[start_idx:end_idx]
-    parts = []
-    
-    for line in interieur_navigation.split("\n"):
-        partie = recuperation_partie_summary(line)
-        if partie is not None:
-            parts.append(partie)
-    
-    return parts
+
+    titres: list[str] = []
+    position = 0
+
+    while True:
+        h2_start = html.find(H2_OPEN_TAG, position)
+        if h2_start == -1:
+            break
+
+        h2_end = html.find(H2_CLOSE_TAG, h2_start)
+        if h2_end == -1:
+            break
+
+        titre = html[
+            h2_start + LEN_H2_OPEN :
+            h2_end
+        ].strip()
+
+        titres.append(titre)
+
+        position = h2_end + LEN_H2_CLOSE
+
+    return titres
 
 # Exemple d’utilisation
-extraction_grandes_parties_raw(html)
-# ['💬 A propos', '🗂️ Projets', 'Cours 1 - architecture de base et évolution', ...]
+URL_COURS = "https://conception-logicielle.abrunetti.fr/cours/"
+response = requests.get(URL_COURS)
+html = response.text
+print(extraction_noms_cours_raw(html))
+# ['Git Avancé', 'Architecture applicative', 'Gestionnaire de package, partage de code, industrialisation', "Configuration du code en fonction de l'environnement", 'Bonnes pratiques du développement et design patterns', "Outils d'analyse statique d'une base de code", "Analyse dynamique d'une base de code", 'Automatisation des contrôles sur une base de code versionnée', "HTTP: Consommation et construction d'API webservice", 'Récupération de données via le webscraping']
 ```
 
 **Limites :**
@@ -410,7 +419,13 @@ Les **groupes de capture** permettent d’isoler **une portion spécifique** d�
 ```python
 import re
 
-texte = "<li>Cours 1 - architecture</li>"
+texte = """
+<ul class="liste-cours">
+    <li>Cours 1 - Architecture logicielle avancée</li>
+    <li>Cours 2 - Conception orientée objet et principes SOLID</li>
+    <li>Cours 3 - Tests automatisés et intégration continue</li>
+</ul>
+"""
 
 # Deux groupes : le tag ouvrant et le contenu
 pattern = r"(<li>)(.*?)</li>"
@@ -426,6 +441,7 @@ if match:
 
 ```python
 import re
+import requests
 
 def extract_with_regex(html, pattern):
     """
@@ -435,16 +451,22 @@ def extract_with_regex(html, pattern):
     return [match.strip() for match in matches]
 
 # Tous les titres
-pattern_titre_cours = r"<summary>(.*?)</summary>"
+pattern_titre_cours = r"<h2>(.*?)</h2>"
 
 # Titres commençant par A
-pattern_titre_cours_commencant_par_a = r"<summary>(A.*?)</summary>"
+pattern_titre_cours_commencant_par_a = r"<h2>(A.*?)</h2>"
+
+URL_COURS = "https://conception-logicielle.abrunetti.fr/cours/"
+response = requests.get(URL_COURS)
+html = response.text
 
 titre_cours = extract_with_regex(html, pattern_titre_cours)
 titre_cours_commencant_par_a = extract_with_regex(html, pattern_titre_cours_commencant_par_a)
 
 print("Tous les titres :", titre_cours)
+# Tous les titres : ['Git Avancé', 'Architecture applicative', 'Gestionnaire de package, partage de code, industrialisation', "Configuration du code en fonction de l'environnement", 'Bonnes pratiques du développement et design patterns', "Outils d'analyse statique d'une base de code", "Analyse dynamique d'une base de code", 'Automatisation des contrôles sur une base de code versionnée', "HTTP: Consommation et construction d'API webservice", 'Récupération de données via le webscraping']
 print("Titres commençant par A :", titre_cours_commencant_par_a)
+# Titres commençant par A : ['Architecture applicative', "Analyse dynamique d'une base de code", 'Automatisation des contrôles sur une base de code versionnée']
 ```
 
 ### Parsing HTML avec `BeautifulSoup`
@@ -454,14 +476,14 @@ print("Titres commençant par A :", titre_cours_commencant_par_a)
 Pour **un parsing plus stable et robuste**, on utilise **BeautifulSoup**, une librairie externe :
 
 ```bash
-pip3 install beautifulsoup4
+uv add beautifulsoup4
 ```
 
 ```python
 from bs4 import BeautifulSoup
 import requests
 
-url = "https://conception-logicielle.abrunetti.fr/cours-2024/"
+url = "https://conception-logicielle.abrunetti.fr/cours/"
 res = requests.get(url)
 html = res.text
 soup = BeautifulSoup(html, "html.parser")
@@ -476,27 +498,68 @@ Supposons qu'on a ce fichier HTML :
 ```html
 <html>
   <head>
-    <title>Exemple de page</title>
+    <title>Catalogue des cours</title>
   </head>
+
   <body>
-    <div class="content">
-      <h2>Introduction</h2>
-      <h2>Chapitre 1 - Concepts</h2>
-      <h2>Chapitre 2 - Applications</h2>
-      <p>Voici du texte dans la section content.</p>
-    </div>
 
-    <div class="article-body">
-      <p>Paragraphe principal de l'article.</p>
-    </div>
+    <!-- En-tête de la page -->
+    <main class="container">
 
-    <nav>
-      <ul>
-        <li><a href="page1.html">Page 1</a></li>
-        <li><a href="page2.html">Page 2</a></li>
-        <li><a href="https://externe.com">Lien externe</a></li>
-      </ul>
-    </nav>
+      <section class="intro">
+        <h2 class="page-title">Ensemble des modules du cours</h2>
+        <p>
+          Retrouvez ici l’ensemble des ressources liées à la conception
+          logicielle moderne.
+        </p>
+      </section>
+
+      <!-- Liste des cours -->
+      <section class="course-grid">
+
+        <article class="course-card">
+          <a href="/cours/git-avance">
+            <h2>Git Avancé</h2>
+          </a>
+          <p class="description">
+            Maîtriser Git dans un environnement professionnel.
+          </p>
+          <span class="reading-time">25 min</span>
+        </article>
+
+        <article class="course-card">
+          <a href="/cours/architecture-applicative">
+            <h2>Architecture applicative</h2>
+          </a>
+          <p class="description">
+            Structurer une application maintenable et testable.
+          </p>
+          <span class="reading-time">30 min</span>
+        </article>
+
+        <article class="course-card">
+          <a href="/cours/configuration-env">
+            <h2>Configuration selon l’environnement</h2>
+          </a>
+          <p class="description">
+            Adapter son code aux contextes d’exécution.
+          </p>
+          <span class="reading-time">20 min</span>
+        </article>
+
+      </section>
+
+      <!-- Navigation -->
+      <nav class="pagination">
+        <ul>
+          <li><a href="/cours?page=1">1</a></li>
+          <li><a href="/cours?page=2">2</a></li>
+          <li><a href="https://externe.com">Lien externe</a></li>
+        </ul>
+      </nav>
+
+    </main>
+
   </body>
 </html>
 ```
@@ -509,10 +572,11 @@ from bs4 import BeautifulSoup
 html = """ ...HTML ci-dessus... """
 soup = BeautifulSoup(html, "html.parser")
 
-# Sélection avec CSS selector
-h2_titles = soup.select("div.content h2")
-print([h2.text for h2 in h2_titles]) 
-# ['Introduction', 'Chapitre 1 - Concepts', 'Chapitre 2 - Applications']
+titres = [
+    h2.get_text(strip=True)
+    for h2 in soup.select("article h2")
+]
+print(titres)
 ```
 
 - Pour récupérer tous les liens `<a>` de la page
@@ -520,17 +584,8 @@ print([h2.text for h2 in h2_titles])
 ```python
 links = [a["href"] for a in soup.find_all("a", href=True)]
 print(links)
-# ['page1.html', 'page2.html', 'https://externe.com']
 ```
 
-
-- Pour récupérer un élément par balise et attribut
-
-```python
-article = soup.find("div", class_="article-body")
-print(article.text.strip())
-# 'Paragraphe principal de l\'article.'
-```
 > Plus de documentation, dans [la documentation oficielle](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 
 > [!TIP]+ Pour aller plus loin
