@@ -890,3 +890,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
 ```python
 app.add_middleware(AuthMiddleware)
 ```
+
+> [!TIP]+ Pour aller plus loin
+> Au lieu d’implémenter cette authentification « à la main », il est recommandé de consulter la documentation officielle de FastAPI sur l’authentification par jetons JWT. Cela pourra constituer des points bonus dans votre rendu final :
+> [OAuth2 with Password (and hashing), Bearer with JWT tokens](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/#recap)
