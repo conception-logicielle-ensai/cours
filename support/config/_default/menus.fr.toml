@@ -44,8 +44,26 @@
   name = "Automatisation des contrôles"
   parent = "Cours"
   pageRef = "cours/automatisation-controle"
-  weight = 8
+  weight = 9
 
+[[main]]
+  name = "HTTP: Consommation et construction d'API webservice"
+  parent = "Cours"
+  pageRef = "cours/http-api-webservices"
+  weight = 10
+
+[[main]]
+  name = "Etats et Persistence des données"
+  pageRef = "cours/etats-persistence-donnees"
+  parent = "Cours"
+  weight = 11
+
+
+[[main]]
+  name = "Récupération de données via le webscraping"
+  pageRef = "cours/webscraping"
+  parent = "Cours"
+  weight = 12
 [[main]]
   name = "Projets"
   pre = "worktree"

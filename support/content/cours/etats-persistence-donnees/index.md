@@ -340,6 +340,8 @@ collection.insert_one(document)
 
 ### Bases de données relationnelle orientée traitement : Duckdb
 
+![](/images/etats-persistence-donnees/duckdb.png)
+
 [DuckDB](https://duckdb.org) est une base de données relationnelle embarquée, conçue pour le traitement analytique et les requêtes SQL sur de grandes quantités de données, directement depuis votre application ou votre poste de travail.
 
 Contrairement à PostgreSQL ou MySQL, DuckDB ne nécessite pas de serveur : l’ensemble des données est lu et écrit par le moteur directement depuis des fichiers locaux (par exemple .parquet ou .csv) ou en mémoire. On pourrait le voir comme un SQLite optimisé pour le traitement analytique, plutôt que pour les transactions classiques.
@@ -354,7 +356,7 @@ DuckDB est particulièrement adapté aux cas où l’on veut exécuter des requ�
 
 **Ici l'enjeu de ce moteur est de vous permettre de réaliser de manière efficiente des traitements statistiques sur les colonnes plutôt que sur les lignes**
 
-Usage :
+#### Exemple de code 
 ```py
 import duckdb
 query = f"""
@@ -445,6 +447,8 @@ SqlAlchemy dans une archi projet : [exemple de thread stackoverflow](https://sta
 ### Autres implémentations
 
 #### Fastapi : SQLModel
+![](/images/etats-persistence-donnees/sqlmodel.svg)
+
 
 [SQLModel](https://sqlmodel.tiangolo.com/) est un ORM moderne basé sur SQLAlchemy et Pydantic.
 
@@ -480,7 +484,7 @@ with Session(engine) as session:
 
 #### Django : Models et Session
 
-![](/images/etats-persistence-donnees/duckdb.png)
+![](/images/etats-persistence-donnees/django.png)
 
 Django possède son *ORM* intégré pour définir des modèles et interagir avec la base de données.
 
