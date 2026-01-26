@@ -339,7 +339,6 @@ collection.insert_one(document)
 ```
 
 ### Bases de données relationnelle orientée traitement : Duckdb
-<img style="max-width:80%;margin-left: auto; margin-right:auto" src="https://duckdb.org/img/duckdb_logo.svg" />
 
 [DuckDB](https://duckdb.org) est une base de données relationnelle embarquée, conçue pour le traitement analytique et les requêtes SQL sur de grandes quantités de données, directement depuis votre application ou votre poste de travail.
 
@@ -382,8 +381,8 @@ Il propose finalement une interface fonctionnelle python pour ne plus avoir a d�
 - En local on voudrait travailler sur une base de données portable : SQLite, mysql
 - Dans un environnement hébergé on voudrait travailler sur une base de données : postgresql 
 
-### SQLAlchemy
 
+### SQLAlchemy
 <img style="max-width:80%;margin-left: auto; margin-right:auto" src="https://miro.medium.com/v2/resize:fit:1400/0*msfsws06ImMSJYop.jpg" />
 SQLAlchemy est une implémentation proposant une interface d'Object Relationnal Mapping en Python. Il implémente de nombreuses fonctionnalités dont :
 - La gestion des relations
@@ -481,6 +480,8 @@ with Session(engine) as session:
 
 #### Django : Models et Session
 
+![](/images/etats-persistence-donnees/duckdb.png)
+
 Django possède son *ORM* intégré pour définir des modèles et interagir avec la base de données.
 
 Les classes héritent de `models.Model` et sont automatiquement mappées aux tables SQL.
@@ -514,8 +515,37 @@ Django gère également le migrateur de base de données, les relations entre ta
 > [!TIP]+ Exemple plus complet disponibles ici **overview**
 > https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/etats-persistence-donnees/orm/djangoex
 
+## Pistes pour vos projets
 
-## Gestionnaire de version de base de données
+- Travail en local avec des bases de données locales : `mysql` `sqlite` (partage du fichier db éventuellement ou d'un db au démarrage)
+
+- Installation de bases de données `postgresql` `mongodb` sur les instances du `SSPCLOUD`. Attention, elles seront uniquement accessible du cluster et donc d'un vscode dans le cluster.
+
+- Installation des bases de données en local :
+
+**Mongodb** : Suivre la documentation ici [https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
+
+**Postgresql**: Suivre la documentation ici [https://ubuntu.com/server/docs/install-and-configure-postgresql](https://ubuntu.com/server/docs/install-and-configure-postgresql)
+
+- Utilisation de docker (dans 2 cours on voit ça 🤓🤓)
+
+**Mongodb**: `sudo docker run --name mongodb -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=motdepasseadmin -p 27017:27017 mongo:8.2.3-noble`
+
+**Postgresql**: `sudo docker run postgres -d -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=motdepasseadmin -e POSTGRES_DB=postgres:postgres:18.1-trixie -p 5432:5432` 
+
+### Attendus projets
+- Il sera attendu de vous de nous fournir un script d'initialisation de base de données ou un fichier pour démarrer dans votre projet si vous implémentez de la persistence.
+- Le choix de la BDD vous incombe
+- La modélisation en base de données ne nécessite pas de diagramme pour le rendu, mais sera analysée pour les items qualité du code / fonctionnel.
+
+
+
+
+## Pour aller plus loin : Gestionnaire de version de base de données
+
+
+![ ](/images/etats-persistence-donnees/dbversionning.png)
+
 
 Dans le développement logiciel, le code évolue constamment : on ajoute des fonctionnalités, on modifie des structures de données, et on corrige des bugs. La base de données doit suivre ces changements pour rester cohérente avec le code.
 
@@ -544,26 +574,3 @@ En d’autres termes, un gestionnaire de version de base de données fonctionne 
 > Ce n'est pas attendu, mais vous pouvez le mettre en place dans votre projet cela sera valorisé
 
 Exemple de frameworks : `alembic` pour SQLModel et SQLAlchemy, et c'est pas défaut dans `django`.
-
-## Pistes pour vos projets
-
-- Travail en local avec des bases de données locales : `mysql` `sqlite` (partage du fichier db éventuellement ou d'un db au démarrage)
-
-- Installation de bases de données `postgresql` `mongodb` sur les instances du `SSPCLOUD`. Attention, elles seront uniquement accessible du cluster et donc d'un vscode dans le cluster.
-
-- Installation des bases de données en local :
-
-**Mongodb** : Suivre la documentation ici [https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
-
-**Postgresql**: Suivre la documentation ici [https://ubuntu.com/server/docs/install-and-configure-postgresql](https://ubuntu.com/server/docs/install-and-configure-postgresql)
-
-- Utilisation de docker (dans 2 cours on voit ça 🤓🤓)
-
-**Mongodb**: `docker run -d --name mongodb -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=motdepasseadmin -p 27017:27017 mongo:8.2.3-noble`
-
-**Postgresql**: `docker run postgres -d -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=motdepasseadmin -e POSTGRES_DB=postgres:postgres:18.1-trixie -p 5432:5432` 
-
-### Attendus projets
-- Il sera attendu de vous de nous fournir un script d'initialisation de base de données ou un fichier pour démarrer dans votre projet si vous implémentez de la persistence.
-- Le choix de la BDD vous incombe
-- La modélisation en base de données ne nécessite pas de diagramme pour le rendu, mais sera analysée pour les items qualité du code / fonctionnel.
