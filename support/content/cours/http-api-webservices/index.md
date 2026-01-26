@@ -4,7 +4,7 @@ weight: 21
 draft: false
 summary: "API webservices et HTTP, FastAPI."
 slug: "http-api-webservices"
-tags: ["http", "api","webservice","django","fastapi"]
+tags: ["http", "api","webservice","django","fastapi","backend"]
 series: ["Cours"]
 series_order: 9
 ---
