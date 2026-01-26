@@ -61,7 +61,7 @@
 
 [[main]]
   name = "Récupération de données via le webscraping"
-  pageRef = "cours/webscraping"
+  pageRef = "/cours/webscraping"
   parent = "Cours"
   weight = 13
 
