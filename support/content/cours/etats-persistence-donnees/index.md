@@ -281,7 +281,7 @@ Tutorial d'utilisation de sqlite :
 <div class="alert alert-info">
   <strong> Pour aller plus loin </strong> 
 
-Voir l'exemple dans le cours : [https://github.com/conception-logicielle-ensai/exemples-cours/blob/main/cours-5/persistence/sqlite/sqlite.py](https://github.com/conception-logicielle-ensai/exemples-cours/blob/main/cours-5/persistence/sqlite/sqlite.py)
+Voir l'exemple dans le cours : [https://github.com/conception-logicielle-ensai/exemples-cours/blob/main/persistence/sqlite/sqlite.py](https://github.com/conception-logicielle-ensai/exemples-cours/blob/main/cours-5/persistence/sqlite/sqlite.py)
 </div>
 
 > Nous vous préconisons SQLite pour le travail en local ou si votre application n'a pas d'enjeux de volumétrie : faible concurrence dans l'accès aux données
@@ -317,7 +317,10 @@ L'intêret de ce type de base de données est dans l'utilisation de fonctionnali
 
 On peut interagir avec des moteurs permettant la connexion aux bases de données mongo, en python on privilégiera l'utilisation de `pymongo`.
 
-#### Exemple de code : https://github.com/conception-logicielle-ensai/exemples-cours/blob/main/cours-5/persistence/mongodb/mongo_exemple.py
+#### Exemple de code 
+
+> [!TIP]+ Dispo ici **overview**
+> https://github.com/conception-logicielle-ensai/exemples-cours/blob/main/etats-persistence-donnees/mongodb/mongo_exemple.py
 
 MongoDB fonctionne avec des `Collections` équivalent des tables. Dans celle ci on peut déposer des données non structurée :
 
@@ -361,6 +364,9 @@ query = f"""
     """
 res = duckdb.sql(query)
 ```
+
+> [!TIP]+ Exemples plus complets disponibles ici **overview**
+> https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/etats-persistence-donnees/duckdb
 
 ## Object Relationnal Mapping 
 
@@ -470,7 +476,9 @@ with Session(engine) as session:
     session.commit()
 ```
 
-> [!TIP] Pour aller plus loin un exemple est dans le dépôt d'exemples
+> [!TIP]+ Exemple plus complet disponibles ici **overview**
+> https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/etats-persistence-donnees/orm/sqlmodel-ex
+
 #### Django : Models et Session
 
 Django possède son *ORM* intégré pour définir des modèles et interagir avec la base de données.
@@ -503,7 +511,9 @@ Utilisateurs.objects.filter(age__gte=18)
 Django gère également le migrateur de base de données, les relations entre tables et la sécurité des requêtes SQL, rendant l’ORM très complet pour des projets web.
 
 
-> [!TIP] Pour aller plus loin un exemple est dans le dépôt d'exemples
+> [!TIP]+ Exemple plus complet disponibles ici **overview**
+> https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/etats-persistence-donnees/orm/djangoex
+
 
 ## Gestionnaire de version de base de données
 
