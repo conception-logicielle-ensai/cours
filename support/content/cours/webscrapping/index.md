@@ -6,7 +6,7 @@ summary: "Techniques de web scraping et récupération de données depuis le web
 slug: "webscraping"
 tags: ["webscraping", "python", "requests", "beautifulsoup","backend"]
 series: ["Cours"]
-series_order: 10
+series_order: 11
 ---
 
 > [!TIP]+ Accès aux exemples
