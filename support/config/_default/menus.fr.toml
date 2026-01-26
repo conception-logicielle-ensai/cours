@@ -63,7 +63,8 @@
   name = "Récupération de données via le webscraping"
   pageRef = "cours/webscraping"
   parent = "Cours"
-  weight = 12
+  weight = 13
+
 [[main]]
   name = "Projets"
   pre = "worktree"
