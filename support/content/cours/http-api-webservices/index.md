@@ -12,7 +12,7 @@ series_order: 9
 > [!TIP]+ Accès aux exemples
 > Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/
 
-Dans cette partie, on va voir ce qu'est un web service, pourquoi on en utilise et comment en construire un en Python.  
+Dans cette partie, on va voir ce qu'est un web service, pourquoi on en utilise et comment en construire un en `Python`.  
 
 ## Préambule : Script vs Application  
 
@@ -26,7 +26,7 @@ Ils sont généralement exécutés par des langages interprétés comme `Python`
 
 > Un script peut être lancé plusieurs fois, mais dans ce cas, on parle d'un **batch** : on l'exécute à intervalle régulier, il fait son travail, puis s’arrête. 
 
-- **Les applications** : elles sont conçues pour fonctionner en continu, tant qu'on ne les arrête pas. Elles sont souvent plus complexes et à l'origine, elles étaient développées en langages compilés (comme Java ou C++), mais aujourd’hui, ce n’est plus forcément le cas.  
+- **Les applications** : elles sont conçues pour fonctionner en continu, tant qu'on ne les arrête pas. Elles sont souvent plus complexes et à l'origine, elles étaient développées en langages compilés (comme `Java` ou `C++`), mais aujourd’hui, ce n’est plus forcément le cas.  
 
 ## Applications et architectures applicatives  
 
@@ -169,7 +169,7 @@ Les **navigateurs web** sont des clients HTTP qui envoient des requêtes `GET` l
 
 ### Requête HTTP : Gestion des identités et session
 
-Parfois pour accéder il est nécessaire de s'authentifier, cela se fait en général avec un Header dédié : `Authorization: <type> <credentials>`.
+Parfois pour accéder il est nécessaire de s'authentifier, cela se fait en général avec une en-tête (un Header) dédié : `Authorization: <type> <credentials>`.
 
 #### 1. Authentification basique (Basic Auth)
 
@@ -267,14 +267,12 @@ Dans les applications clientes (API consumer, micro-services, scripts métiers),
 L'objectifs de cette approche est d'éviter la duplication du code d’authentification et séparer les préoccupations (authentification vs logique métier).
 
 1. Une session HTTP est créée avec :
-
    * une URL de base
    * un **access token**
    * un **refresh token**
 2. Chaque requête utilise automatiquement le jeton courant
 3. En cas de réponse `401 Unauthorized` :
-
-   * le jeton est rafraîchi
+   * le jeton **access token** est rafraîchi en utilisant le **refresh token**
    * la requête est rejouée
 4. Le reste de l’application n’a **aucune connaissance** de ces mécanismes
 
@@ -361,7 +359,6 @@ session = HttpSession(
 book_service = BookService(session)
 books = book_service.list_books()
 ```
-
 
 
 ## Les API : une forme de Web Service
@@ -566,7 +563,7 @@ Les requêtes envoyées à une API sont aussi souvent en JSON ou XML.
 
 Un des enjeux du travail avec des ressources externes d'un programme est de savoir convertir les entrées d'un programme en des formes connues de notre programme (désérialisation), mais également de pouvoir exposer des objets connus de notre programme dans un format utilisable par d'autres programmes (sérialisation).
 
-> *faire le pont entre le monde externe (JSON, HTTP, API) et le monde interne du programme (objets, classes, invariants).*
+> *faire le pont entre le monde externe (JSON, HTTP, API) et le monde interne du programme (objets, classes).*
 
 **Exemple : une entité métier `User`**
 
@@ -696,10 +693,10 @@ Attention : l'introduction de l'asynchronicité dans des fonctions où elle n'es
 FastAPI est un `framework web` qui simplifie la création d'API en Python, notamment par une gestion efficace de la sérialisation et de la désérialisation des données.
 
 Il repose sur deux autres frameworks :
-- Starlette pour les fonctionnalités liées au web.
-- Pydantic pour la gestion des données.
+- `Starlette` pour les fonctionnalités liées au web.
+- `Pydantic` pour la gestion des données.
 
-FastAPI est open source et est utilisé par de nombreuses entreprises, telles que Netflix, Uber et Microsoft. Il est très utilisé dans le mon de la datascience.
+FastAPI est open source et est utilisé par de nombreuses entreprises, telles que Netflix, Uber et Microsoft. Il est très utilisé dans le monde de la datascience.
 
 FastAPI facilite la gestion des requêtes asynchrones.
 
@@ -777,7 +774,7 @@ Votre application sera disponible à l'adresse suivante, que vous pouvez ouvrir 
 ### Ressources supplémentaires  
 
 Quelques exemples pour vous permettre de démarrer l'implémentation de vos API : 
-- Un exemple avec une architecture clean, montrant les possibilités de documentation, ce qui donne un confort d'utilisation aux utilisateurs (valorisé) :  consultez [cet exemple de définition d'une application FastAPI avec une bonne architecture du code](https://github.com/conception-logicielle-ensai/exemples-cours/blob/main/cours-4/fastapi).  
+- Un exemple avec une architecture clean, montrant les possibilités de documentation, ce qui donne un confort d'utilisation aux utilisateurs (valorisé) :  consultez [cet exemple de définition d'une application FastAPI avec une bonne architecture du code](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/http-api-webservices/fastapi_api_exemple).  
 - Exemple utilisant les DTO [cet exemple sur les DTO du cours, qui illustre les interactions entre les différentes couches de l'application](https://github.com/conception-logicielle-ensai/archi-exemple).  
 
 Ressources officielles:

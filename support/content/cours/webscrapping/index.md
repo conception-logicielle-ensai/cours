@@ -16,7 +16,7 @@ series_order: 11
 
 ## Introduction au Web Scraping
 
-Le **web scraping** désigne les techniques d’**extraction de contenu depuis des sites internet**. C'est une pratique que l'on envisage lorsque l'on a accès à des données publiquement disponibles, mais qu'aucun **fichier fourni ou API** n'est mis à disposition pour les exploiter.
+Le **web scraping** désigne les techniques d’**extraction de contenu depuis des sites internet**. C'est une pratique que l'on envisage lorsque l'on a accès à des données publiquement disponibles, mais qu'**aucun fichier fourni ou API** n'est mis à disposition pour les exploiter.
 
 Elle repose sur l'utilisation de **clients HTTP** pour traiter des données **non formatées** pour l'utilisation, typiquement des pages web accessibles aux utilisateurs au format `HTML`.
 
@@ -81,10 +81,10 @@ Les clients http sont nécessaires pour la récupération des données exposées
 
 ### Client en ligne de commande
 
-Les outils comme **Wget** et **cURL** permettent d'envoyer des requêtes HTTP directement depuis le terminal.
+Les outils comme `Wget` et `cURL` permettent d'envoyer des requêtes HTTP directement depuis le terminal.
 
-- cURL : Supporte plusieurs protocoles (HTTP, FTP, etc.), permet d'envoyer des requêtes GET, POST, etc.
-- Wget : Principalement utilisé pour télécharger des fichiers depuis le web.
+- `cURL` : Supporte plusieurs protocoles (HTTP, FTP, etc.), permet d'envoyer des requêtes GET, POST, etc.
+- `Wget` : Principalement utilisé pour télécharger des fichiers depuis le web.
 
 > Ils permettent de scripter des requêtes et sont disponibles sur la plupart des OS.
 
@@ -94,7 +94,7 @@ Les outils comme **Wget** et **cURL** permettent d'envoyer des requêtes HTTP di
 
 ### Clients utilitaires
 
-Il existe des clients utilitaires comme **Insomnia** et **Postman** offrent une interface graphique pour tester des API REST. 
+Il existe des clients utilitaires comme `Insomnia` et `Postman` offrent une interface graphique pour tester des API REST. 
 
 - `Postman` : Permet d'envoyer des requêtes HTTP, d'automatiser des tests et de documenter des API.
 - `Insomnia` : Similaire à `Postman`, axé sur la simplicité et l’expérience utilisateur.
@@ -564,7 +564,7 @@ Supposons qu'on a ce fichier HTML :
 </html>
 ```
 
-- Pour récupérer tous les `<h2>` à l'intérieur de `<div class="content">` :
+- Pour récupérer tous les `<h2>` à l'intérieur de `<article>` :
 
 ```python
 from bs4 import BeautifulSoup
