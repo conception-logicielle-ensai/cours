@@ -10,7 +10,7 @@ series_order: 9
 ---
 
 > [!TIP]+ Accès aux exemples
-> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/architecture-applicative
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/
 
 Dans cette partie, on va voir ce qu'est un web service, pourquoi on en utilise et comment en construire un en Python.  
 
