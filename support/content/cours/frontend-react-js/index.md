@@ -557,36 +557,6 @@ Ton application sera alors accessible à l'adresse `http://localhost:5173/`.
 > [Documentation Officiel de Vite](https://vitejs.fr/)
 
 
-### Détails des fichiers et dossiers générés par Vite.js
-
-<img style="max-width:10%;margin-left: auto; margin-right:auto" src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fgy94vc0uwvyii0dmhns1.png"/>
-
-- **index.html** : C’est le fichier HTML de base qui est chargé dans le navigateur. Il contient généralement les liens vers les fichiers JavaScript et CSS de ton projet.
-  
-- **package.json** : Il contient toutes les informations importantes sur ton projet, comme les dépendances (voir [semantic-versionning](https://docs.npmjs.com/about-semantic-versioning)), les scripts pour démarrer et construire ton application, etc. C'est aussi là où tu ajoutes des bibliothèques supplémentaires.
-
-- **package-lock.json** : Il contient toutes les informations sur les librairies utilisées lors d'une installation, permet de sanctuariser un ensemble de versions de package correspondant à la demande et qui permet de faire fonctionner l'application.
-
-- **README.md** : Un fichier pour expliquer ton projet, comment l’utiliser et quelles sont ses fonctionnalités.
-
-- **src/** : Ce dossier contient tout le code source de ton application. C’est là que tu vas créer tes composants, ajouter tes styles, et gérer toute la logique de ton application.
-
-- **main.jsx** : Le point d’entrée de ton application. Il va initialiser ton application et y monter le composant principal dans le DOM.
-
-- **App.jsx** : Le composant principal qui définit la structure de ton interface utilisateur.
-
-- **public/** : Ce dossier contient les fichiers statiques (ex : images, logo) accessibles directement via l’URL de ton application.
-
-- **vite.config.js** : Ce fichier te permet de personnaliser la configuration de Vite pour ton projet. Tu peux y ajouter des plugins ou définir des options de build.
-
-- **node_modules/** : Ce dossier contient toutes les dépendances installées. Il est automatiquement généré par npm et ne doit pas être modifié manuellement.
-
-
-
-Voici une version **corrigée, reformulée, plus précise techniquement**, avec un niveau de langage homogène pour un support de cours, et quelques **ajouts importants** pour éviter des incompréhensions fréquentes chez les étudiants.
-
----
-
 ### Structure des fichiers et dossiers générés par Vite
 
 <img style="max-width:10%;margin-left:auto;margin-right:auto" src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fgy94vc0uwvyii0dmhns1.png"/>
