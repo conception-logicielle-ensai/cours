@@ -1,7 +1,7 @@
 ---
 title: "Frontend, JavaScript et React"
 weight: 18
-draft: true
+draft: false
 summary: "Présentation des données destinée aux utilisateurs : le frontend avec le framework React"
 slug: "frontend-react-js"
 tags: ["frontend", "javascript", "react", "vite"]
