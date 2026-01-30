@@ -209,66 +209,28 @@ function MyComponent() {
 }
 ```
 
----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="alert alert-info">
-  <strong>Pour aller plus loin :</strong> <br/> 
-  <a href="https://developer.mozilla.org/fr/docs/Learn_web_development/Core/Styling_basics/Getting_started" target="_blank">Démarrer avec CSS</a>
-</div>
+> [!TIP]+ Pour aller plus loin
+> [Démarrer avec CSS](https://developer.mozilla.org/fr/docs/Learn_web_development/Core/Styling_basics/Getting_started)
 
 Le langage React est largement utilisé, et grâce à ça, il y a plein de **bibliothèques de composants React** prêtes à l'emploi. Elles permettent d'avoir un design harmonieux et vous font gagner un temps fou, car vous n'avez pas besoin de redéfinir chaque composant de base. En plus, elles proposent des options pour rendre votre application **accessible à tous** et vous donnent la possibilité de personnaliser les éléments selon vos besoins.
 
 À l'INSEE, on utilise surtout la bibliothèque [**Material UI**](https://mui.com/material-ui/) et le [**Design système de l'état - DSFR**](https://www.systeme-de-design.gouv.fr/), mais il y a aussi d'autres choix comme Bootstrap ou Ant Design.
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin :</strong> <br/> 
-  <a href="https://mui.com/material-ui/all-components/" target="_blank">Liste des composants Material UI</a>
-</div>
+
+> [!TIP]+ Pour aller plus loin
+> [Liste des composants Material UI](https://mui.com/material-ui/all-components/)
 
 
 ### Un hook React
 
-Les Hooks sont des fonctions qui permettent de « se brancher » sur la gestion de l'état local et du cycle de vie de React depuis des composants fonctionnels. React propose plusieurs Hooks prédéfinis, comme `useState` ou `useEffect`. Mais vous pouvez aussi créer vos propres Hooks pour réutiliser un comportement avec état dans différents composants.
+Les **Hooks** sont des fonctions qui permettent de "se brancher" sur la **gestion de l'état local et du cycle de vie de React** depuis des composants fonctionnels. React propose plusieurs Hooks prédéfinis, comme `useState` ou `useEffect`. Mais vous pouvez aussi créer vos propres Hooks pour **extraire une logique (état, effets, calculs…) d’un composant et la réutiliser dans d’autres**.
 
 ### Le hook d'état : `useState`
 
-Imaginons que vous souhaitez que l'interaction avec l'utilisateur change le comportement de votre composant. Par exemple, si vous cliquez sur un bouton pour ouvrir la description, cela affichera la description de votre Pokémon. Inversement, si vous cliquez sur un bouton pour fermer la description, celle-ci sera masquée.
+Imaginons que vous souhaitez que l'interaction avec l'utilisateur change le comportement de votre composant. *Par exemple, si vous cliquez sur un bouton pour ouvrir la description, cela affichera la description de votre Pokémon. Inversement, si vous cliquez sur un bouton pour fermer la description, celle-ci sera masquée.*
 
-Pour cela, vous devez définir un hook d'état : ce hook permet d'enregistrer l'état de votre composant. Voici comment procéder dans votre composant :
+Pour cela, vous devez définir un **hook d'état : ce hook permet d'enregistrer l'état de votre composant**. Voici comment procéder dans votre composant :
 
 ```jsx
 import { useState } from "react";
@@ -291,7 +253,10 @@ function Pokemon() {
 }
 ```
 
-Cependant, la description et le nom du Pokémon sont écrits en dur. Pour réutiliser notre composant, nous allons utiliser les props.
+> `isOpen` est **la valeur actuelle de l’état**, et `setIsOpen` est **la fonction qui permet de modifier cet état**. La valeur entre parenthèses (`false`) est la valeur par défaut de l’état.
+
+
+*Cependant, la description et le nom du Pokémon sont écrits en dur.* Pour réutiliser notre composant, nous allons utiliser les props.
 
 ### Transmission Parent / Enfant : `Props`
 
@@ -348,7 +313,7 @@ function PokemonList() {
 
 Dans notre composant `PokemonList`, nous affichons tous les Pokémon présents dans la liste `pokemonListJson`. Bien sûr, l'objectif est d'afficher tous les Pokémon que nous recevrons dans un appel à l'API, mais nous aborderons cela plus tard.
 
-Les **props** (properties) sont des paramètres que tu passes à un composant pour lui fournir des données dynamiques. Elles permettent de rendre les composants réutilisables et configurables.
+Les **props** (properties) sont des **paramètres que tu passes à un composant pour lui fournir des données dynamiques**. Elles permettent de rendre les composants réutilisables et configurables.
 Les props sont passées comme des attributs HTML à un composant dans son coposant parent.
 
 Si nous voulons utiliser l'état d'un composant dans un autre, nous appliquerons la méthode consistant à définir l'état dans le premier composant parent commun aux deux composants. Nous descendrons ensuite l'état et la méthode de changement jusqu'aux composants qui en ont besoin.
@@ -356,7 +321,7 @@ Si nous voulons utiliser l'état d'un composant dans un autre, nous appliquerons
 
 ### Le hook de synchronisation: `useEffect`
 
-Le hook `useEffect` est utilisé pour effectuer des effets de bord dans les composants fonctionnels de React. Ce hook vous permet d'exécuter du code après que le composant a été monté ou mis à jour, et même de nettoyer les effets lorsque le composant est démonté. 
+Le hook `useEffect` est utilisé pour effectuer des **effets de bord dans les composants fonctionnels de React**. Ce hook vous permet d'exécuter du code **après le rendu d’un composant**  (le composant a été monté ou mis à jour), et même de nettoyer les effets lorsque le composant est démonté. 
 
 Voici un exemple simple d'utilisation du hook `useEffect`. Imaginons que nous voulons récupérer des données d'une API lorsque le composant est monté.
 
@@ -409,11 +374,22 @@ function PokemonList() {
 }
 ```
 
-La méthode fetchPokemons() est une fonction asynchrone qui récupère la liste des Pokémon depuis une API en utilisant Axios. Elle utilise un bloc try-catch pour gérer les erreurs de requête. Si la requête réussit, elle met à jour l'état pokemons avec les données récupérées. En cas d'erreur, elle définit un message d'erreur dans l'état error. Enfin, elle met à jour l'état loading à false dans tous les cas, indiquant que le chargement est terminé. Cette méthode est appelée lors du premier rendu du composant PokemonList.
+```js
+useEffect(() => { ... }, []);
+```
+
+Le tableau à la fin s’appelle **le tableau de dépendances**.
+Il indique **quand l’effet doit se relancer** :
+
+* **Vide (`[]`)** → l’effet s’exécute **une seule fois**, au premier rendu du composant.
+* **Avec des valeurs (`[val1, val2, ...]`)** → l’effet se relance **à chaque fois que ces valeurs changent**.
+
+
+La méthode fetchPokemons() est une fonction asynchrone qui récupère la liste des Pokémon depuis une API en utilisant `Axios`. Elle utilise un bloc try-catch pour gérer les erreurs de requête. Si la requête réussit, elle met à jour l'état pokemons avec les données récupérées. En cas d'erreur, elle définit un message d'erreur dans l'état error. Enfin, elle met à jour l'état loading à false dans tous les cas, indiquant que le chargement est terminé. Cette méthode est appelée lors du premier rendu du composant PokemonList.
 
 ### Client HTTP : `Axios`
 
-Axios est à JavaScript ce que `requests` est à Python. Il s'agit d'un client HTTP, comme expliqué dans le cours [🌐 API webservices et HTTP, FastAPI.](/docs/api-webservices-http).
+Axios est à JavaScript ce que `requests` est à Python. Il s'agit d'un client HTTP, comme expliqué dans le cours [HTTP: Consommation et construction d'API webservice](/cours/http-api-webservices/).
 
 C'est une bibliothèque asynchrone, parmi d'autres comme `fetch`. Cependant, Axios est souvent préféré à `fetch` en raison de sa gestion automatique des requêtes et des réponses, de la possibilité d'annuler des requêtes, et de sa simplicité d'utilisation pour la configuration des en-têtes et des paramètres.
 
@@ -438,9 +414,6 @@ VITE_API_URL=https://api.example.com
 ```
 
 Les variables d'environnement doivent commencer par `VITE_` pour être exposées à votre code client.
-
-<details><summary class="reponse" >Exemple d'implémentation</summary>
-<p>
 
 **Dans un fichier `api.js` :**
 
