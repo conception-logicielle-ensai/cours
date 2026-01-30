@@ -393,19 +393,16 @@ Axios est à JavaScript ce que `requests` est à Python. Il s'agit d'un client H
 
 C'est une bibliothèque asynchrone, parmi d'autres comme `fetch`. Cependant, Axios est souvent préféré à `fetch` en raison de sa gestion automatique des requêtes et des réponses, de la possibilité d'annuler des requêtes, et de sa simplicité d'utilisation pour la configuration des en-têtes et des paramètres.
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin :</strong><br/> 
-  <a href="https://axios-http.com/fr/docs/intro" target="_blank">Documentation officielle d'Axios</a>
-</div>
+> [!TIP]+ Pour aller plus loin
+> [Documentation officielle d'Axios](https://axios-http.com/fr/docs/intro)
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin :</strong><br/> 
-  <a href="https://www.digitalocean.com/community/tutorials/react-axios-react-fr" target="_blank">Comment utiliser Axios avec React</a>
-</div>
+> [!TIP]+ Pour aller plus loin
+> [Comment utiliser Axios avec React](https://www.digitalocean.com/community/tutorials/react-axios-react-fr)
 
-> **Remarque**: Les principes de conception logicielle s'appliquent toujours en javascript, il vous faudra externaliser et centraliser la configuration des urls
 
-Par exemple, pour une application utilisant `VITEJS` dans votre fichier **.env**, vous pourrez ajoutez la ligne suivante :
+> **Remarque**: Les principes de conception logicielle s'appliquent toujours en javascript, il vous faudra externaliser et centraliser la configuration des urls.
+
+Par exemple, pour une application utilisant `VITEJS` dans votre fichier `.env`, vous pourrez ajoutez la ligne suivante :
 
 *Nous nous intéresserons a ViteJS dans une partie suivante*
 
@@ -447,61 +444,63 @@ const response = await API.get("pokemons");
 Cela simplifie vos appels API et rend votre code plus lisible.
 
 
-</p></details>
+
+## Utilisation d’outils d’aide au développement pour une application React
+
+<img src="https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2021/06/Create-Your-First-React.js-App.jpg" />
+
+Après avoir découvert les concepts fondamentaux de React, voyons comment initialiser et exécuter une première application.
+
+
+### Utilisation d’un outil de build : `Vite`
+
+Dans un projet React, on ne travaille pas directement avec du JavaScript « brut ». On utilise notamment le **JSX**, ainsi que des fonctionnalités modernes du langage qui nécessitent une phase de transformation avant d’être exécutées dans le navigateur.
+
+Pour cela, il est indispensable de s’appuyer sur un **outil de développement** chargé de :
+
+* lancer un **serveur local** afin d’observer les modifications en temps réel ;
+* transformer et optimiser le code pour assurer la compatibilité avec les navigateurs ;
+* gérer les imports de ressources (CSS, images, polices, etc.).
+
+Plutôt que de configurer manuellement ces mécanismes, on utilise des **outils clé en main** appelés *build tools* ou *bundlers*. Parmi eux, `Vite` est aujourd’hui très apprécié pour sa rapidité et sa simplicité d’utilisation. Il est notamment largement utilisé à l’Insee.
+
+D’autres alternatives existent, comme `Create React App` ou `Next.js`.
+
+### Exécution du code JavaScript avec `Node.js`
+
+Par défaut, JavaScript s’exécute dans un navigateur web. Toutefois, pour développer une application moderne, il est nécessaire de disposer d’un **environnement capable d’exécuter JavaScript en dehors du navigateur** : c’est le rôle de `Node.js`.
+
+`Node.js` repose sur le moteur **V8** de Google Chrome et permet d’exécuter du code JavaScript directement sur votre machine, comme n’importe quel autre langage de programmation.
+
+**Pourquoi a-t-on besoin de Node.js dans un projet React ?**
+
+* pour lancer le **serveur de développement** (Vite en dépend) ;
+* pour installer et gérer les bibliothèques via `npm` (*Node Package Manager*) ;
+* pour exécuter les scripts de build qui génèrent la version finale de l’application.
+
+> [!TIP]+ Pour aller plus loin
+> [Documentation sur le moteur JavaScript V8](https://nodejs.org/en/learn/getting-started/the-v8-javascript-engine)
+
+En **production**, l’application n’est plus servie par Vite. Les outils de build génèrent des fichiers optimisés (`HTML`, `CSS` et `JavaScript`) qui sont ensuite hébergés sur un **serveur statique** et exécutés directement dans le navigateur des utilisateurs.
+
+
+### Gestion des dépendances avec `npm`
+
+À l’image de `pip` pour Python, `npm` (*Node Package Manager*) est le gestionnaire de paquets de Node.js. Il permet d’installer, de mettre à jour et de partager les bibliothèques utilisées dans un projet JavaScript.
+
+
 
 
 ## Créer votre application React
 
-<img src="https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2021/06/Create-Your-First-React.js-App.jpg" />
+#### Vérification de l’installation de Node.js et npm
 
-Maintenant que vous avez découvert les concepts fondamentaux de ReactJS, voyons comment mettre en place votre première application React.
+Sur une distribution Linux (Debian / Ubuntu), vous pouvez vérifier leur présence avec :
 
-### Utilisation d’un outil de build : **Vite.js**
-
-Dans un projet React, **on ne code pas directement en JavaScript "brut"**, car on utilise des fonctionnalités modernes comme le JSX et les modules ES. Pour cela, il est essentiel d’avoir un **outil de développement** qui facilite la création et l’exécution du projet.  
-
-Un tel outil doit permettre de :  
-- Lancer un **serveur local** pour voir les modifications en temps réel pendant le développement.  
-- Transformer et optimiser le code pour qu’il soit compatible avec tous les navigateurs.  
-- Gérer les imports de fichiers (CSS, images, etc.).  
-- Accélérer le chargement des modules et améliorer l’expérience des développeurs avec le rechargement automatique.
-
-Plutôt que de tout configurer manuellement, les développeurs utilisent des outils packagés qui simplifient la gestion des dépendances et optimisent le rendu de l’application. Parmi eux, **Vite.js** est particulièrement apprécié pour sa rapidité et sa simplicité. Il est d’ailleurs largement utilisé à l’Insee. D'autres alternatives existent, comme `Create React App` ou `Next.js`.
-
-### Exécution du code JavaScript avec **Node.js**  
-
-JavaScript s’exécute normalement dans un navigateur. Cependant, pour développer des applications modernes, il est nécessaire d’avoir un environnement capable d’exécuter JavaScript en dehors du navigateur : **Node.js**.  
-
-Node.js repose sur le moteur **V8** de Google Chrome et permet d'exécuter du code JavaScript directement sur votre machine, comme un langage de programmation classique.  
-
-#### **Pourquoi a-t-on besoin de Node.js ?**  
-- Il permet de lancer un **serveur de développement** pour exécuter l’application en local (Vite en a besoin pour fonctionner).  
-- Il facilite l’installation et la gestion des bibliothèques via **npm** (Node Package Manager).  
-
-
-
-> **En production**, un serveur statique est généralement utilisé pour héberger l’application. Il sert uniquement les fichiers générés (`HTML`, `CSS` et `JavaScript`) qui seront exécutés directement dans le navigateur.
-
-<div class="alert alert-info">
-  <strong>Pour aller plus loin :</strong><br/> 
-  <a href="https://nodejs.org/en/learn/getting-started/the-v8-javascript-engine" target="_blank">Une documentation sur les moteurs de scripts javascript</a>
-</div>
-
-### Gestion des dépendances avec **npm**  
-
-Comme `pip` pour Python, **npm** (Node Package Manager) est le gestionnaire de paquets de Node.js. Il permet d’installer, gérer et partager des modules JavaScript utilisés dans votre projet.
-
-#### **Installation de Node.js et NPM**
-Sur une distribution Linux (Debian/Ubuntu) :
 ```bash
-sudo apt uninstall node npm
-sudo apt install curl && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-source ~/.bashrc
-nvm install v22
 node -v
 npm -v
 ```
-
 
 ### Installation de Vite.js
 
@@ -509,13 +508,15 @@ npm -v
 
 **Préambule, utilisation de npm :** 
 
-La commande `npm install` va installer toutes les dépendances nécessaires à ton projet. Il est important de noter que, lorsque tu versionnes ton projet avec Git, tu dois absolument ajouter ce dossier dans  fichier `.gitignore` pour éviter d'envoyer les fichiers inutiles sur ton dépôt :
+La commande `npm install` va installer toutes les dépendances nécessaires à ton projet dans le dossier `node_modules`. Il est important de noter que, lorsque tu versionnes ton projet avec Git, tu dois absolument ajouter ce dossier dans  fichier `.gitignore` pour éviter d'envoyer les fichiers inutiles sur ton dépôt :
+
 ```txt
 node_modules
 ```
 
 La syntaxe est : 
-```
+
+```bash
 npm install <package>
 ```
 
@@ -534,6 +535,7 @@ cd mon-projet
 npm install
 ```
 
+**Procédure pour lancer un projet Vite.js**
 
 Pour lancer l'application localement après l'installation, utilise cette commande :
 ```bash
@@ -543,6 +545,7 @@ npm run dev
 Ton application sera accessible à l'adresse `http://localhost:5173/`, et elle se rechargera automatiquement à chaque modification.
 
 Si tu veux tester ton application en mode production, tu peux lancer les commandes suivantes :
+
 ```bash
 npm run build
 npm run preview
@@ -550,10 +553,9 @@ npm run preview
 
 Ton application sera alors accessible à l'adresse `http://localhost:5173/`.
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin :</strong><br/> 
-  <a href="https://vitejs.fr/" target="_blank">Documentation Officiel de Vite</a>
-</div>
+> [!TIP]+ Pour aller plus loin
+> [Documentation Officiel de Vite](https://vitejs.fr/)
+
 
 ### Détails des fichiers et dossiers générés par Vite.js
 
@@ -563,7 +565,7 @@ Ton application sera alors accessible à l'adresse `http://localhost:5173/`.
   
 - **package.json** : Il contient toutes les informations importantes sur ton projet, comme les dépendances (voir [semantic-versionning](https://docs.npmjs.com/about-semantic-versioning)), les scripts pour démarrer et construire ton application, etc. C'est aussi là où tu ajoutes des bibliothèques supplémentaires.
 
-- **package-lock.json** : Il contient toutes les informations sur les librairies utilisées lors d'une installation, permet de sanctuariser un ensemble de versions de package correspondant a la demande et qui permet de faire fonctionner l'application.
+- **package-lock.json** : Il contient toutes les informations sur les librairies utilisées lors d'une installation, permet de sanctuariser un ensemble de versions de package correspondant à la demande et qui permet de faire fonctionner l'application.
 
 - **README.md** : Un fichier pour expliquer ton projet, comment l’utiliser et quelles sont ses fonctionnalités.
 
@@ -573,17 +575,51 @@ Ton application sera alors accessible à l'adresse `http://localhost:5173/`.
 
 - **App.jsx** : Le composant principal qui définit la structure de ton interface utilisateur.
 
-- **public/** : Ce dossier contient les fichiers statiques accessibles directement via l’URL de ton application.
+- **public/** : Ce dossier contient les fichiers statiques (ex : images, logo) accessibles directement via l’URL de ton application.
 
 - **vite.config.js** : Ce fichier te permet de personnaliser la configuration de Vite pour ton projet. Tu peux y ajouter des plugins ou définir des options de build.
 
 - **node_modules/** : Ce dossier contient toutes les dépendances installées. Il est automatiquement généré par npm et ne doit pas être modifié manuellement.
 
 
+
+Voici une version **corrigée, reformulée, plus précise techniquement**, avec un niveau de langage homogène pour un support de cours, et quelques **ajouts importants** pour éviter des incompréhensions fréquentes chez les étudiants.
+
+---
+
+### Structure des fichiers et dossiers générés par Vite
+
+<img style="max-width:10%;margin-left:auto;margin-right:auto" src="https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fgy94vc0uwvyii0dmhns1.png"/>
+
+Lors de la création d’un projet React avec Vite, une arborescence standard est générée. Chaque fichier et dossier a un rôle bien précis dans le fonctionnement de l’application.
+
+
+- **`index.html`** : Fichier HTML principal chargé par le navigateur. Il référence directement le point d’entrée JavaScript de l’application et sert de base au rendu initial.
+
+- **`package.json`** : Fichier central du projet Node.js. Il contient notamment les métadonnées du projet (nom, version, description), la liste des dépendances et dépendances de développement, les scripts (`dev`, `build`, `preview`, etc.) les contraintes de versions des bibliothèques (voir le [semantic-versionning](https://docs.npmjs.com/about-semantic-versioning)). C’est également dans ce fichier que l’on ajoute de nouvelles dépendances.
+
+- **`package-lock.json`** : Fichier de verrouillage des dépendances. Il enregistre **les versions exactes** des bibliothèques installées afin de garantir que tous les développeurs et environnements utilisent le même ensemble de packages. Il joue un rôle essentiel pour assurer la **reproductibilité** des installations.
+
+- **`README.md`**: Fichier de documentation du projet. Il décrit son objectif, les étapes d’installation, les commandes principales et éventuellement l’architecture générale.
+
+- **`src/`**
+  Dossier contenant l’ensemble du **code source** de l’application : composants React, styles, hooks, services d’accès aux API, ... C’est le dossier dans lequel vous travaillerez le plus souvent.
+
+- **`main.jsx`** : Point d’entrée de l’application côté JavaScript. Il crée la racine React et monte le composant principal dans le DOM, généralement dans une balise `<div id="root">` présente dans `index.html`.
+
+- **`App.jsx`** : Composant racine de l’application. Il définit la structure générale de l’interface utilisateur et sert de point de départ à l’arbre des composants.
+
+- **`public/`** : Contient les fichiers statiques accessibles directement par URL, sans être traités par Vite : images, icônes, ... Ces fichiers sont copiés tels quels lors du build.
+
+- **`vite.config.js`** : Fichier de configuration de Vite. Il permet notamment : ’ajouter des plugins, de configurer les alias d’import, d’adapter le build, ...
+
+-  **`node_modules/`** : Contient l’ensemble des dépendances installées via npm, yarn ou pnpm. Ce dossier est généré automatiquement et **ne doit jamais être modifié manuellement**.
+
 ### Organiser les composants dans ton projet
 
 Si tu veux ajouter des composants à ton projet, tu peux les organiser dans le dossier `src/component/`. Par exemple, ton projet pourrait ressembler à ceci :
-```
+
+```txt
 mon-projet/
 .
 .
@@ -604,10 +640,8 @@ mon-projet/
 
 Cela te permet de bien structurer ton projet au fur et à mesure que tu ajoutes des composants et des styles.
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin :</strong> <br/> 
-  <a href="https://vitejs.fr/guide/env-and-mode.html" target="_blank">Variables et modes Env</a> 
-</div>
+> [!TIP]+ Pour aller plus loin
+> [Variables et modes Env](https://vitejs.fr/guide/env-and-mode.html)
 
 ### Utiliser des composants déjà constitués : `Material.ui`
 
@@ -615,7 +649,7 @@ Cela te permet de bien structurer ton projet au fur et à mesure que tu ajoutes 
 
 **Material UI** est une bibliothèque de composants déjà conçus. Ils permettent de fournir un ensemble déjà construit d'éléments d'affichage qui contiennent déjà des éléments de style, d'accessibilité, de customisation.
 
-Cette bibliothèque permet également de configurer un theme global au projet, ce qui centralise la gestion du style dans votre projet plutôt que de la déléguer a chaque sous composant. Vous pouvez également créer vos propres composants en utilisant des composants fils déjà très développés, les composants MUI.
+Cette bibliothèque permet également de configurer un theme global au projet, ce qui centralise la gestion du style dans votre projet plutôt que de la déléguer à chaque sous composant. Vous pouvez également créer vos propres composants en utilisant des composants fils déjà très développés, les composants MUI.
 
 Si vous souhaitez utiliser **Material UI** dans votre projet, vous pouvez l'ajouter  :
 ```bash
@@ -625,10 +659,10 @@ npm install @mui/material @emotion/react @emotion/styled
 Cela va mettre à jour votre fichier `package.json` pour inclure les nouvelles dépendances.
 
 
-
 ### Linter, Formatter : `ESLint` `Prettier`
 
 <img src="https://miro.medium.com/v2/resize:fit:1200/1*9eV__dcw3wCpie4PyxVtnA.png"/>
+
 Le javascript est un language interprété comme python, il faut également veiller a contrôler et organiser le code proprement.
 
 #### **Linter**
@@ -638,7 +672,8 @@ Nous vous préconisons d'utiliser le linter **ESlint**. Il s'agit d'un Linter po
 Il se configure a l'aide d'un fichier de configuration `.eslintrc`.
 
 Dans une application vite.js: 
-```
+
+```bash
 npm install vite-plugin-eslint --save-dev
 ```
 
@@ -646,14 +681,12 @@ Une fois installé, il s'applique sur le projet côté serveur.
 
 Pour les contrôles en ligne de commande, et via `CI/CD` :
 
-```
+```bash
 npx eslint
 ```
 
-<div class="alert alert-info">
-  <strong>Pour aller plus loin :</strong> <br/> 
-  <a href="https://www.robinwieruch.de/vite-eslint/">Documentation de mise en place eslint sur projet vite</a> 
-</div>
+> [!TIP]+ Pour aller plus loin
+> [Documentation de mise en place eslint sur projet vite](https://www.robinwieruch.de/vite-eslint/)
 
 
 #### **Formatter**
@@ -661,7 +694,8 @@ npx eslint
 Nous vous préconisons d'utiliser le formatter **Prettier**. Il s'agit d'un Formatter pour le développement JS.
 
 Il s'installe via npm :
-```
+
+```bash
 npm install --save-dev --save-exact prettier
 ```
 
@@ -669,12 +703,9 @@ Une fois installé, vous pouvez configurer votre vscode pour l'utiliser via l'ex
 
 Pour les contrôles en ligne de commande, et via `CI/CD` :
 
-``` bash
+```bash
 npx prettier .
 ```
 
-<div class="alert alert-info">
-    <strong>Pour aller plus loin:</strong> <br/>
-    <a href="https://www.digitalocean.com/community/tutorials/how-to-format-code-with-prettier-in-visual-studio-code"> Tutoriel de mise en place sur vscode et installation </a>
-</div>
-
+> [!TIP]+ Pour aller plus loin
+> [Tutoriel de mise en place sur vscode et installation](https://www.digitalocean.com/community/tutorials/how-to-format-code-with-prettier-in-visual-studio-code)
