@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <title>TITLE: Exemple CSS - Tout en DIV !</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        /* Imiter les styles par défaut du navigateur avec des div */
+        
+        body {
+            margin: 8px;
+            font-family: Times New Roman, serif;
+            font-size: 16px;
+        }
+
+        .h1 {
+            font-size: 2em;
+            font-weight: bold;
+            margin-top: 0.67em;
+            margin-bottom: 0.67em;
+        }
+
+        .h2 {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 0.83em;
+            margin-bottom: 0.83em;
+        }
+
+        .h3 {
+            font-size: 1.17em;
+            font-weight: bold;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .nav-list {
+            display: block;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            padding-left: 40px;
+        }
+
+        .nav-item {
+            display: list-item;
+            list-style-type: disc;
+        }
+
+        .text-strong {
+            font-weight: bold;
+        }
+
+        .text-em {
+            font-style: italic;
+        }
+
+        .link {
+            color: #0000EE;
+            text-decoration: underline;
+        }
+
+        .link:visited {
+            color: #551A8B;
+        }
+
+        .image {
+            border: 0;
+        }
+
+        .list-unordered {
+            display: block;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            padding-left: 40px;
+        }
+
+        .list-ordered {
+            display: block;
+            margin-top: 1em;
+            margin-bottom: 1em;
+            padding-left: 40px;
+        }
+
+        .list-item {
+            display: list-item;
+        }
+
+        .list-unordered .list-item {
+            list-style-type: disc;
+        }
+
+        .list-ordered {
+            counter-reset: item;
+        }
+
+        .list-ordered .list-item {
+            list-style-type: decimal;
+        }
+
+        /* Tableau avec bordures */
+        .table {
+            display: table;
+            border-collapse: collapse;
+            border-spacing: 2px;
+        }
+
+        .table-head {
+            display: table-header-group;
+        }
+
+        .table-body {
+            display: table-row-group;
+        }
+
+        .table-row {
+            display: table-row;
+        }
+
+        .table-header {
+            display: table-cell;
+            font-weight: bold;
+            border: 1px solid black;
+            padding: 2px;
+        }
+
+        .table-cell {
+            display: table-cell;
+            border: 1px solid black;
+            padding: 2px;
+        }
+
+        .label {
+            cursor: default;
+        }
+
+        .input {
+            padding: 1px 2px;
+            border: 2px inset;
+        }
+
+        .button {
+            padding: 1px 6px;
+            border: 2px outset;
+            background-color: buttonface;
+        }
+
+        .footer {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="h1">Exemple de balises HTML : utilisez l'inspecteur pour observer la source</div>
+        <div class="nav">
+            <div class="nav-list">
+                <div class="nav-item"><a class="link" href="#text">Texte</a></div>
+                <div class="nav-item"><a class="link" href="#listes">Listes</a></div>
+                <div class="nav-item"><a class="link" href="#tableau">Tableau</a></div>
+                <div class="nav-item"><a class="link" href="#form">Formulaire</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="section" id="text">
+            <div class="div-box">Je suis une div</div>
+            <div class="h2">Texte</div>
+            <div>Ceci est un <span class="text-strong">paragraphe</span> avec du <span class="text-em">texte mis en valeur</span>.</div>
+            <div>Voici un lien : <a class="link" href="https://example.com">example.com</a></div>
+            <img class="image" src="https://picsum.photos/200/300" alt="Exemple d'image" />
+        </div>
+
+        <div class="section" id="listes">
+            <div class="h2">Listes</div>
+            <div class="h3">Liste non ordonnée</div>
+            <div class="list-unordered">
+                <div class="list-item">Élément A</div>
+                <div class="list-item">Élément B</div>
+            </div>
+            <div class="h3">Liste ordonnée</div>
+            <div class="list-ordered">
+                <div class="list-item">Étape 1</div>
+                <div class="list-item">Étape 2</div>
+            </div>
+        </div>
+
+        <div class="section" id="tableau">
+            <div class="h2">Tableau</div>
+            <div class="table">
+                <div class="table-head">
+                    <div class="table-row">
+                        <div class="table-header">Nom</div>
+                        <div class="table-header">Âge</div>
+                    </div>
+                </div>
+                <div class="table-body">
+                    <div class="table-row">
+                        <div class="table-cell">Alice</div>
+                        <div class="table-cell">30</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="table-cell">Bob</div>
+                        <div class="table-cell">25</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="form">
+            <div class="h2">Formulaire</div>
+            <div class="form">
+                <div class="label">
+                    Nom :
+                    <input class="input" type="text" name="name" />
+                </div>
+                <br />
+                <div class="label">
+                    Âge :
+                    <input class="input" type="number" name="age" />
+                </div>
+                <br />
+                <button class="button" type="submit">Envoyer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div>(footer)© Conception Logicielle ENSAI</div>
+        <!-- Oui je peux mettre des commentaires et vous dire que je triche en mettant du JS ici-->
+      <button onclick="window.history.back()" class="btn-back">← Retour</button>
+
+    </div>
+</body>
+</html>

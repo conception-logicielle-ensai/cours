@@ -6,7 +6,7 @@ summary: "Présentation des données destinée aux utilisateurs : le frontend av
 slug: "frontend-react-js"
 tags: ["frontend", "javascript", "react", "vite"]
 series: ["Cours"]
-series_order: 9
+series_order: 13
 ---
 
 > [!TIP]+ Accès aux exemples
