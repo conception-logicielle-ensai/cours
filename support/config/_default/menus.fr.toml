@@ -63,7 +63,20 @@
   name = "Récupération de données via le webscraping"
   pageRef = "/cours/webscraping"
   parent = "Cours"
+  weight = 12
+
+[[main]]
+  name = "HTML, JS, CSS, Templating et rendu côté serveur (SSR)"
+  pageRef = "/cours/frontend-initiation-et-serveur"
+  parent = "Cours"
   weight = 13
+
+[[main]]
+  name = "Frontend, JavaScript et React"
+  pageRef = "/cours/frontend-react-js"
+  parent = "Cours"
+  weight = 14
+
 
 [[main]]
   name = "Projets"
