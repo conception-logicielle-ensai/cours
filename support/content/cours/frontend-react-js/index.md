@@ -104,7 +104,7 @@ Pour faciliter le développement, on utilise des **frameworks**, qui sont des en
 - **Côté frontend**, des frameworks comme `React.js`, `Angular` ou `Vue.js` permettent de créer des interfaces interactives et dynamiques.  
 - **Côté backend**, des frameworks comme `Spring Boot (Java)` ou `FastAPI (Python)` facilitent la gestion des requêtes, des bases de données et de la logique métier.
 
-![ ](/images/react/logo-react.svg)
+![](/images/react/logo-react.svg)
 
 `React` est une bibliothèque `JavaScript` open-source développée par Facebook. 
 Elle est utilisée pour créer des interfaces utilisateur dynamiques et performantes. 
@@ -141,7 +141,7 @@ Un **composant** est un bloc réutilisable qui regroupe tout ce dont il a besoin
 - **Le style** (CSS)  
 - **Le comportement** (JavaScript)  
 
-<img  src="https://medium.com/@akshatsharma0610/react-components-beginners-guide-ade41e699853" />
+<img  src="https://miro.medium.com/v2/resize:fit:4800/format:webp/0*iVGlwaeRXs9V-jq9" />
 
 Les composants suivent un cycle de vie composé de trois étapes : Mounting (ajout au DOM), Updating (mise à jour) et Unmounting (suppression du DOM). Leur comportement peut être modifié à chaque étape grâce aux **hooks**. 
 
