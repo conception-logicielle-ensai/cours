@@ -305,7 +305,11 @@ document.getElementById("button").onclick = function() {
 
 ## Templating : Contexte
 
-Ce qui va nous intéresser aujourd'hui c'est d'effectuer un rendu des pages côté serveur et donc de limiter la logique au maximum à des traitements internes a notre application : on parle alors de **Server Side Rendering**.
+L'objectif aujourd'hui est de mettre a disposition une application comme un frontend, mais comment y gérer l'intelligence?
+
+On peut tout coder dans une API et récupérer les données de notre API pour l'affichage (Voir module associé).
+
+On peut également effectuer un rendu des pages côté serveur pour y incorporer des données requêtées par le serveur interne et donc de limiter la logique au maximum à des traitements internes a notre application : on parle alors de **Server Side Rendering**.
 
 > Cela a différents avantages / inconvénients : notamment un meilleur contrôle des requêtes ou également la rapidité dans le cas d'un cache applicatif.
 
