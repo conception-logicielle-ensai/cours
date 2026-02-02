@@ -68,7 +68,7 @@ Il est responsable de :
 
 Dans les applications modernes, ces deux parties communiquent au moyen d’**API**, lesquelles définissent les points d’accès disponibles, le format des échanges et les règles de sécurité.
 
-<img src="/images/react/frontend-vs-bancend.webp"/>
+![](images/react/frontend-vs-bancend.webp)
 
 
 ### Comment fonctionnent frontend et backend ensemble ?
@@ -104,7 +104,7 @@ Pour faciliter le développement, on utilise des **frameworks**, qui sont des en
 - **Côté frontend**, des frameworks comme `React.js`, `Angular` ou `Vue.js` permettent de créer des interfaces interactives et dynamiques.  
 - **Côté backend**, des frameworks comme `Spring Boot (Java)` ou `FastAPI (Python)` facilitent la gestion des requêtes, des bases de données et de la logique métier.
 
-![ ](/images/react/logo-react.png)
+![ ](/images/react/logo-react.svg)
 
 `React` est une bibliothèque `JavaScript` open-source développée par Facebook. 
 Elle est utilisée pour créer des interfaces utilisateur dynamiques et performantes. 
@@ -141,7 +141,7 @@ Un **composant** est un bloc réutilisable qui regroupe tout ce dont il a besoin
 - **Le style** (CSS)  
 - **Le comportement** (JavaScript)  
 
-<img  src="https://flaviocopes.com/images/react-components/1.png" />
+<img  src="https://medium.com/@akshatsharma0610/react-components-beginners-guide-ade41e699853" />
 
 Les composants suivent un cycle de vie composé de trois étapes : Mounting (ajout au DOM), Updating (mise à jour) et Unmounting (suppression du DOM). Leur comportement peut être modifié à chaque étape grâce aux **hooks**. 
 
@@ -504,7 +504,7 @@ npm -v
 
 ### Installation de Vite.js
 
-<img style="max-width:40%;margin-left: auto; margin-right:auto" src="/images/react/logo-vite.svg"/>
+![](/images/react/logo-vite.svg)
 
 **Préambule, utilisation de npm :** 
 
@@ -615,7 +615,7 @@ Cela te permet de bien structurer ton projet au fur et à mesure que tu ajoutes 
 
 ### Utiliser des composants déjà constitués : `Material.ui`
 
-<img style="max-width:30%;margin-left: auto; margin-right:auto" src="/images/react/mui.jpg"/>
+![](/images/react/mui.jpg)
 
 **Material UI** est une bibliothèque de composants déjà conçus. Ils permettent de fournir un ensemble déjà construit d'éléments d'affichage qui contiennent déjà des éléments de style, d'accessibilité, de customisation.
 
@@ -652,7 +652,7 @@ Une fois installé, il s'applique sur le projet côté serveur.
 Pour les contrôles en ligne de commande, et via `CI/CD` :
 
 ```bash
-npx eslint
+npx eslint .
 ```
 
 > [!TIP]+ Pour aller plus loin
