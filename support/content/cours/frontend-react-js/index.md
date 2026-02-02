@@ -97,6 +97,9 @@ En tant que statisticiens, vous serez souvent amenés à travailler sur le **bac
 
 ## Introduction à React  
 
+<img src="/images/react/logo-react.svg" width="80%">
+
+
 ### Frameworks frontend
 
 Pour faciliter le développement, on utilise des **frameworks**, qui sont des ensembles d'outils et de bonnes pratiques permettant de structurer le code et de gagner du temps.  
@@ -104,7 +107,7 @@ Pour faciliter le développement, on utilise des **frameworks**, qui sont des en
 - **Côté frontend**, des frameworks comme `React.js`, `Angular` ou `Vue.js` permettent de créer des interfaces interactives et dynamiques.  
 - **Côté backend**, des frameworks comme `Spring Boot (Java)` ou `FastAPI (Python)` facilitent la gestion des requêtes, des bases de données et de la logique métier.
 
-![](/images/react/logo-react.svg)
+
 
 `React` est une bibliothèque `JavaScript` open-source développée par Facebook. 
 Elle est utilisée pour créer des interfaces utilisateur dynamiques et performantes. 
@@ -504,7 +507,8 @@ npm -v
 
 ### Installation de Vite.js
 
-![](/images/react/logo-vite.svg)
+<img src="/images/react/logo-vite.svg" width="70%">
+
 
 **Préambule, utilisation de npm :** 
 
