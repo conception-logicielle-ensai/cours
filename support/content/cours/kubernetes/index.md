@@ -301,12 +301,6 @@ spec:
 
 
 
-
-
-
-
-
-
 ---
 
 ## Ressources d'un cluster
@@ -447,12 +441,6 @@ spec:
 
 
 
-
-
-
-
-
-
 ## TP : Mise en place de vos applications sur les plateformes kuberentes du SSPCloud
 
 > Ce TP nécessite la mise en place d'un livrable au format docker et le déploiement sur un registre publique (type dockerhub) pour l'héberger par la suite.
@@ -561,6 +549,3 @@ Soit vous supprimez le pod :
 ### **6 - Passage a votre appli**
 
 Modifier l'image, et éventuellement les ports d'écoute du déployment et du service pour changer d'application et déployer l'application que vous avez packagé précédemment dans ce TP.
-
-
-
