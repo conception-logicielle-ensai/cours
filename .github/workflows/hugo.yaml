@@ -65,7 +65,6 @@ jobs:
             --gc \
             --minify \
             --themesDir themes \
-            --timeout 5m \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
