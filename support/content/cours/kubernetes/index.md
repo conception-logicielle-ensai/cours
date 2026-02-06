@@ -18,10 +18,10 @@ Cette section présente les enjeux et les principes fondamentaux du déploiement
 Les exemples s’appuient sur :
 
 * une interface utilisateur (frontend) accessible à l’adresse suivante :
-  [https://frontend-conception-logicielle.kub.sspcloud.fr/](https://frontend-conception-logicielle.kub.sspcloud.fr/)
+  [https://users-ensai.kub.sspcloud.fr](https://api-users-ensai.kub.sspcloud.fr)
 
 * une API (backend) accessible à l’adresse suivante :
-  [https://backend-conception-logicielle.kub.sspcloud.fr](https://backend-conception-logicielle.kub.sspcloud.fr)
+  [https://api-users-ensai.kub.sspcloud.fr](https://api-users-ensai.kub.sspcloud.fr)
 
 > Le code source complet de l’application est disponible dans le dépôt GitHub du projet **`archi-exemple`** :
 > [https://github.com/conception-logicielle-ensai/archi-exemple](https://github.com/conception-logicielle-ensai/archi-exemple)
@@ -69,9 +69,9 @@ https://frontend-conception-logicielle.kub.sspcloud.fr
 
 le déroulement est :
 
-1. votre ordinateur → demande :
+1. votre ordinateur envoie une demande :
    « Quelle est l’IP de ce nom ? »
-2. ➜ envoyée au **DNS récursif configuré localement**
+2. la demande est envoyée au **DNS récursif configuré localement**
 3. ce DNS contacte successivement :
    * les serveurs racine ;
    * les serveurs du TLD `.fr` ;
@@ -87,7 +87,6 @@ Sur macOS / Linux :
 ```bash
 scutil --dns
 ```
-
 
 ### En résumé
 
@@ -287,107 +286,81 @@ spec:
 > Ce fichier demande à Kubernetes de maintenir une application backend en fonctionnement, avec des limites de ressources et de la configuration externe.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-## Ressources d'un cluster
+## Ressources d’un cluster Kubernetes
 
 ![ressources d'un cluster](/images/kube/Kubernetes_Resources.png)
 
-Dans cette partie on va présenter quelques ressources que vous pourrez utiliser sur le cluster, bien d'autres existent répondant chacunes a des besoins spécifiques : 
+Dans cette section, nous allons présenter plusieurs types de ressources Kubernetes couramment utilisées sur un cluster. Il en existe bien d’autres, chacune répondant à des besoins spécifiques.
 
-- Gestion de la resilience et de l'ordonnancement: **deployment**, **statefulSet**, **cronjob**
-- Configuration applicatives : **configmap** **secret**
-- Routage réseau: **ingress**, **service**
-Plus loin :
-- Droits d'accès à vos ressources : **role**, **rolebinding**, **serviceaccount**
-- Persistence des données: **persistentvolume**, **persistentvolumeclaim**
+Parmi les principales catégories :
 
-> Remarque, il en existe une myriade d'autres
+* **Gestion de la résilience et de l’ordonnancement** : `Deployment`, `StatefulSet`, `CronJob`
+* **Configuration applicative** : `ConfigMap`, `Secret`
+* **Routage réseau** : `Service`, `Ingress`
+* **Gestion des droits d’accès** : `Role`, `RoleBinding`, `ServiceAccount`
+* **Persistance des données** : `PersistentVolume`, `PersistentVolumeClaim`
 
-**Quel est notre objectif?**
+> Remarque : l’écosystème Kubernetes est très vaste et propose une grande diversité de ressources.
 
-Déployer une application sur le cloud, accessible via une url fixe, et avec une configuration via variable d'environnement
 
-**Comment y arriver?**
-Nous allons nous limiter pour les usages du cours a 4 ressources: 
-- Deployment : Lancer des processus conteneurisés **pod**, les répliquer, définir une stratégie de mise a jour
-- Service : Permettre l'accès a des processus a l'intérieur du cluster, ou leur donner une adresse IP
-- Ingress : Mettre en place une entrée DNS, et un routage vers un service en HTTP depuis l'extérieur du cluster.
-- Configmap: Permettre la création de fichiers de configuration et l'injection de variables d'environnements a l'intérieur de nos conteneurs.
+### Objectif du cours
 
-> On va détailler cela dans cette partie.
+Notre but est de déployer une application dans le cloud :
 
-### Pod : la brique unitaire contenant un/des conteneur(s)
+* accessible via une **URL fixe** ;
+* configurable à l’aide de **variables d’environnement**.
+
+### Ressources utilisées dans le cadre du cours
+
+Afin de rester concentrés sur l’essentiel, nous nous limiterons à quatre ressources :
+
+* **Deployment** : lancer des Pods, gérer leur réplication et définir une stratégie de mise à jour.
+* **Service** : exposer des Pods à l’intérieur du cluster et leur fournir une adresse réseau stable.
+* **Ingress** : rendre l’application accessible depuis l’extérieur via HTTP et un nom de domaine.
+* **ConfigMap** et ***Secret** : stocker de la configuration et injecter des variables d’environnement dans les conteneurs.
+
+> Ces ressources seront détaillées dans la suite de cette partie.
+
+> [!TIP]+ Pour aller plus loin
+> Pour une introduction complète aux concepts Kubernetes, voir : [https://kubernetes.io/docs/concepts/](https://kubernetes.io/docs/concepts/)
+
+### Pod : la brique élémentaire
 
 ![pod](/images/kube/pod.jpg)
 
-Un pod est le plus petit concept Kubernetes et correspond (en gros) à un ensemble de conteneurs (souvent un seul) qui fonctionnent ensemble et se partagent les ressources notamment le réseau. Pour en savoir plus sur les concepts kubernetes, ça commence ici : https://kubernetes.io/docs/concepts/.
+Le Pod constitue l’unité de base de Kubernetes. Il correspond à un ensemble de conteneurs (souvent un seul) qui s’exécutent ensemble et partagent certaines ressources, notamment le réseau.
 
-Dans notre cas on lancera un seul conteneur par "Pod", donc cela sera équivalent a une instance de votre application <=> un `docker run`.
+Dans notre cas, chaque Pod contiendra un seul conteneur. Il pourra donc être assimilé à une instance de l’application, comparable à une commande `docker run`.
 
-**Problème:** si il plante, le processus n'est pas relancé donc en général on utilise pas la ressource Pod telle qu'elle.
+**Limite**
 
-**Solution**: Il faut **orchester** ces traitements, et en fonction de leur enjeu, leur appliquer une règle
+Si le processus s’arrête brutalement, il ne sera pas redémarré automatiquement. C’est pourquoi on utilise rarement un Pod isolé en production.
 
-**Exemples**
-- Un traitement qui s'execute de manière asynchrone et one shot (on appelle ça un batch), doit fonctionner mais ne doit pas être executé en boucle
-- Un traitement qui offre un service a des utilisateurs en exposant des ressources (API, UI), doit a priori être toujours en ligne, et donc on doit veiller a ce qu'ils soient relancés si ils plantent.
+**Principe**
 
-### Deployment : Orchestration des pods - redémarrer, mettre a jour..
+Il est nécessaire d’**orchestrer** ces traitements et de définir leur comportement en fonction de leur rôle :
+* Un traitement asynchrone ponctuel (batch) doit s’exécuter une fois, sans être relancé indéfiniment.
+* Un service exposé aux utilisateurs (API, interface web) doit rester disponible en permanence et être automatiquement redémarré en cas de panne.
+
+### Deployment : orchestration des Pods
 
 <img src="https://miro.medium.com/v2/resize:fit:720/format:webp/0*E6OVAUw16eBwPID3.png"/>
 
-Un Deployment est un objet Kubernetes permettant de gérer et mettre à jour un ensemble de Pods de manière déclarative (contrat de la ressource).
+Un **Deployment** est une ressource Kubernetes permettant de décrire de façon déclarative l’état souhaité d’un ensemble de Pods.
 
-**Objectifs**
-- Il assure la haute disponibilité et l'auto-réparation des pods. 
-- Il permet le scaling et les rollbacks.
+Il assure notamment :
 
-### Configmap: externaliser la configuration, introduire des variables d'environnement dans les conteneurs
+* la haute disponibilité et l’auto-réparation ;
+* le passage à l’échelle (scaling) ;
+* les mises à jour progressives et les retours arrière (rollback).
 
-Un ConfigMap stocke des données de configuration sous forme de clés-valeurs et permet aux pods de les utiliser.
-
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: configuration-application
-data:
-  VARIABLE_ENVIRONNEMENT1: variable_environnement
-  DATABASE_URL: "postgres://user:password@db:5432/mydb"
-```
-Il sont ensuite importable en tant que variables d'environnement dans les conteneur ainsi : 
-
-
-```yaml
-containers:
-  - name: mon-container
-    image: mon-image:v1
-    envFrom:
-      - configMapRef:
-          name: mon-configmap
-```
-
-### Service : Exposition intra cluster et load balancing
+### Service : exposition interne et répartition de charge
 
 ![service](/images/kube/service.gif)
 
-Un Service expose un ensemble de Pods et assure la communication entre eux ou avec l'extérieur.
+Un **Service** fournit un point d’accès stable vers un ensemble de Pods et assure la communication interne ainsi que la répartition du trafic.
 
+Exemple :
 
 ```yaml
 apiVersion: v1
@@ -396,24 +369,20 @@ metadata:
   name: application
 spec:
   selector:
-    app: application # doit correspondre a une valeur définie dans le deployment.yaml
-    #     metadata:
-    #        labels:
-    #          app: application
+    app: application # doit correspondre à un label défini dans le Deployment
   ports:
-    # PORT QUE VOUS VOULEZ, 80 correspond au port standard http, doit correspondre côté ingress.
-    - port: 80
-      # PORT DU CONTENEUR, ET DONC DE VOTRE SERVEUR
-      targetPort: 5173
-
+    - port: 80        # port exposé côté Service / Ingress
+      targetPort: 5173 # port du serveur dans le conteneur
 ```
 
-### Ingress : exposition HTTP et ingress
+### Ingress : exposition HTTP vers l’extérieur
+
 ![ingress](/images/kube/ingress.png)
 
-Un Ingress permet d'exposer des Services HTTP/S en définissant des règles de routage.
+Un **Ingress** permet de publier un ou plusieurs Services en HTTP/S à l’aide de règles de routage basées sur le nom de domaine et le chemin.
 
 Exemple :
+
 ```yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -424,8 +393,6 @@ metadata:
 spec:
   rules:
     - host: hello.kube.sspcloud.fr
-    # CETTE URL est unique, donc si quelqu'un l'a déjà prise vous ne pourrez pas la prendre
-    # Changer le host vers une url qui fonctionne, une url du type *.kub.sspcloud.fr exemple mon-application.kub.sspcloud.fr
       http:
         paths:
           - pathType: Prefix
@@ -437,115 +404,231 @@ spec:
                   number: 80
 ```
 
-> Remarque : L’Ingress nécessite un Ingress Controller (ex: Nginx Ingress Controller) pour fonctionner. C'est le cas sur le sspcloud.
+> Remarque : le champ `host` doit être unique. Si l’URL est déjà utilisée, il faudra en choisir une autre, par exemple `mon-application.kub.sspcloud.fr`.
+
+> L’Ingress nécessite la présence d’un **Ingress Controller** (comme Nginx Ingress Controller) pour fonctionner. Celui-ci est déjà installé sur la plateforme SSP Cloud.
+
+### ConfigMap et Secret : externalisation de la configuration
+
+Les **ConfigMaps** et les **Secrets** permettent d’externaliser la configuration d’une application afin d’éviter de la figer dans les images de conteneurs.
+
+Un **ConfigMap** est destiné aux paramètres **non sensibles** (URLs, ports, options applicatives, niveaux de log).
+
+Un **Secret** est réservé aux données **confidentielles** telles que les mots de passe, clés API, tokens ou certificats TLS. Les valeurs y sont encodées en base64 dans les manifestes YAML (ce qui ne constitue pas un chiffrement) et leur accès est généralement plus restreint.
+
+**Règle pratique :**
+* Donnée sensible → **Secret**
+* Donnée non sensible → **ConfigMap**
+
+#### Exemple de ConfigMap
+
+Un ConfigMap stocke des données de configuration sous forme de paires clé–valeur et peut être injecté dans les Pods.
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: configuration-application
+data:
+  VARIABLE_ENVIRONNEMENT1: variable_environnement
+  DATABASE_URL: "postgres://user:password@db:5432/mydb"
+```
+
+Ces données peuvent ensuite être exposées dans un conteneur sous forme de variables d’environnement :
+
+```yaml
+containers:
+  - name: mon-container
+    image: mon-image:v1
+    envFrom:
+      - configMapRef:
+          name: mon-configmap
+```
+
+#### Exemple de Secret
+
+Un **Secret** permet de stocker des données sensibles (mots de passe, tokens, clés…) et de les injecter dans les Pods de la même manière qu’un ConfigMap.
+
+Valeurs originales :
+* token : `my-secret-token`
+
+Encodage en base64 :
+
+```bash
+echo -n "my-secret-token" | base64
+```
+Le `-n` évite d’ajouter un retour à la ligne, ce qui est important pour Kubernetes.
+
+Puis dans le manifeste :
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: credentials-application
+type: Opaque
+data:
+  DATABASE_PASSWORD: cGFzc3dvcmQ=
+  API_TOKEN: bXktc2VjcmV0LXRva2Vu
+```
+
+Injection dans un conteneur :
+
+```yaml
+containers:
+  - name: mon-container
+    image: mon-image:v1
+    envFrom:
+      - secretRef:
+          name: credentials-application
+```
+
+> De la même manière que pour le fichier `.env.local`, nous ne souhaitons pas versionner le fichier contenant les secrets dans notre dépôt Git. Il ne devra donc pas être committé et devra être ajouté au fichier `.gitignore`.
+>
+> En revanche, nous pouvons fournir un fichier `secret.yaml.template` décrivant exactement la structure attendue du manifeste, mais avec des valeurs vides ou factices. Le fichier `README` devra alors expliquer comment compléter ces valeurs avant déploiement.
+
+
+> À l’Insee, afin que les mots de passe n’apparaissent pas en clair, les Secrets sont complétés par un gestionnaire externe : **Vault**. Dans notre fichier de Secret, nous faisons directement référence à l’emplacement de la ressource Vault où se trouve la valeur confidentielle.
+
+---
 
 
 
-## TP : Mise en place de vos applications sur les plateformes kuberentes du SSPCloud
+## TP : Déploiement d’une application sur les plateformes Kubernetes du SSP Cloud
 
-> Ce TP nécessite la mise en place d'un livrable au format docker et le déploiement sur un registre publique (type dockerhub) pour l'héberger par la suite.
+> Ce TP nécessite la production d’une image Docker et son déploiement sur un registre public (par exemple Docker Hub) afin de pouvoir l’utiliser ensuite sur le cluster.
 
 <img src="https://www.sspcloud.fr/assets/heroHeader-C7FzBYtH.png" />
 
-Le sspcloud propose un api server ouvert au sein du cluster kubernetes SSPCloud à ces utilisateurs.
-Ce service est un service a faible support, seulement pour des usages de poc, pas de données sensibles, pas de garantie de service, toutefois cela convient tout a fait pour les expérimentations et l'hébergement de projets informatiques ENSAI.
+Le SSP Cloud met à disposition de ses utilisateurs un **API Server Kubernetes** accessible depuis les services hébergés à l’intérieur du cluster.
+Cette plateforme est proposée avec un niveau de support limité : elle est destinée aux preuves de concept (PoC), ne doit pas héberger de données sensibles et ne fournit pas de garantie de service. Elle est toutefois parfaitement adaptée aux expérimentations et à l’hébergement de projets pédagogiques de l’ENSAI.
 
-Pour la mise en place, il nous faut un service qui peut accéder au cluster et donc qui est hébergé sur le cluster (puisque l'api n'est accessible que depuis le cluster).
+Pour interagir avec le cluster, il est nécessaire d’utiliser un service qui y est lui-même déployé, l’API Kubernetes n’étant accessible que depuis l’intérieur du cluster.
 
-Le SSPCloud met a disposition des services qui vous permettent d'instancier des applications sur le cluster, notamment des services de type "plateforme de développement" : 
-- VScode
-- RStudio
+Le SSP Cloud propose plusieurs services permettant d’instancier des environnements de travail, notamment des plateformes de développement :
 
-### **1 - Mise en place d'un service dans le cluster**
-Rendez vous sur le SSPCloud pour déployer un service `VSCode` en choisissant `admin` dans l'onglet `Kubernetes`. 
+* VS Code
+* RStudio
 
-- [Lien direct](https://datalab.sspcloud.fr/launcher/inseefrlab-helm-charts-datascience/vscode?autoLaunch=false&kubernetes.role=%C2%ABadmin%C2%BB). 
 
-Ce choix `admin` donne à votre service `VSCode` les permissions nécessaires au déploiement d'une application dans le cluster kubernetes du sspcloud.
+### 1 — Mise en place d’un service dans le cluster
 
-### **2 - Interaction avec le cluster kubernetes**
+Rendez-vous sur le SSP Cloud et déployez un service **`vscode-python`** en sélectionnant le rôle **`admin`** dans l’onglet *Role*.
 
-Une fois le `VSCode` lancé, ouvrez le et ouvrez y un terminal. On utilise l'utilitaire `kubectl`. 
+> Ce rôle donne au service VS Code les permissions nécessaires pour déployer des ressources dans le cluster Kubernetes du SSP Cloud.
 
-Lancez la commande suivante:
+### 2 — Interaction avec le cluster Kubernetes
 
-```
+Une fois VS Code lancé, ouvrez-le puis démarrez un terminal. Nous utiliserons l’outil en ligne de commande `kubectl`.
+
+Exécutez la commande suivante :
+
+```bash
 kubectl get pods
 ```
 
-> Vous constatez, de manière méta que vous disposez d'une ressource de type pod, qui est le vscode dans lequel vous vous situez.
+> Vous constaterez que vous disposez déjà d’une ressource de type Pod : il s’agit du service VS Code dans lequel vous êtes connecté.
 
-### **3 - Récupération de contrats de base**
+### 3 — Récupération des manifestes de base
 
-On a prémaché le travail pour vous, on a mis des contrats approchant ce que vous pouvez vouloir mettre en place sur le dépôt suivant [https://github.com/conception-logicielle-ensai/exemples-cours.git](https://github.com/conception-logicielle-ensai/exemples-cours.git) :
+Pour vous aider, des fichiers exemples sont fournis dans le dépôt du cours :
+[https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/kubernetes/app](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/kubernetes/app)
 
-- Faites ce que vous faites le mieux depuis le vscode : `git clone https://github.com/conception-logicielle-ensai/exemples-cours.git`
+Clonez le projet :
 
-Dans la partie : [https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-6/kubernetes/app](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/cours-6/kubernetes/app)
-
-Observez le contenu du sous dossier `exemples-cours/cours-6/kubernetes/app` : il y a différents fichiers ̀`yaml` de configuration de ressources pour kubernetes.
-
-Mettez en place la configuration en amont du déploiement (le déploiement le référence) : 
-
-```
-kubectl apply -f exemples-cours/cours-6/kubernetes/app/configmap.yaml
+```bash
+git clone https://github.com/conception-logicielle-ensai/exemples-cours.git
 ```
 
-Appliquez le deployment:
+Explorez ensuite le dossier :
 
 ```
-kubectl apply -f exemples-cours/cours-6/kubernetes/app/deployment.yaml
+exemples-cours/kubernetes/app
 ```
 
-et vérifiez vos `Pod`
+Il contient plusieurs fichiers YAML correspondant aux manifestes de ressources Kubernetes.
 
+Commencez par appliquer la configuration :
+
+```bash
+kubectl apply -f exemples-cours/kubernetes/app/configmap.yaml
 ```
+
+Puis déployez l’application :
+
+```bash
+kubectl apply -f exemples-cours/kubernetes/app/deployment.yaml
+```
+
+Vérifiez que les Pods sont bien créés :
+
+```bash
 kubectl get pods
 ```
 
-### **4 - Exposition sur internet**
+### 4 — Exposition sur Internet
 
-Modifiez le contrat, ingress pour mettre une url qui vous est propre, puis appliquez les différents fichiers 
+Modifiez le manifeste **Ingress** afin d’y définir une URL qui vous est propre, puis appliquez les ressources suivantes.
 
-Service
-```
-kubectl apply -f exemples-cours/cours-6/kubernetes/app/service.yaml
-```
+Service :
 
-```
-kubectl apply -f exemples-cours/cours-6/kubernetes/app/ingress.yaml
+```bash
+kubectl apply -f exemples-cours/kubernetes/app/service.yaml
 ```
 
+Ingress :
 
-### **5 - Application d'une configuration et redémarrage**
-
-On souhaite maintenant changer la configuration pour afficher une autre information sur la page d'accueil du swagger:
-
-Si l'on regarde le configmap, on peut y configurer des variables d'environnement pour notre application :
-
-
-
-Notre application reçoit la variable d'environnement : `APP_TITLE` pour changer a l'affichage du swagger le titre de l'application au niveau de sa documentation.
-Réalisez une modification de ce champ dans le fichier configmap et relancez votre application.
-
-**pour appliquer le changement**:
-```
-kubectl apply -f exemples-cours/cours-6/kubernetes/app/configmap.yaml
+```bash
+kubectl apply -f exemples-cours/kubernetes/app/ingress.yaml
 ```
 
-Mais il vous faut relancer, car les variables d'environnement ne se chargent qu'au démarrage des applicatifs.
+### 5 — Modification de la configuration et redémarrage
 
-**pour relancer**
+Nous allons maintenant modifier la configuration afin d’afficher une autre information sur la page d’accueil de Swagger.
 
-Soit vous supprimez tout refaites tout : 
-- `kubectl delete -f exemples-cours/cours-6/kubernetes/app/` 
-- puis `kubectl apply -f exemples-cours/cours-6/kubernetes/app/`
-Soit vous supprimez le pod : 
-- `kubectl get pods` 
-- puis en notant lepodtrouvésvpchangezmoi le nom du pod `kubectl delete pod lepodtrouvésvpchangezmoi`
+Dans le ConfigMap, il est possible de définir des variables d’environnement utilisées par l’application.
+Celle-ci lit notamment la variable `APP_TITLE`, qui permet de modifier le titre affiché dans la documentation Swagger.
+
+Ajoutez cette variable et sa valeur dans le ConfigMap.
+
+Appliquez ensuite la modification :
+
+```bash
+kubectl apply -f exemples-cours/kubernetes/app/configmap.yaml
+```
+
+Les variables d’environnement n’étant prises en compte qu’au démarrage, il est nécessaire de redémarrer les Pods.
+
+Deux possibilités :
+
+**Option 1 — Redéployer toutes les ressources :**
+
+```bash
+kubectl delete -f exemples-cours/kubernetes/app/
+kubectl apply -f exemples-cours/kubernetes/app/
+```
+
+**Option 2 — Supprimer un Pod pour forcer sa recréation :**
+
+```bash
+kubectl get pods
+kubectl delete pod <nom-du-pod>
+```
+
+---
+
+## 6 — Déploiement de votre propre application
+
+Modifiez l’image Docker ainsi que, si nécessaire, les ports exposés dans les manifestes **Deployment** et **Service** afin de déployer l’application que vous avez packagée précédemment dans ce TP.
+
+Vous pouvez également vous inspirer de l’exemple suivant :
+[https://github.com/conception-logicielle-ensai/archi-exemple/tree/main/kubernetes](https://github.com/conception-logicielle-ensai/archi-exemple/tree/main/kubernetes)
 
 
+Si, par la suite, vous modifiez votre image Docker sur Docker Hub, il sera nécessaire de relancer le déploiement afin que ces changements soient pris en compte (puisque le tag latest est utilisé dans le manifeste).
+Vous pouvez pour cela redéployer la ressource avec la commande suivante :
+```bash
+kubectl rollout restart deployment <mon-application>
+```
 
-### **6 - Passage a votre appli**
-
-Modifier l'image, et éventuellement les ports d'écoute du déployment et du service pour changer d'application et déployer l'application que vous avez packagé précédemment dans ce TP.
+avec `<mon-application>` le nom que vous avez donnez à votre deployement
