@@ -77,6 +77,16 @@
   parent = "Cours"
   weight = 14
 
+[[main]]
+  name = "Conteneurisation avec Docker"
+  pageRef = "/cours/conteneurs-environnement-applicatifs"
+  parent = "Cours"
+  weight = 15
+[[main]]
+  name = "Déploiement avec Kubernetes"
+  pageRef = "/cours/kubernetes"
+  parent = "Cours"
+  weight = 16
 
 [[main]]
   name = "Projets"
