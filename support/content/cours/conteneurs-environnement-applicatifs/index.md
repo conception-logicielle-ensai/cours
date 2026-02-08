@@ -582,9 +582,6 @@ jobs:
           tags: ${{ vars.DOCKERHUB_USERNAME }}/backend:latest
           platforms: linux/amd64,linux/arm64
 ```
-R
-
-ragatzino
 
 Et pour publier quand vous faites des  tags git
 ```yaml
