@@ -394,6 +394,11 @@ Pour construire un Dockerfile, vous devez arriver a théoriser toutes les étape
 
 ## Quelques commandes
 
+![dockercommands](/images/conteneurs-environnement-applicatifs/docker-commands.png)
+
+> Image src:  https://kinsta.com/blog/docker-commands/
+
+
 **Remarque Importante**: la CLI *docker* s'execute en administrateur (root), il faudra donc précéder vos commandes de **sudo** ou vous mettre en administrateur **sudo su** puis **exit** quand vous aurez fini.
 
 
@@ -516,6 +521,9 @@ sudo docker run mon_utilisateur/mon-application:latest
 
 ## Automatisation via CI/CD et GitHub Actions
 
+![reproductible](/images/conteneurs-environnement-applicatifs/cicd.webp)
+
+
 Cette opération est en général très fastidieuse et a faible valeur ajoutée pour vous, donc on a envie de l'automatiser.
 De plus on aime mettre en place des versions de manière régulière et cohérentes par rapport à un dépôt de code, ce qui nous permet de repartir très facilement d'une version fonctionnelle de l'application dans l'histoire du dépôt Git.
 
@@ -569,7 +577,7 @@ name: deploiement-dockerhub-tags
 on:
   push:
     tags:
-      - '*'  # se déclenche quand vous faites des tags via git (soit dans l'interface soit en pushant le tag)
+      - '*'  # se déclenche quand vous faiinitiation-docker-kube-postgrestes des tags via git (soit dans l'interface soit en pushant le tag)
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -611,7 +619,63 @@ On va devoir définir des secrets sur notre projet github pour déposer la clé 
  
 
 
-## Environnement local reproductible : Docker Compose
+## Environnement local reproductible : vers Docker Compose
+
+![reproductible](/images/conteneurs-environnement-applicatifs/docker_compose_logo.jpeg)
+
+### Docker pour consolider l'environnement de travail
+
+
+Docker permet de lancer différents services en customisant leurs variables d'environnement, leur accès aux données via des volumes, et leur exposition en local via des ports. Cette approche présente plusieurs avantages pour le développement en local.
+
+L'un des cas d'usage les plus courants est de travailler avec des bases de données sans avoir à les installer directement sur sa machine. Par exemple, plutôt que d'installer PostgreSQL, MySQL ou MongoDB en local avec toutes les configurations que cela implique, on peut simplement lancer un conteneur Docker. 
+
+On peut ensuite s'y connecter avec des outils comme DBeaver, pgAdmin ou tout autre client de base de données, exactement comme si la base était installée localement.Cette approche évite les conflits de versions entre projets et garantit que chaque membre de l'équipe travaille avec exactement la même configuration de services. De plus, nettoyer son environnement devient aussi simple que supprimer un conteneur.
+
+```sh
+docker run --name postgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=postgres \
+  -p 5432:5432 \
+  -v postgres_data:/var/lib/postgresql/data \
+  -d postgres:18
+```
+Options principales :
+
+- `-e` pour **environnement** : définit les variables d'environnement du conteneur
+- `-p` pour le **tunnel réseau** entre le port de votre machine et du conteneur : `MON_PORT:SON_PORT`
+- `-v` pour l'utilisation d'un répertoire pour stocker ses fichiers (partager du disque avec le conteneur)
+- `-d` pour le lancer en tâche de fond (detached mode)
+
+Autre exemple avec une base de données mongodb:
+```sh
+docker run --name mongo \
+  -e MONGO_INITDB_ROOT_USERNAME=mongo \
+  -e MONGO_INITDB_ROOT_PASSWORD=mongo \
+  -p 27017:27017 \
+  -v mongo_data:/data/db \
+  -d mongo:8
+```
+
+
+**Exemple pratique : connexion à PostgreSQL depuis DBeaver**
+
+Installation
+```
+sudo snap install dbeaver-ce --classic
+```
+
+Une fois le conteneur PostgreSQL lancé avec la commande ci-dessus, vous pouvez vous y connecter depuis DBeaver avec les paramètres suivants :
+- **Host :** localhost
+- **Port :** 5432
+- **Database :** postgres
+- **User :** postgres
+- **Password :** postgres
+
+Le conteneur se comporte exactement comme une installation locale, mais reste complètement isolé dans son environnement Docker.
+
+### Docker compose
 
 *Docker Compose* permet de définir et orchestrer plusieurs conteneurs ensemble. Au lieu de lancer manuellement chaque service (backend, frontend, base de données), vous décrivez tout dans un fichier docker-compose.yml et lancez l'ensemble d'une seule commande.
 
@@ -630,6 +694,77 @@ mon-projet/
 ```
 
 
+#### Exemple de fichier docker-compose.yml
+Docker-compose reprend des notions de Docker dans des fichiers de configuration yaml, passons par un exemple: 
+
+```yaml
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+
+volumes:
+  postgres_data:
+```
+
+> C'est l'exemple du projet [archi-exemple]()
+Ce ne sera pas le coeur du cours, mais si vous souhaitez configurer un environnement de travail en local propre pour les développeurs, c'est une très bonne initiative.
+
+#### Aide à l'installation et utilisation
+
+**Installation**
+
+Suivre les quelques lignes ici : https://docs.docker.com/compose/install/linux/#install-using-the-repository
+
+**Utilisation** : quelques commandes
+
+```sh
+sudo docker compose up
+```
+
+> Lire un fichier docker-compose.yml et l'appliquer (lancer les conteneurs et les mettres en relation)
+
+Vous pouvez l'appliquer partiellement, exemple **travail sur l'UI** :
+```sh
+sudo docker compose up db backend
+```
+Observer les erreurs et messages dans les logs des services installés : 
+```sh
+sudo docker compose logs -f
+```
+
+Arrêter les conteneurs :
+
+```sh
+sudo docker compose down
+```
 
 
 ## Travaux Pratiques : Mise en place d'une image Docker pour votre application
@@ -646,3 +781,5 @@ mon-projet/
 6. Taguez votre image et publiez-la en suivant le tutoriel mentionné précédemment.
 7. Mettez en place l'automatisation via GitHub Actions en consultant cette 
 ressource : https://github.com/marketplace/actions/build-and-push-docker-images.
+
+8. (bonus) Mettez en place une configuration docker compose sur votre projet pour faciliter le travail en local des membres de l'équipe
