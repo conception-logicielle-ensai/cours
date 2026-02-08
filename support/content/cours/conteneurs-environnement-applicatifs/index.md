@@ -9,6 +9,10 @@ series: ["Cours"]
 series_order: 14
 ---
 
+
+> [!TIP]+ Accès aux exemples
+> Les exemples présentés sont accessibles directement sur le dépôt git associé : https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/conteneurs-environnement-applicatifs
+
 Le développement et le déploiement d'applications modernes posent des défis récurrents qui ont longtemps freiné le bon fonctionnement des projets. **"It works on my machine"** est devenu une phrase emblématique exprimant la frustration face aux différences d'environnements entre le poste de travail en local et des environnements où l'on héberge le code.
 
 **Il s'agit aujourd'hui encore, de parler de portabilité applicative et de packaging sous le prisme de la mise a disposition d'environnement que l'on peut executer sur différents environnements de manière sécurisée**
@@ -246,26 +250,19 @@ Le Dockerfile définit les étapes de construction du livrable **image Docker**,
       const data = {
         pip: [
           `# Étape 1
-FROM ubuntu:22.04 
-# on part d'un ubuntu vierge (comme votre poste)`,
+FROM python:3.13.12-trixie
+# on part d'une image debian avec python3.13 d'installé`,
           `# Étape 2
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y python3-pip  
-# on installe pip`,
-          `# Étape 3
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y python3-pip
-COPY . . 
+FROM python:3.13.12-trixie
+COPY . . # on copie les fichiers de notre projet
 # on met les fichiers qui se trouvent dans le repertoire (donc notre projet) dans l'image`,
-          `# Étape 4
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y python3-pip
+          `# Étape 3
+FROM python:3.13.12-trixie
 COPY . .
 RUN pip install -r requirements.txt
 # on installe les dépendances`,
           `# FICHIER FINAL
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y python3-pip
+FROM python:3.13.12-trixie
 COPY . .
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python", "main.py"]
@@ -274,35 +271,20 @@ ENTRYPOINT ["python", "main.py"]
 
         uv: [
           `# Étape 1
-FROM ubuntu:22.04`,
+FROM astral/uv:python3.13-trixie # on part d'une image qui a UV, Python3.13 et un OS Debian`,
           `# Étape 2
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y curl 
-# on installe curl`,
-          `# Étape 3
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y curl
-RUN curl -Ls https://astral.sh/uv/install.sh | sh 
-# on lance le script d'install d'uv`,
-          `# Étape 4
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y curl
-RUN curl -Ls https://astral.sh/uv/install.sh | sh
+FROM astral/uv:python3.13-trixie
 COPY . . 
-# on met nos fichiers dans le zip`,
-          `# Étape 5
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y curl
-RUN curl -Ls https://astral.sh/uv/install.sh | sh
+# on met nos fichiers dans l'image`,
+          `# Étape 3
+FROM astral/uv:python3.13-trixie
 COPY . . 
 RUN uv sync 
 # on télécharge les dépendances dans l'environnement `,
           `# FICHIER FINAL
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y curl
-RUN curl -Ls https://astral.sh/uv/install.sh | sh
-COPY . .
-RUN uv sync
+FROM astral/uv:python3.13-trixie
+COPY . . 
+RUN uv sync 
 ENTRYPOINT ["uv", "run","main.py"] 
 # on lance le code avec la commande uv run`
         ],
@@ -331,8 +313,8 @@ FROM node:lts-trixie
 WORKDIR /app
 COPY . .
 RUN npm install
-CMD ["npm", "run", "dev"] 
-# on lance le serveur vite`
+CMD ["npm", "run", "dev","--", "--host"] 
+# on lance le serveur vite avec l'option --host pour rendre le service accessible par l'exterieur du conteneur`
         ]
       };
 
@@ -412,11 +394,14 @@ Pour construire un Dockerfile, vous devez arriver a théoriser toutes les étape
 
 ## Quelques commandes
 
+**Remarque Importante**: la CLI *docker* s'execute en administrateur (root), il faudra donc précéder vos commandes de **sudo** ou vous mettre en administrateur **sudo su** puis **exit** quand vous aurez fini.
+
+
 ### Lancement d'une image 
 Pour exécuter une image Docker, utilisez la commande suivante :
 
 ```
-docker run <image> <options>
+sudo docker run <image> <options>
 ```
 
 **Exemples :**
@@ -424,27 +409,27 @@ docker run <image> <options>
 Pour exécuter l'image `hello-world` :
 
 ```
-docker run hello-world
+sudo docker run hello-world
 ```
 
 Pour lancer une instance de PostgreSQL en arrière-plan avec une base de données locale, vous pouvez utiliser :
 
 ```
-docker run -d postgres -p 5432:5432
+sudo docker run -d postgres -p 5432:5432
 ```
 
 Dans cet exemple, l'option `-d` permet de lancer le conteneur en arrière-plan, tandis que `-p 5432:5432` rend PostgreSQL accessible sur `localhost:5432`.
 
 ### Suivi des images qui tournent actuellement
 ```
-docker ps
+sudo docker ps
 ```
 
 > Liste les processus docker a partir du daemon qui est sur votre machine
 ### Suppression des images
 
 ```
-docker kill $PID
+sudo docker kill $PID
 ```
 
 > En remplaçant $PID par l'id du conteneur
@@ -452,17 +437,17 @@ docker kill $PID
 ### Interaction avec un conteneur
 
 ```
-docker logs $PID
+sudo docker logs $PID
 ```
 > Voir les logs du traitement
 
 ```
-docker exec $PID $COMMANDE
+sudo docker exec $PID $COMMANDE
 ```
 > Executer une commande sur le conteneur
 
 ```
-docker exec -it $PID bash
+sudo docker exec -it $PID bash
 ```
 
 > Aller dans le conteneur pour "débuguer"
@@ -472,7 +457,7 @@ docker exec -it $PID bash
 Pour construire une image Docker à partir d'un Dockerfile, utilisez la commande suivante :
 
 ```
-docker build -t <nomdelimage:versiondelimage> <cheminversledossiercontenantdockerfile>
+sudo docker build -t <nomdelimage:versiondelimage> <cheminversledossiercontenantdockerfile>
 ```
 
 **Exemple :**
@@ -480,7 +465,7 @@ docker build -t <nomdelimage:versiondelimage> <cheminversledossiercontenantdocke
 Pour créer une image nommée `openfoodapi` avec la version `1.0.0`, exécutez :
 
 ```
-docker build -t openfoodapi:1.0.0 .
+sudo docker build -t openfoodapi:1.0.0 .
 ```
 
 Ici, le point `.` indique que le Dockerfile se trouve à la racine du répertoire courant.
@@ -498,7 +483,7 @@ Pour déployer une image sur un registre d'images, comme DockerHub, vous devez s
 1. S'authentifier sur dockerhub (ou un autre registre)
 Utilisez la commande docker login pour vous authentifier auprès de DockerHub :
 ```sh
-docker login
+sudo docker login
 ```
 
 2. Préparation de l'image, en la taguant avec le nom cible
@@ -507,26 +492,26 @@ docker login
 
 La dernière par défaut :
 ```sh
-docker tag mon-application:latest mon_utilisateur/mon-application:latest
+sudo docker tag mon-application:latest mon_utilisateur/mon-application:latest
 ```
 
 > latest est un nom canonique qui correspond a la **dernière version** de l'image sur le dépôt
 
 Ou sinon avec une version fixée:
 ```sh
-docker tag mon-application:latest mon_utilisateur/mon-application:v1.0
+sudo docker tag mon-application:latest mon_utilisateur/mon-application:v1.0
 ```
 
 3. Puis envoi de l'image, si vous êtes bien authentifiés
 
 ```sh
-docker push mon_utilisateur/mon-application:latest
+sudo docker push mon_utilisateur/mon-application:latest
 ```
 Pour plus d'informations, consultez [la documentation de Docker](https://docs.docker.com/get-started/introduction/build-and-push-first-image/).
 
 4. Maintenant elle devient utilisable par d'autres personnes
 ```sh
-docker run mon_utilisateur/mon-application:latest
+sudo docker run mon_utilisateur/mon-application:latest
 ```
 
 ## Automatisation via CI/CD et GitHub Actions
@@ -567,20 +552,14 @@ jobs:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
         name: Build and push
         uses: docker/build-push-action@v6
+        # voir : https://github.com/marketplace/actions/build-and-push-docker-images#customizing
         with:
-          context: .  # Répertoire de contexte (racine du repo par défaut)
+          context: "{{defaultContext}}" # Répertoire de contexte (racine du repo par défaut)
           file: ./Dockerfile  # Chemin vers le Dockerfile
           push: true
-          tags: ${{ vars.DOCKERHUB_USERNAME }}/backend:latest
-          platforms: linux/amd64,linux/arm64
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.BACKEND_APPLICATION }}:latest
 ```
 
 Et pour publier quand vous faites des  tags git
@@ -596,41 +575,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Checkout code
-        uses: actions/checkout@v4
-      -
-        name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ vars.DOCKERHUB_USERNAME }}/backend:latest
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=raw,value=latest
-      -
         name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-      -
         name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: "{{defaultContext}}" # Répertoire de contexte (racine du repo par défaut)
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ vars.DOCKERHUB_USERNAME }}/${{ vars.BACKEND_APPLICATION }}:${{ github.ref_name }}
+
 ```
+
+### Configuration préalable : générer un jeton et l'apposer sur un projet
+
+On va devoir définir des secrets sur notre projet github pour déposer la clé de déploiement vers Dockerhub.
+
+- Donc sur Dockerhub:
+1) aller dans les paramètres du compte `Account settings` 
+2) aller dans le volet `Personal access tokens`
+3) Generate new token en READ & WRITE 
+4) vous obtenez un password qui ressemble à `dckr_pat_xxxxxxxxxxxxx` et vous avez un rappel de votre login `user`
+
+- Sur Github:
+1) Allez sur votre projet
+2) Allez dans les `Settings`
+3) Allez dans l'onglet `Secrets and variables`
+
+- Dans secrets : Ajoutez un secret au name : `DOCKERHUB_TOKEN` et dans `secret` mettre le jeton
+- Dans variables, ajoutez `DOCKERHUB_USERNAME` avec en value votre identité sur dockerhub
+ 
 
 
 ## Environnement local reproductible : Docker Compose
@@ -663,9 +641,8 @@ mon-projet/
 1. Créez un compte sur dockerhub: https://hub.docker.com/
 2. Nous vous avons installé linux selon ce mode opératoire : https://www.docker.com/get-started/, allez y jeter un oeil.
 3. Vérifiez que l'installation a réussi en exécutant la commande suivante : `sudo docker run hello-world`.
-3. Créez un fichier Dockerfile et essayez de construire localement l'image Python en utilisant la commande : `sudo docker build -t monimage .`.
-4. Taguez votre image et publiez-la en suivant le tutoriel mentionné précédemment.
-5. Mettez en place l'automatisation via GitHub Actions en consultant cette 
+4. Consultez les exemples pour vous faire une idée des Dockerfile que vous pourriez construire [Lien vers les exemples](https://github.com/conception-logicielle-ensai/exemples-cours/tree/main/conteneurs-environnement-applicatifs)
+5. Créez un fichier Dockerfile et essayez de construire localement l'image Python en utilisant la commande : `sudo docker build -t monimage .`.
+6. Taguez votre image et publiez-la en suivant le tutoriel mentionné précédemment.
+7. Mettez en place l'automatisation via GitHub Actions en consultant cette 
 ressource : https://github.com/marketplace/actions/build-and-push-docker-images.
-
-#
