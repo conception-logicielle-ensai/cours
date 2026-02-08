@@ -6,7 +6,7 @@ summary: "Déploiement d'une application sur le cloud via Kubernetess"
 slug: "kubernetes"
 tags: ["deploiement", "kubernetes", "cloud"]
 series: ["Cours"]
-series_order: 9
+series_order: 15
 ---
 
 <img src="https://kubernetes.io/images/kubernetes-open-graph.png" />
