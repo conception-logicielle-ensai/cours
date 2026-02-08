@@ -166,7 +166,7 @@ Le Dockerfile définit les étapes de construction du livrable **image Docker**,
       font-weight: bold;
       color: #38bdf8;
     }
-    select {
+    .select-df {
       background: #020617;
       color: #e5e7eb;
       border: 1px solid #334155;
@@ -185,7 +185,7 @@ Le Dockerfile définit les étapes de construction du livrable **image Docker**,
       padding: 12px;
       border-top: 1px solid #1e293b;
     }
-    button {
+    .df-button {
       background: #020617;
       color: #e5e7eb;
       border: 1px solid #334155;
@@ -193,7 +193,7 @@ Le Dockerfile définit les étapes de construction du livrable **image Docker**,
       padding: 6px 12px;
       cursor: pointer;
     }
-    button:disabled {
+    .df-button:disabled {
       opacity: 0.4;
       cursor: not-allowed;
     }
@@ -227,9 +227,9 @@ Le Dockerfile définit les étapes de construction du livrable **image Docker**,
 
   <div class="df-header">
     <span id="df-title">Étape 1</span>
-    <select id="variant">
+    <select id="variant" class="select-df">
+          <option value="uv">Python – UV</option>
       <option value="pip" selected>Python – PIP</option>
-      <option value="uv">Python – UV</option>
       <option value="npm">Node – NPM</option>
     </select>
   </div>
@@ -237,8 +237,8 @@ Le Dockerfile définit les étapes de construction du livrable **image Docker**,
   <div class="df-content" id="df-content"></div>
 
   <div class="df-controls">
-    <button id="prev">← Précédent</button>
-    <button id="next">Suivant →</button>
+    <button class="df-button" id="prev">← Précédent</button>
+    <button class="df-button" id="next">Suivant →</button>
   </div>
 
   <script>

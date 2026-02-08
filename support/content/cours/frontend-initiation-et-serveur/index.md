@@ -301,7 +301,6 @@ document.getElementById("button").onclick = function() {
 > [!NOTE] Documentation associée au DOM HTML
 > Le DOM : [https://www.w3schools.com/js/js_htmldom.asp](https://www.w3schools.com/js/js_htmldom.asp)
 
-</div>
 
 ## Templating : Contexte
 
