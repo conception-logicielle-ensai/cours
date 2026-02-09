@@ -97,9 +97,9 @@ Cela implique :
 * l’attribution d’une adresse IP publique ;
 * l’ouverture des ports nécessaires afin d’autoriser la communication avec les clients.
 
-Ces réglages relèvent de l’environnement d’exécution et de sa configuration réseau ; on parle parfois, par extension, de **pare-feu applicatif**.
+Les actions évoquées juste avant, ne concernent pas directement le code de l’application, mais relèvent de l’environnement d’exécution et de sa configuration réseau; on parle parfois, par extension, de **pare-feu applicatif**.
 
-> D’autres notions importantes interviennent également à ce niveau, telles que la scalabilité, le routage avancé ou la haute disponibilité.
+> D’autres problématiques apparaissent quand on déploie réellement une application pour des utilisateurs, telles que la scalabilité, le routage avancé ou la haute disponibilité.
 
 
 ## Préambule : différentes formes d’hébergement
@@ -196,7 +196,7 @@ Comme toute API bien constituée, elle nécessite une authentification et n'est 
 
 Kubernetes est un **projet open source**, ce qui explique qu’il existe de nombreuses plateformes qui l’utilisent.
 
-***Plateformes cloud grand public**
+**Plateformes cloud grand public**
 * **GKE (Google Cloud Platform)** : offre Kubernetes chez Google (avec souvent du crédit gratuit au départ)
 * **EKS** : Kubernetes chez Amazon Web Services
 * **AKS** : Kubernetes chez Microsoft Azure
@@ -251,7 +251,7 @@ kubectl apply -f <nom_du_fichier.yaml>
 Pour supprimer ce qui est décrit dans ce fichier :
 
 ```bash
-kubectl apply -f <nom_du_fichier.yaml>
+kubectl delete -f <nom_du_fichier.yaml>
 ```
 **Exemple : un Deployment simple**
 
@@ -317,7 +317,7 @@ Afin de rester concentrés sur l’essentiel, nous nous limiterons à quatre res
 * **Deployment** : lancer des Pods, gérer leur réplication et définir une stratégie de mise à jour.
 * **Service** : exposer des Pods à l’intérieur du cluster et leur fournir une adresse réseau stable.
 * **Ingress** : rendre l’application accessible depuis l’extérieur via HTTP et un nom de domaine.
-* **ConfigMap** et ***Secret** : stocker de la configuration et injecter des variables d’environnement dans les conteneurs.
+* **ConfigMap** et **Secret** : stocker de la configuration et injecter des variables d’environnement dans les conteneurs.
 
 > Ces ressources seront détaillées dans la suite de cette partie.
 
@@ -484,7 +484,6 @@ containers:
 ```
 
 > De la même manière que pour le fichier `.env.local`, nous ne souhaitons pas versionner le fichier contenant les secrets dans notre dépôt Git. Il ne devra donc pas être committé et devra être ajouté au fichier `.gitignore`.
->
 > En revanche, nous pouvons fournir un fichier `secret.yaml.template` décrivant exactement la structure attendue du manifeste, mais avec des valeurs vides ou factices. Le fichier `README` devra alors expliquer comment compléter ces valeurs avant déploiement.
 
 
@@ -497,8 +496,6 @@ containers:
 ## TP : Déploiement d’une application sur les plateformes Kubernetes du SSP Cloud
 
 > Ce TP nécessite la production d’une image Docker et son déploiement sur un registre public (par exemple Docker Hub) afin de pouvoir l’utiliser ensuite sur le cluster.
-
-<img src="https://www.sspcloud.fr/assets/heroHeader-C7FzBYtH.png" />
 
 Le SSP Cloud met à disposition de ses utilisateurs un **API Server Kubernetes** accessible depuis les services hébergés à l’intérieur du cluster.
 Cette plateforme est proposée avec un niveau de support limité : elle est destinée aux preuves de concept (PoC), ne doit pas héberger de données sensibles et ne fournit pas de garantie de service. Elle est toutefois parfaitement adaptée aux expérimentations et à l’hébergement de projets pédagogiques de l’ENSAI.
