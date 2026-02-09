@@ -4,7 +4,7 @@ weight: 10
 draft: false
 summary: "Déploiement d'une application sur le cloud via Kubernetess"
 slug: "kubernetes"
-tags: ["deploiement", "kubernetes", "cloud"]
+tags: ["deploiement", "kubernetes", "cloud","conteneur"]
 series: ["Cours"]
 series_order: 15
 ---

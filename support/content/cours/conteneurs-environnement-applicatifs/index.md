@@ -4,7 +4,7 @@ weight: 11
 draft: false
 summary: "Découverte de la conteneurisation, portabilité et partage d'environnement packagés"
 slug: "conteneurs-environnement-applicatifs"
-tags: ["docker", "conteneurs","run","conteneurs-environnement-applicatifs","packaging","portabilite","docker-compose"]
+tags: ["docker", "conteneur","run","packaging","portabilite","docker-compose"]
 series: ["Cours"]
 series_order: 14
 ---
