@@ -18,7 +18,7 @@ Cette section présente les enjeux et les principes fondamentaux du déploiement
 Les exemples s’appuient sur :
 
 * une interface utilisateur (frontend) accessible à l’adresse suivante :
-  [https://users-ensai.kub.sspcloud.fr](https://api-users-ensai.kub.sspcloud.fr)
+  [https://users-ensai.kub.sspcloud.fr](https://users-ensai.kub.sspcloud.fr)
 
 * une API (backend) accessible à l’adresse suivante :
   [https://api-users-ensai.kub.sspcloud.fr](https://api-users-ensai.kub.sspcloud.fr)
