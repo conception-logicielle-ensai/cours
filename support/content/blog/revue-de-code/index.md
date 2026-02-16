@@ -56,6 +56,22 @@ Nous restons disponibles pour le reste de la durée du cours via nos mails respe
 - `antoinebrunetti@gmail.com`
 - `oriane.foussard@insee.fr`
 
+### Ordre de passage + 
+
+> Ces horaires sont à titre indicatif
+
+- 13h40 : Robert LePadan
+> 14H => 14h40 : mise en place plus rappels qualité code
+- 14h40 : Blot Demouveaux Touil
+- 14h55 : Pachy Hervé Brunel Fardin
+- 15h10 : Derick Ferton Neji
+- 15h25 : Robin Repetti--Tuya Glumineau Baudru-Vandeneberghe
+- 15h40 : Malahel Cotterot Pellot
+- 15h55 : Jerrari Roux Tessier
+- 16h10 : Takougoum Ahmed-Botto Beji Kantoussan
+- 16h25 : Chemin Cratere Desclodure
+> 16h40 => Retours des enseignants
+
 ## Proposition d'organisation sur la séance
 
 Commencez par regarder les retours, nous les ferons en face à face mais ça peut vous donner des idées de quoi faire.
