@@ -38,13 +38,13 @@ A chaque sous partie de notation correspond une partie du cours.
 Nous allons insister dans nos retours sur ces axes.
 
 L'Architecture et la qualité du code se regroupent dans les différents modules:
-- [Le cours d'archi applicative](/architecture-applicative)
-- [Le cours d'analyse statique](/analyse-statique)
-- [Le cours de bonnes pratiques](/bonnes-pratiques) 
+- [Le cours d'archi applicative](/cours/architecture-applicative/)
+- [Le cours d'analyse statique](/cours/analyse-statique/)
+- [Le cours de bonnes pratiques](/cours/bonnes-pratiques-et-design-patterns) 
 
 Il y a également un couplage aux notions de portabilité, configuration..
 
-Puisque nous avons pas fait le cours de bonnes pratiques mais demandé de le lire de votre côté et suite a la relecture, nous allons faire un tour d'horizon [maintenant](/bonnes-pratiques) 
+Puisque nous avons pas fait le cours de bonnes pratiques mais demandé de le lire de votre côté et suite a la relecture, nous allons faire un tour d'horizon [maintenant](/cours/bonnes-pratiques-et-design-patterns) 
 
 ## Retours
 
