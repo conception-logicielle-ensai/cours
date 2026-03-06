@@ -22,6 +22,7 @@ Elle s'organisera selon plusieurs axes :
 
 | Horaire de passage | Numéro de Groupe | Personne 1 | Personne 2 | Personne 3 | Personne 4 |
 |--------------------|------------------|------------|------------|------------|------------|
+| 10h30             | 0 |ROBERT	Justin               | LE PADAN Martin           |            |            |            |
 | 11h00            | 1                | AHMET BOTTO	Sidi Yahya|BEJI	Ahmed|KANTOUSSAN	Isabelle|TAKOUGOUM	Steeve
 | 11h30              | 2                |BLOT	Antoine|DEMOUVEAUX	Valentin|  TOUIL	Yazid |            |
 | 12h00              | 3                |  COTTEROT	Hippolyte          | MALAHEL	Olivier | PELLOT	Louis |            |
@@ -30,5 +31,5 @@ Elle s'organisera selon plusieurs axes :
 | 14h30              | 6                | BAUDRU-VANDENBERGHE	Mariecke          | REPETTI--TUYA	Lucas|GLUMINEAU	Martin            |  ROBIN	Claire|
 | 15h00              | 7                |  DERICK	Morgann| FERTON	Grégoire |NEJI	Mehdi|            |
 | 15h30              | 8               | PACHY	Marine           |           HERVÉ	Simon |  FARDIN	Guillaume |  |
-| ?              | 9 |ROBERT	Justin               | LE PADAN Martin           |            |            |            |
+
 
